@@ -1,5 +1,3 @@
-import proxyquireLib from 'proxyquire';
-
 describe('environment', () => {
   it('babel destructuring', () => {
     const {inner} = {inner: 'hello'};
@@ -21,12 +19,4 @@ describe('environment', () => {
   function getResultAsync() {
     return new Promise((r) => r('hello'));
   }
-
-  it('proxyquire', () => {
-    const mock = {};
-    const demoModule = proxyquireLib.noCallThru().noPreserveCache()('./demoModule', {
-      'must-be-mocked': mock
-    });
-    expect(demoModule).toBe(mock);
-  });
 });
