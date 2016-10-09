@@ -434,7 +434,7 @@
       }
     ],
     "react/sort-prop-types": 0,
-    "react/wrap-multilines": "error",
+    "react/jsx-wrap-multilines": "error",
     "react/jsx-boolean-value": [
       "error",
       "always"
