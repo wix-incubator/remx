@@ -1,4 +1,14 @@
-dist
+node_modules/
+test/
+scripts/
+
+.npmignore
+
+
+
+#################
+# from .gitignore:
+################
 
 ############
 # Node
@@ -144,8 +154,10 @@ android/gen/
 android/out/
 
 # Gradle files
+.gradle/
 android/.gradle/
 android/build/
+android/*/build/
 
 # Local configuration file (sdk path, etc)
 local.properties
@@ -198,8 +210,9 @@ project.xcworkspace
 # Android/IJ
 #
 .idea
-.gradle
-local.properties
+android/.idea
+android/.gradle
+android/local.properties
 
 # node.js
 #
