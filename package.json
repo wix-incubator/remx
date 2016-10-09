@@ -31,7 +31,8 @@
     "release": "npm version patch && npm publish && git push"
   },
   "dependencies": {
-    "lodash": "^4.12.0"
+    "lodash": "^4.12.0",
+    "mobx": "^2.6.0"
   },
   "devDependencies": {
     "app-root-path": "^1.0.0",
@@ -49,6 +50,7 @@
     "eslint": "^3.0.0",
     "eslint-plugin-babel": "^3.3.0",
     "eslint-plugin-react": "^6.0.0",
+    "eslint-plugin-react-native": "^2.0.0",
     "babel-eslint": "^7.0.0"
   }
 }
