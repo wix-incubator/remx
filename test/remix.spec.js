@@ -133,8 +133,4 @@ describe('remix!', () => {
     expect(getNameCalled).toBe(2);
     stop();
   });
-
-  it('provides observer for react - wrapping mobx-react and mobx-react/native', () => {
-    expect(remix.observer).toBeFunction();
-  });
 });

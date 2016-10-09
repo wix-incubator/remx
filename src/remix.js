@@ -32,24 +32,3 @@ export function selectors(obj) {
   });
   return result;
 }
-
-export const observer = initObserver();
-
-function initObserver() {
-  if (moduleAvailable('react-native')) {
-    return require('mobx-react/native').observer;
-  } else if (moduleAvailable('react')) {
-    return require('mobx-react').observer;
-  } else {
-    return () => undefined;
-  }
-}
-
-function moduleAvailable(name) {
-  try {
-    require.resolve(name);
-    return true;
-  } catch (e) {
-    return false;
-  }
-}
