@@ -1,2 +1,2 @@
-# remix
+# remx
 Idiomatic mobx
