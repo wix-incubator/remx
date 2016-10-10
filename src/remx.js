@@ -3,7 +3,7 @@ import _ from 'lodash';
 
 mobx.useStrict(true);
 
-export function observableState(obj) {
+export function state(obj) {
   return mobx.observable(obj);
 }
 

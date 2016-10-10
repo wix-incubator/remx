@@ -1,15 +1,15 @@
 import 'jasmine-expect';
-import * as remix from '../src/remix';
+import * as remx from '../src/remx';
 import * as mobx from 'mobx';
 import _ from 'lodash';
 
-describe('remix!', () => {
+describe('remx!', () => {
   let state, mutators, selectors, getNameCalled, getFullNameCalled;
 
   beforeEach(() => {
     getNameCalled = 0;
     getFullNameCalled = 0;
-    state = remix.observableState({
+    state = remx.state({
       name: 'Gandalf',
       lastName: 'The grey',
       age: {
@@ -17,7 +17,7 @@ describe('remix!', () => {
       }
     });
 
-    mutators = remix.mutators({
+    mutators = remx.mutators({
       bla: 'blabla',
       setName(name) {
         state.name = name;
@@ -27,7 +27,7 @@ describe('remix!', () => {
       }
     });
 
-    selectors = remix.selectors({
+    selectors = remx.selectors({
       getName() {
         getNameCalled++;
         return state.name;

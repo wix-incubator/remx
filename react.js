@@ -1,1 +1,3 @@
-module.exports = require('mobx-react').observer;
+module.exports = {
+  connect: require('mobx-react').observer
+};

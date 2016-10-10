@@ -1,1 +1,1 @@
-module.exports = require('./dist/remix');
+module.exports = require('./dist/remx');

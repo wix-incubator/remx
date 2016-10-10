@@ -16,12 +16,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/wix/remix.git"
+    "url": "https://github.com/wix/remx.git"
   },
   "bugs": {
-    "url": "https://github.com/wix/remix/issues"
+    "url": "https://github.com/wix/remx/issues"
   },
-  "homepage": "https://github.com/wix/remix",
+  "homepage": "https://github.com/wix/remx",
   "main": "index.js",
   "scripts": {
     "build": "rm -rf dist && babel src -d dist",
