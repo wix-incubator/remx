@@ -110,7 +110,7 @@ describe('remix!', () => {
     expect(getFullNameCalled).toBe(2);
   });
 
-  it('if caching is desired, wrap the underlying call with argumentless getter', () => { //eslint-disable-line
+  it('if caching is desired, wrap the underlying call with argumentless getter', () => { //eslint-disable-line max-statements
     expect(getFullNameCalled).toBe(0);
     expect(getNameCalled).toBe(0);
     const stop = mobx.autorun(() => selectors.getFullName());
