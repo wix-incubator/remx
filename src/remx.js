@@ -7,7 +7,7 @@ export function state(obj) {
   return mobx.observable(obj);
 }
 
-export function mutators(obj) {
+export function setters(obj) {
   const result = {};
   _.forEach(obj, (v, k) => {
     if (_.isFunction(v)) {
@@ -17,7 +17,7 @@ export function mutators(obj) {
   return result;
 }
 
-export function selectors(obj) {
+export function getters(obj) {
   const result = {__computed: {}};
   _.forEach(obj, (v, k) => {
     result.__computed[k] = mobx.computed(v);

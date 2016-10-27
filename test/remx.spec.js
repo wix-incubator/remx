@@ -4,7 +4,7 @@ import * as mobx from 'mobx';
 import _ from 'lodash';
 
 describe('remx!', () => {
-  let state, mutators, selectors, getNameCalled, getFullNameCalled;
+  let state, setters, getters, getNameCalled, getFullNameCalled;
 
   beforeEach(() => {
     getNameCalled = 0;
@@ -17,7 +17,7 @@ describe('remx!', () => {
       }
     });
 
-    mutators = remx.mutators({
+    setters = remx.setters({
       bla: 'blabla',
       setName(name) {
         state.name = name;
@@ -27,14 +27,14 @@ describe('remx!', () => {
       }
     });
 
-    selectors = remx.selectors({
+    getters = remx.getters({
       getName() {
         getNameCalled++;
         return state.name;
       },
       getFullName(separator) {
         getFullNameCalled++;
-        return selectors.getName() + separator + state.lastName;
+        return getters.getName() + separator + state.lastName;
       }
     });
   });
@@ -50,85 +50,85 @@ describe('remx!', () => {
     }).toThrow();
   });
 
-  it('mutators are wrapped in mobx action', () => {
+  it('setters are wrapped in mobx action', () => {
     expect(state.name).toEqual('Gandalf');
-    mutators.setName('other');
+    setters.setName('other');
     expect(state.name).toEqual('other');
   });
 
-  it('mutators can mutate nested objects', () => {
+  it('setters can mutate nested objects', () => {
     expect(state.age.is).toEqual(0);
-    mutators.setAge(29);
+    setters.setAge(29);
     expect(state.age.is).toEqual(29);
   });
 
-  it('mutators handle functions only', () => {
-    expect(mutators.bla).toEqual(undefined);
+  it('setters handle functions only', () => {
+    expect(setters.bla).toEqual(undefined);
   });
 
-  it('selectors are accessors', () => {
-    expect(selectors.getName).toBeFunction();
-    expect(selectors.getName()).toEqual('Gandalf');
+  it('getters are accessors', () => {
+    expect(getters.getName).toBeFunction();
+    expect(getters.getName()).toEqual('Gandalf');
   });
 
-  it('selectors argumentless functions are treated normally', () => {
+  it('getters argumentless functions are treated normally', () => {
     expect(getNameCalled).toBe(0);
-    expect(selectors.getName()).toEqual('Gandalf');
+    expect(getters.getName()).toEqual('Gandalf');
     expect(getNameCalled).toBe(1);
-    _.times(4, () => expect(selectors.getName()).toEqual('Gandalf'));
+    _.times(4, () => expect(getters.getName()).toEqual('Gandalf'));
     expect(getNameCalled).toBe(5);
-    mutators.setName('bob');
-    expect(selectors.getName()).toEqual('bob');
+    setters.setName('bob');
+    expect(getters.getName()).toEqual('bob');
     expect(getNameCalled).toBe(6);
   });
 
-  it('selectors argumentless functions are cached when observed', () => {
+  it('getters argumentless functions are cached when observed', () => {
     expect(getNameCalled).toBe(0);
-    const stop = mobx.autorun(() => selectors.getName());
+    const stop = mobx.autorun(() => getters.getName());
     expect(getNameCalled).toBe(1);
-    expect(selectors.getName()).toEqual('Gandalf');
+    expect(getters.getName()).toEqual('Gandalf');
     expect(getNameCalled).toBe(1);
-    _.times(10, () => expect(selectors.getName()).toEqual('Gandalf'));
+    _.times(10, () => expect(getters.getName()).toEqual('Gandalf'));
     expect(getNameCalled).toBe(1);
-    mutators.setName('bob');
-    _.times(10, () => expect(selectors.getName()).toEqual('bob'));
+    setters.setName('bob');
+    _.times(10, () => expect(getters.getName()).toEqual('bob'));
     expect(getNameCalled).toBe(2);
     stop();
   });
 
-  it('selectors wrap argumentless functions in computed values', () => {
-    expect(selectors.getName).toBeFunction();
-    expect(selectors.getName()).toEqual('Gandalf');
-    expect(mobx.isComputed(selectors.__computed.getName)).toBe(true);
+  it('getters wrap argumentless functions in computed values', () => {
+    expect(getters.getName).toBeFunction();
+    expect(getters.getName()).toEqual('Gandalf');
+    expect(mobx.isComputed(getters.__computed.getName)).toBe(true);
   });
 
-  it('selectors with arguments are treated normally and not cached', () => {
+  it('getters with arguments are treated normally and not cached', () => {
     expect(getFullNameCalled).toBe(0);
-    expect(selectors.getFullName(' ')).toEqual('Gandalf The grey');
+    expect(getters.getFullName(' ')).toEqual('Gandalf The grey');
     expect(getFullNameCalled).toBe(1);
-    expect(selectors.getFullName('---', '=')).toEqual('Gandalf---The grey');
+    expect(getters.getFullName('---', '=')).toEqual('Gandalf---The grey');
     expect(getFullNameCalled).toBe(2);
   });
 
   it('if caching is desired, wrap the underlying call with argumentless getter', () => { //eslint-disable-line max-statements
     expect(getFullNameCalled).toBe(0);
     expect(getNameCalled).toBe(0);
-    const stop = mobx.autorun(() => selectors.getFullName());
+    const stop = mobx.autorun(() => getters.getFullName());
     expect(getFullNameCalled).toBe(1);
     expect(getNameCalled).toBe(1);
-    expect(selectors.getFullName(' ')).toEqual('Gandalf The grey');
+    expect(getters.getFullName(' ')).toEqual('Gandalf The grey');
     expect(getFullNameCalled).toBe(2);
     expect(getNameCalled).toBe(1);
-    expect(selectors.getFullName('---', '=')).toEqual('Gandalf---The grey');
+    expect(getters.getFullName('---', '=')).toEqual('Gandalf---The grey');
     expect(getFullNameCalled).toBe(3);
     expect(getNameCalled).toBe(1);
-    mutators.setName('bob');
+    setters.setName('bob');
     expect(getFullNameCalled).toBe(4); // autorun calls this
     expect(getNameCalled).toBe(2);
-    expect(selectors.getFullName(' ')).toEqual('bob The grey');
+    expect(getters.getFullName(' ')).toEqual('bob The grey');
     expect(getFullNameCalled).toBe(5);
     expect(getNameCalled).toBe(2);
-    expect(selectors.getFullName(' ')).toEqual('bob The grey');
+    expect(getters.getFullName(' ')).toEqual('bob The grey');
     expect(getFullNameCalled).toBe(6);
     expect(getNameCalled).toBe(2);
     stop();
