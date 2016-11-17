@@ -133,4 +133,15 @@ describe('remx!', () => {
     expect(getNameCalled).toBe(2);
     stop();
   });
+
+  it('exposes mobx toJS', () => {
+    expect(remx.toJS).toEqual(mobx.toJS);
+    const observable = remx.state({arr: [], obj: {}});
+    const regularArr = remx.toJS(observable.arr);
+    expect(regularArr).toEqual([]);
+    const regularArr2 = observable.arr.toJS();
+    expect(regularArr2).toEqual([]);
+    const regularObj = remx.toJS(observable.obj);
+    expect(regularObj).toEqual({});
+  });
 });

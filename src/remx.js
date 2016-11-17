@@ -32,3 +32,5 @@ export function getters(obj) {
   });
   return result;
 }
+
+export const toJS = mobx.toJS;
