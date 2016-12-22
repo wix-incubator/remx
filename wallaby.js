@@ -1,28 +1,24 @@
 /*eslint-disable*/
 'use strict';
-
-const babelOptions = JSON.parse(require('fs').readFileSync('./.babelrc'));
-
-process.env.wallabyScriptDir = __dirname;
-
+process.env.BABEL_ENV = 'test';
+const babelOptions = require('./package.json').babel.env.test;
 module.exports = function(wallaby) {
   return {
     env: {
-      type: 'node'
+      type: 'node',
+      runner: 'node'
     },
 
-    testFramework: 'jasmine',
+    testFramework: 'jest',
 
     files: [
-      {pattern: `node_modules/jasmine-expect/**/*.*`, instrument: false, load: false},
-      'dist/**/*.js',
+      'package.json',
       'src/**/*.js',
-      'test/**/*.js',
-      '!test/**/*.[Ss]pec.js'
+      '!src/**/*.test.js'
     ],
 
     tests: [
-      'test/**/*.[Ss]pec.js'
+      'src/**/*.test.js'
     ],
 
     compilers: {
@@ -31,7 +27,7 @@ module.exports = function(wallaby) {
 
     setup: function(w) {
       require('babel-polyfill');
-      require('app-root-path').setPath(w.projectCacheDir);
+      w.testFramework.configure(require('./package.json').jest);
     }
   };
 };

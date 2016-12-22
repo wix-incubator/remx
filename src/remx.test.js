@@ -1,5 +1,4 @@
-import 'jasmine-expect';
-import * as remx from '../src/remx';
+import * as remx from './remx';
 import * as mobx from 'mobx';
 import _ from 'lodash';
 
@@ -50,6 +49,12 @@ describe('remx!', () => {
     }).toThrow();
   });
 
+  it('enforces strict mode recursively', () => {
+    expect(() => {
+      state.age.is = 3;
+    }).toThrow();
+  });
+
   it('setters are wrapped in mobx action', () => {
     expect(state.name).toEqual('Gandalf');
     setters.setName('other');
@@ -67,7 +72,7 @@ describe('remx!', () => {
   });
 
   it('getters are accessors', () => {
-    expect(getters.getName).toBeFunction();
+    expect(getters.getName).toBeInstanceOf(Function);
     expect(getters.getName()).toEqual('Gandalf');
   });
 
@@ -97,7 +102,7 @@ describe('remx!', () => {
   });
 
   it('getters wrap argumentless functions in computed values', () => {
-    expect(getters.getName).toBeFunction();
+    expect(getters.getName).toBeInstanceOf(Function);
     expect(getters.getName()).toEqual('Gandalf');
     expect(mobx.isComputed(getters.__computed.getName)).toBe(true);
   });

@@ -1,11 +1,10 @@
 {
-  "parser": "babel-eslint",
   "env": {
     "es6": true,
     "node": true
   },
   "parserOptions": {
-    "ecmaVersion": 7,
+    "ecmaVersion": 8,
     "sourceType": "module",
     "ecmaFeatures": {
       "impliedStrict": true,
@@ -107,7 +106,7 @@
     "no-param-reassign": "error",
     "no-proto": "error",
     "no-redeclare": 0,
-    "no-return-assign": "error",
+    "no-return-assign": 0,
     "no-script-url": "error",
     "no-self-assign": "error",
     "no-self-compare": "error",
@@ -310,7 +309,7 @@
     "operator-assignment": 0,
     "operator-linebreak": [
       "error",
-      "after"
+      "before"
     ],
     "padded-blocks": [
       "error",
@@ -355,7 +354,10 @@
      *                             ECMAScript 6
      */
     "arrow-body-style": 0,
-    "arrow-parens": 0,
+    "arrow-parens": [
+      "error",
+      "always"
+    ],
     "arrow-spacing": [
       "error",
       {
@@ -364,7 +366,10 @@
       }
     ],
     "constructor-super": "error",
-    "generator-star-spacing": 0,
+    "generator-star-spacing": [
+      "error",
+      "after"
+    ],
     "no-class-assign": "error",
     "no-confusing-arrow": "error",
     "no-const-assign": "error",
@@ -404,6 +409,8 @@
     ],
     "react/no-danger": "error",
     "react/no-deprecated": "error",
+    "react/no-did-mount-set-state": "error",
+    "react/no-did-update-set-state": "error",
     "react/no-direct-mutation-state": "error",
     "react/no-is-mounted": "error",
     "react/no-multi-comp": "error",
@@ -415,7 +422,7 @@
       "always"
     ],
     "react/prefer-stateless-function": 0,
-    "react/prop-types": "error",
+    "react/prop-types": 0,
     "react/react-in-jsx-scope": "error",
     "react/require-extension": 0,
     "react/self-closing-comp": "error",
@@ -491,10 +498,6 @@
     /*
      *                              babel plugin
      */
-    "babel/generator-star-spacing": [
-      "error",
-      "after"
-    ],
     "babel/new-cap": [
       "error",
       {
@@ -503,19 +506,11 @@
         ]
       }
     ],
-    "babel/array-bracket-spacing": [
-      "error",
-      "never"
-    ],
     "babel/object-curly-spacing": [
       "error",
       "never"
     ],
     "babel/object-shorthand": 0,
-    "babel/arrow-parens": [
-      "error",
-      "always"
-    ],
     "babel/no-await-in-loop": 0
   }
 }
