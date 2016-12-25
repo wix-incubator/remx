@@ -33,7 +33,7 @@
   "dependencies": {
     "lodash": "4.x.x",
     "mobx": "2.x.x",
-    "mobx-react": "4.x.x"
+    "mobx-react": "3.x.x"
   },
   "devDependencies": {
     "babel-cli": "6.x.x",
