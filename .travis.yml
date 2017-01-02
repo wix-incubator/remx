@@ -31,6 +31,9 @@ after_script:
   - echo "BUILD FINISHED"
 
 deploy:
+  on:
+    branch: master
+  skip_cleanup: true
   provider: npm
   email: "zlotindaniel@gmail.com"
   api_key:
