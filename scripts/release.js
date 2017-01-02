@@ -7,4 +7,4 @@ if (process.env.TRAVIS_BRANCH !== 'master' || process.env.TRAVIS_PULL_REQUEST) {
 }
 
 const cp = require('child_process');
-cp.execSync(`npm version patch && npm publish && git push`);
+cp.execSync(`npm userconfig ./npmrc && npm version patch && npm publish && git push`);
