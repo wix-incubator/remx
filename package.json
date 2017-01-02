@@ -25,11 +25,8 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "rm -rf dist && babel src --ignore test.js -d dist",
-    "lint": "eslint src test",
-    "pretest": "npm run lint",
-    "test": "jest --coverage",
-    "test-watch": "jest --coverage --watch",
-    "release": "npm version patch && npm publish && git push"
+    "test": "eslint src test && jest --coverage",
+    "test-watch": "jest --coverage --watch"
   },
   "dependencies": {
     "lodash": "4.x.x",
