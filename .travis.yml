@@ -15,8 +15,6 @@ branches:
 
 cache:
   yarn: true
-  directories:
-    - $HOME/.yarn-cache
 
 before_install:
   - set -e
