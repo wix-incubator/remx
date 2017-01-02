@@ -4,6 +4,7 @@ import _ from 'lodash';
 mobx.useStrict(true);
 
 export function state(obj) {
+  addMergeFunction(obj);
   return mobx.observable(obj);
 }
 
@@ -34,3 +35,22 @@ export function getters(obj) {
 }
 
 export const toJS = mobx.toJS;
+
+export const map = mobx.map;
+
+function addMergeFunction(obj) {
+  obj.merge = (delta) => {
+    _.forEach(delta, (v, k) => {
+      obj[k] = mergeOldStateWithDelta(v, delta[k]);
+    });
+  };
+}
+
+function mergeOldStateWithDelta(oldState, delta) {
+  return _.mergeWith({}, oldState, delta, (objValue, srcValue, key, object, source, stack) => {
+    if (srcValue === undefined) {
+      object[key] = undefined;
+    }
+    return undefined;
+  });
+}

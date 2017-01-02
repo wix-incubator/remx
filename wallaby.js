@@ -1,7 +1,7 @@
 /*eslint-disable*/
 'use strict';
 process.env.BABEL_ENV = 'test';
-const babelOptions = require('./package.json').babel.env.test;
+const babelOptions = require('./package.json').babel;
 module.exports = function(wallaby) {
   return {
     env: {
@@ -14,7 +14,8 @@ module.exports = function(wallaby) {
     files: [
       'package.json',
       'src/**/*.js',
-      '!src/**/*.test.js'
+      '!src/**/*.test.js',
+      './*.js'
     ],
 
     tests: [

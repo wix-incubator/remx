@@ -13,7 +13,8 @@ describe('remx!', () => {
       lastName: 'The grey',
       age: {
         is: 0
-      }
+      },
+      dynamicallyCreatedKeys: {}
     });
 
     setters = remx.setters({
@@ -21,8 +22,17 @@ describe('remx!', () => {
       setName(name) {
         state.name = name;
       },
+
       setAge(n) {
         state.age.is = n;
+      },
+
+      createKeyDynamically(n) {
+        state.dynamicallyCreatedKeys.inner = n;
+      },
+
+      usingMerge(n) {
+        state.merge({dynamicallyCreatedKeys: {foo: n}});
       }
     });
 
@@ -31,9 +41,14 @@ describe('remx!', () => {
         getNameCalled++;
         return state.name;
       },
+
       getFullName(separator) {
         getFullNameCalled++;
         return getters.getName() + separator + state.lastName;
+      },
+
+      getDynamicallyCreatedKey() {
+        return state.dynamicallyCreatedKeys.inner || 'not yet set';
       }
     });
   });
@@ -148,5 +163,22 @@ describe('remx!', () => {
     expect(regularArr2).toEqual([]);
     const regularObj = remx.toJS(observable.obj);
     expect(regularObj).toEqual({});
+  });
+
+  it('trasitive changes in observable objects that are created dynamically are respected', () => {
+    expect(getters.getDynamicallyCreatedKey()).toEqual('not yet set');
+    setters.createKeyDynamically('Gandalf');
+    expect(getters.getDynamicallyCreatedKey()).toEqual('Gandalf');
+    setters.createKeyDynamically('Gandalf2');
+    expect(getters.getDynamicallyCreatedKey()).toEqual('Gandalf2');
+  });
+
+  it('state merge function', () => {
+    expect(state.merge).toBeInstanceOf(Function);
+    expect(state.dynamicallyCreatedKeys).toEqual({});
+    setters.usingMerge(`bla`);
+    expect(state.dynamicallyCreatedKeys).toEqual({foo: 'bla'});
+    setters.usingMerge(undefined);
+    expect(state.dynamicallyCreatedKeys).toEqual({foo: undefined});
   });
 });

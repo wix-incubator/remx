@@ -22,12 +22,13 @@
     "url": "https://github.com/wix/remx/issues"
   },
   "homepage": "https://github.com/wix/remx",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "rm -rf dist && babel src --ignore test.js -d dist",
     "lint": "eslint src test",
     "pretest": "npm run lint",
     "test": "jest --coverage",
+    "test-watch": "jest --coverage --watch",
     "release": "npm version patch && npm publish && git push"
   },
   "dependencies": {
@@ -36,6 +37,9 @@
     "mobx-react": "3.x.x"
   },
   "devDependencies": {
+    "react-native": "0.38.0",
+    "react": "15.4.1",
+    "react-test-renderer": "15.4.1",
     "babel-cli": "6.x.x",
     "babel-core": "6.x.x",
     "babel-polyfill": "6.x.x",
@@ -55,6 +59,7 @@
     ]
   },
   "jest": {
+    "preset": "react-native",
     "testPathDirs": [
       "node_modules",
       "src"
