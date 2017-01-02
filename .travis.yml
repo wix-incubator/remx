@@ -22,6 +22,7 @@ before_install:
   - set -e
 
 install:
+  - npm i -g yarn
   - yarn
 
 script:
