@@ -1,3 +1,5 @@
+const _ = require('lodash');
+
 if (!process.env.CI) {
   throw new Error(`releasing is only available from Travis CI`);
 }
@@ -7,7 +9,7 @@ if (process.env.TRAVIS_BRANCH !== 'master') {
   return;
 }
 
-if (process.env.TRAVIS_PULL_REQUEST) {
+if (process.env.TRAVIS_PULL_REQUEST !== 'false') {
   console.log(`not publishing as triggered by ${process.env.TRAVIS_PULL_REQUEST}`);
   return;
 }
