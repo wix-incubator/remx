@@ -15,4 +15,4 @@ if (process.env.TRAVIS_PULL_REQUEST !== 'false') {
 const cp = require('child_process');
 const p = require('path');
 const npmrcPath = p.resolve(`${__dirname}/npmrc`);
-console.log(String(cp.execSync(`npm userconfig "${npmrcPath}" && npm version patch && npm publish && git push`)));
+console.log(String(cp.execSync(`npm config set userconfig "${npmrcPath}" && npm version patch && npm publish && git push`)));
