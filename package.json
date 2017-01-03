@@ -26,7 +26,8 @@
   "scripts": {
     "build": "rm -rf dist && babel src --ignore test.js -d dist",
     "test": "eslint src test && jest --coverage",
-    "test-watch": "jest --coverage --watch"
+    "test-watch": "jest --coverage --watch",
+    "release": "node ./scripts/release.js"
   },
   "dependencies": {
     "lodash": "4.x.x",
@@ -42,13 +43,13 @@
     "babel-polyfill": "6.x.x",
     "babel-preset-react-native": "1.x.x",
     "babel-register": "6.x.x",
-    "babel-jest": "17.x.x",
+    "babel-jest": "18.x.x",
     "eslint": "3.x.x",
     "eslint-plugin-babel": "4.x.x",
     "eslint-plugin-react": "6.x.x",
     "eslint-plugin-react-native": "2.x.x",
-    "jest": "17.x.x",
-    "jest-cli": "17.x.x",
+    "jest": "18.x.x",
+    "jest-cli": "18.x.x",
     "semver": "5.x.x"
   },
   "babel": {

@@ -27,7 +27,7 @@ install:
 script:
   - yarn run build
   - yarn run test
-  - node ./scripts/release.js
+  - yarn run release
 
 after_script:
   - echo "BUILD FINISHED"
