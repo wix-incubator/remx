@@ -1,6 +1,6 @@
 {
   "name": "remx",
-  "version": "0.1.19",
+  "version": "0.1.25",
   "description": "Idiomatic mobx",
   "license": "MIT",
   "keywords": [
@@ -48,7 +48,8 @@
     "eslint-plugin-react": "6.x.x",
     "eslint-plugin-react-native": "2.x.x",
     "jest": "17.x.x",
-    "jest-cli": "17.x.x"
+    "jest-cli": "17.x.x",
+    "semver": "5.x.x"
   },
   "babel": {
     "presets": [

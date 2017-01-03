@@ -14,6 +14,7 @@ if (process.env.TRAVIS_PULL_REQUEST !== 'false') {
 
 const cp = require('child_process');
 const p = require('path');
+const semver = require('semver');
 
 function execSync(cmd) {
   cp.execSync(cmd, {stdio: [0, 1, 2]});
@@ -35,7 +36,8 @@ execSyncSilently(`git remote add deploy "https://DanielZlotin:${process.env.GIT_
 execSync(`git checkout master`);
 execSync(`git reset --hard`);
 
-const currentVersion = JSON.parse(String(execSyncRead(`npm view remx version -j`)));
+//const currentVersion = JSON.parse(String(execSyncRead(`npm view remx version -j`)));
+//const newVersion;
 
 const npmrcPath = p.resolve(`${__dirname}/.npmrc`);
 execSync(`cp -rf ${npmrcPath} .`);
