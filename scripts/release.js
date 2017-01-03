@@ -45,7 +45,8 @@ function calcNewVersion() {
   console.log(`latestVersion is: ${latestVersion}`);
   const packageJsonVersion = process.env.npm_package_version;
   console.log(`packageJsonVersion is: ${packageJsonVersion}`);
-  if (semver.major(packageJsonVersion) !== semver.major(latestVersion) || semver.minor(packageJsonVersion) !== semver.minor(latestVersion)) {
+  const diff = semver.diff(packageJsonVersion, latestVersion);
+  if (diff === 'major' || diff === 'minor') {
     return packageJsonVersion;
   } else {
     return semver.inc(latestVersion, 'patch');
