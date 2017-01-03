@@ -23,7 +23,8 @@ execSync(`git config --global push.default simple`);
 execSync(`git config --global user.email "zlotindaniel@gmail.com"`);
 execSync(`git config --global user.name "Daniel Zlotin"`);
 execSync(`git config --global user.password "${process.env.GIT_TOKEN}"`);
+execSync(`git remote add deploy "https://github.com/wix/remx.git"`);
 
 const npmrcPath = p.resolve(`${__dirname}/.npmrc`);
 execSync(`cp -rf ${npmrcPath} .`);
-execSync(`npm version patch && git push && npm publish`);
+execSync(`npm version patch && git push deploy && npm publish`);
