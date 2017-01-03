@@ -22,8 +22,8 @@ function execSync(cmd) {
 execSync(`git config --global push.default simple`);
 execSync(`git config --global user.email "zlotindaniel@gmail.com"`);
 execSync(`git config --global user.name "DanielZlotin"`);
-execSync(`git config --global user.password "${process.env.GIT_TOKEN}"`);
-execSync(`git remote add deploy "https://github.com/wix/remx.git"`);
+
+execSync(`git remote add deploy "https://DanielZlotin:${process.env.GIT_TOKEN}@github.com/wix/remx.git"`);
 
 execSync(`git status`);
 execSync(`git checkout master`);
