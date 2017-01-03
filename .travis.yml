@@ -25,8 +25,8 @@ install:
   - yarn install
 
 script:
-  - yarn run build
-  - yarn run test
+#  - yarn run build
+#  - yarn run test
   - node ./scripts/release.js
 
 after_script:
