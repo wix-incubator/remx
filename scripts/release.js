@@ -15,8 +15,12 @@ if (process.env.TRAVIS_PULL_REQUEST !== 'false') {
 const cp = require('child_process');
 const p = require('path');
 
-cp.execSync(`git config --global user.email "zlotindaniel@gmail.com"`);
-cp.execSync(`git config --global user.name "Daniel Zlotin"`);
+function execSync(cmd) {
+  cp.execSync(cmd, {stdio: [0, 1, 2]});
+}
 
+execSync(`git config --global user.email "zlotindaniel@gmail.com"`);
+execSync(`git config --global user.name "Daniel Zlotin"`);
 const npmrcPath = p.resolve(`${__dirname}/npmrc`);
-cp.execSync(`npm config set userconfig "${npmrcPath}" && npm version patch && npm publish && git push`, {stdio: [0, 1, 2]});
+execSync(`npm config set userconfig "${npmrcPath}"`);
+execSync(`npm version patch && npm publish && git push`);
