@@ -1,4 +1,4 @@
-if (!process.env.CI) {
+if (!process.env.CI || !process.env.TRAVIS) {
   throw new Error(`releasing is only available from Travis CI`);
 }
 
@@ -19,8 +19,11 @@ function execSync(cmd) {
   cp.execSync(cmd, {stdio: [0, 1, 2]});
 }
 
+execSync(`git config --global push.default simple`);
 execSync(`git config --global user.email "zlotindaniel@gmail.com"`);
 execSync(`git config --global user.name "Daniel Zlotin"`);
+execSync(`git config --global user.password "${process.env.GIT_TOKEN}"`);
+
 const npmrcPath = p.resolve(`${__dirname}/.npmrc`);
 execSync(`cp -rf ${npmrcPath} .`);
 execSync(`npm version patch && npm publish && git push`);
