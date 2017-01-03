@@ -19,16 +19,21 @@ function execSync(cmd) {
   cp.execSync(cmd, {stdio: [0, 1, 2]});
 }
 
+function execSyncSilently(cmd) {
+  cp.execSync(cmd);
+}
+
 execSync(`git config --global push.default simple`);
-execSync(`git config --global user.email "zlotindaniel@gmail.com"`);
-execSync(`git config --global user.name "DanielZlotin"`);
+execSyncSilently(`git config --global user.email "zlotindaniel@gmail.com"`);
+execSyncSilently(`git config --global user.name "DanielZlotin"`);
 
-execSync(`git remote add deploy "https://DanielZlotin:${process.env.GIT_TOKEN}@github.com/wix/remx.git"`);
+execSyncSilently(`git remote add deploy "https://DanielZlotin:${process.env.GIT_TOKEN}@github.com/wix/remx.git"`);
 
-execSync(`git status`);
 execSync(`git checkout master`);
 execSync(`git reset --hard`);
 
 const npmrcPath = p.resolve(`${__dirname}/.npmrc`);
 execSync(`cp -rf ${npmrcPath} .`);
-execSync(`npm version patch && git push deploy && npm publish`);
+execSync(`npm version patch`);
+execSyncSilently(`git push deploy`);
+execSync(`npm publish`);
