@@ -1,4 +1,5 @@
 always-auth=false
 loglevel=warn
 email=zlotindaniel@gmail.com
+_auth=${NPM_AUTH}
 //registry.npmjs.org/:_authToken=${NPM_TOKEN}
