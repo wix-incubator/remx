@@ -3,16 +3,20 @@ if (!process.env.CI) {
 }
 
 if (process.env.TRAVIS_BRANCH !== 'master') {
-  console.log(`not publishing on branch ${process.env.TRAVIS_BRANCH}`);
+  console.error(`not publishing on branch ${process.env.TRAVIS_BRANCH}`);
   return;
 }
 
 if (process.env.TRAVIS_PULL_REQUEST !== 'false') {
-  console.log(`not publishing as triggered by ${process.env.TRAVIS_PULL_REQUEST}`);
+  console.error(`not publishing as triggered by pull request ${process.env.TRAVIS_PULL_REQUEST}`);
   return;
 }
 
 const cp = require('child_process');
 const p = require('path');
+
+cp.execSync(`git config --global user.email "zlotindaniel@gmail.com"`);
+cp.execSync(`git config --global user.name "Daniel Zlotin"`);
+
 const npmrcPath = p.resolve(`${__dirname}/npmrc`);
-console.log(String(cp.execSync(`npm config --global set userconfig "${npmrcPath}" && npm version patch && npm publish && git push`)));
+cp.execSync(`npm config set userconfig "${npmrcPath}" && npm version patch && npm publish && git push`, {stdio: [0, 1, 2]});
