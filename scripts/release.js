@@ -26,4 +26,4 @@ execSync(`git config --global user.password "${process.env.GIT_TOKEN}"`);
 
 const npmrcPath = p.resolve(`${__dirname}/.npmrc`);
 execSync(`cp -rf ${npmrcPath} .`);
-execSync(`npm version patch && npm publish && git push`);
+execSync(`npm version patch && git push && npm publish`);
