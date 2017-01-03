@@ -53,23 +53,24 @@ function calcNewVersion() {
   }
 }
 
+function copyNpmRc() {
+  const npmrcPath = p.resolve(`${__dirname}/.npmrc`);
+  execSync(`cp -rf ${npmrcPath} .`);
+}
+
+function tagAndPublish(newVersion) {
+  execSync(`npm version ${newVersion} -m "${newVersion} [ci skip]"`);
+  execSyncSilently(`git push deploy --tags`);
+  execSync(`npm publish`);
+}
+
 function run() {
   if (!validateEnv()) {
     return;
   }
-
   setupGit();
-
-  const newVersion = calcNewVersion();
-  console.log(`new version is: ${newVersion}`);
-
-  const npmrcPath = p.resolve(`${__dirname}/.npmrc`);
-  execSync(`cp -rf ${npmrcPath} .`);
-
-  execSync(`npm version ${newVersion} -m "${newVersion} [ci skip]"`);
-
-  execSyncSilently(`git push deploy --tags`);
-  execSync(`npm publish`);
+  copyNpmRc();
+  tagAndPublish(calcNewVersion());
 }
 
 run();
