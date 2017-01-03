@@ -19,21 +19,27 @@ function execSync(cmd) {
   cp.execSync(cmd, {stdio: [0, 1, 2]});
 }
 
-function execSyncSilently(cmd) {
+function execSyncRead(cmd) {
   cp.execSync(cmd);
+}
+
+function execSyncSilently(cmd) {
+  cp.execSync(cmd, {stdio: ['ignore', 'ignore', 'ignore']});
 }
 
 execSync(`git config --global push.default simple`);
 execSyncSilently(`git config --global user.email "zlotindaniel@gmail.com"`);
 execSyncSilently(`git config --global user.name "DanielZlotin"`);
-
 execSyncSilently(`git remote add deploy "https://DanielZlotin:${process.env.GIT_TOKEN}@github.com/wix/remx.git"`);
 
 execSync(`git checkout master`);
 execSync(`git reset --hard`);
 
+const currentVersion = JSON.parse(String(execSyncRead(`npm view remx version -j`)));
+
 const npmrcPath = p.resolve(`${__dirname}/.npmrc`);
 execSync(`cp -rf ${npmrcPath} .`);
-execSync(`npm version patch`);
+
+execSync(`npm version ${newVersion}`);
 execSyncSilently(`git push deploy`);
 execSync(`npm publish`);
