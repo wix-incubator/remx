@@ -33,10 +33,11 @@ function validateEnv() {
 }
 
 function setupGit() {
-  execSync(`git config --global push.default simple`);
+  execSyncSilently(`git config --global push.default simple`);
   execSyncSilently(`git config --global user.email "${process.env.GIT_EMAIL}"`);
   execSyncSilently(`git config --global user.name "${process.env.GIT_USER}"`);
-  execSyncSilently(`git remote add deploy "https://${process.env.GIT_USER}:${process.env.GIT_TOKEN}@github.com/wix/remx.git"`);
+  const remoteUrl = new RegExp(`^https?://(\\S+)$`).exec(execSyncRead(`git remote get-url origin`))[1];
+  execSyncSilently(`git remote add deploy "https://${process.env.GIT_USER}:${process.env.GIT_TOKEN}@${remoteUrl}"`);
   execSync(`git checkout master`);
 }
 
