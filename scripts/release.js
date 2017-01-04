@@ -34,17 +34,17 @@ function validateEnv() {
 
 function setupGit() {
   execSync(`git config --global push.default simple`);
-  execSyncSilently(`git config --global user.email "zlotindaniel@gmail.com"`);
-  execSyncSilently(`git config --global user.name "DanielZlotin"`);
-  execSyncSilently(`git remote add deploy "https://DanielZlotin:${process.env.GIT_TOKEN}@github.com/wix/remx.git"`);
+  execSyncSilently(`git config --global user.email "${process.env.GIT_EMAIL}"`);
+  execSyncSilently(`git config --global user.name "${process.env.GIT_USER}"`);
+  execSyncSilently(`git remote add deploy "https://${process.env.GIT_USER}:${process.env.GIT_TOKEN}@github.com/wix/remx.git"`);
   execSync(`git checkout master`);
 }
 
 function calcNewVersion() {
-  const latestVersion = execSyncRead(`npm view remx version`);
-  console.log(`latestVersion is: ${latestVersion}`);
+  const latestVersion = execSyncRead(`npm view ${process.env.npm_package_name}@latest version`);
+  console.log(`latest version is: ${latestVersion}`);
   const packageJsonVersion = process.env.npm_package_version;
-  console.log(`packageJsonVersion is: ${packageJsonVersion}`);
+  console.log(`package.json version is: ${packageJsonVersion}`);
   const diff = semver.diff(packageJsonVersion, latestVersion);
   if (diff === 'major' || diff === 'minor') {
     return packageJsonVersion;
@@ -59,7 +59,8 @@ function copyNpmRc() {
 }
 
 function tagAndPublish(newVersion) {
-  execSync(`npm version ${newVersion} -m "${newVersion} [ci skip]"`);
+  console.log(`new version is: ${newVersion}`);
+  execSync(`npm version ${newVersion} -m "v${newVersion} [ci skip]"`);
   execSyncSilently(`git push deploy --tags`);
   execSync(`npm publish`);
 }
