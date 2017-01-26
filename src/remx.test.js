@@ -33,6 +33,10 @@ describe('remx!', () => {
 
       usingMerge(n) {
         state.merge({dynamicallyCreatedKeys: {foo: n}});
+      },
+
+      usingMergeWithValue(v) {
+        state.merge({dynamicallyCreatedKeys: v});
       }
     });
 
@@ -108,10 +112,10 @@ describe('remx!', () => {
     expect(getNameCalled).toBe(1);
     expect(getters.getName()).toEqual('Gandalf');
     expect(getNameCalled).toBe(1);
-    _.times(10, () => expect(getters.getName()).toEqual('Gandalf'));
+    _.times(100, () => expect(getters.getName()).toEqual('Gandalf'));
     expect(getNameCalled).toBe(1);
     setters.setName('bob');
-    _.times(10, () => expect(getters.getName()).toEqual('bob'));
+    _.times(100, () => expect(getters.getName()).toEqual('bob'));
     expect(getNameCalled).toBe(2);
     stop();
   });
@@ -180,5 +184,17 @@ describe('remx!', () => {
     expect(state.dynamicallyCreatedKeys).toEqual({foo: 'bla'});
     setters.usingMerge(undefined);
     expect(state.dynamicallyCreatedKeys).toEqual({foo: undefined});
+  });
+
+  it('state merge with boolean addition', () => {
+    expect(state.dynamicallyCreatedKeys).toEqual({});
+    setters.usingMergeWithValue(false);
+    expect(state.dynamicallyCreatedKeys).toEqual(false);
+  });
+
+  it('state merge with falsey', () => {
+    expect(state.dynamicallyCreatedKeys).toEqual({});
+    setters.usingMergeWithValue(undefined);
+    expect(state.dynamicallyCreatedKeys).toEqual(undefined);
   });
 });

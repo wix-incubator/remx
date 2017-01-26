@@ -41,13 +41,16 @@ export const map = mobx.map;
 function addMergeFunction(obj) {
   obj.merge = (delta) => {
     _.forEach(delta, (v, k) => {
-      obj[k] = mergeOldStateWithDelta(v, delta[k]);
+      obj[k] = mergeOldStateWithDelta(v);
     });
   };
 }
 
-function mergeOldStateWithDelta(oldState, delta) {
-  return _.mergeWith({}, oldState, delta, (objValue, srcValue, key, object, source, stack) => {
+function mergeOldStateWithDelta(newValue) {
+  if (!newValue) {
+    return newValue;
+  }
+  return _.mergeWith({}, newValue, (objValue, srcValue, key, object, source, stack) => {
     if (srcValue === undefined) {
       object[key] = undefined;
     }
