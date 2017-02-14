@@ -14,7 +14,11 @@ describe('remx!', () => {
       age: {
         is: 0
       },
-      dynamicallyCreatedKeys: {}
+      job: {
+        experience: 'infinite'
+      },
+      dynamicallyCreatedKeys: {},
+      race: 'unknown'
     });
 
     setters = remx.setters({
@@ -32,11 +36,19 @@ describe('remx!', () => {
       },
 
       usingMerge(n) {
-        state.merge({dynamicallyCreatedKeys: {foo: n}});
+        state.merge({ dynamicallyCreatedKeys: { foo: n } });
       },
 
       usingMergeWithValue(v) {
-        state.merge({dynamicallyCreatedKeys: v});
+        state.merge({ dynamicallyCreatedKeys: v });
+      },
+
+      setJobDescriptionUsingMerge(v) {
+        state.merge({ job: { description: v } });
+      },
+
+      setRace(v) {
+        state.merge({ race: v });
       }
     });
 
@@ -160,7 +172,7 @@ describe('remx!', () => {
 
   it('exposes mobx toJS', () => {
     expect(remx.toJS).toEqual(mobx.toJS);
-    const observable = remx.state({arr: [], obj: {}});
+    const observable = remx.state({ arr: [], obj: {} });
     const regularArr = remx.toJS(observable.arr);
     expect(regularArr).toEqual([]);
     const regularArr2 = observable.arr.toJS();
@@ -181,9 +193,9 @@ describe('remx!', () => {
     expect(state.merge).toBeInstanceOf(Function);
     expect(state.dynamicallyCreatedKeys).toEqual({});
     setters.usingMerge(`bla`);
-    expect(state.dynamicallyCreatedKeys).toEqual({foo: 'bla'});
+    expect(state.dynamicallyCreatedKeys).toEqual({ foo: 'bla' });
     setters.usingMerge(undefined);
-    expect(state.dynamicallyCreatedKeys).toEqual({foo: undefined});
+    expect(state.dynamicallyCreatedKeys).toEqual({ foo: undefined });
   });
 
   it('state merge with boolean addition', () => {
@@ -196,5 +208,19 @@ describe('remx!', () => {
     expect(state.dynamicallyCreatedKeys).toEqual({});
     setters.usingMergeWithValue(undefined);
     expect(state.dynamicallyCreatedKeys).toEqual(undefined);
+  });
+
+  it('state merge will not remove not-overriden values', () => {
+    expect(state.job.experience).toEqual('infinite');
+    expect(state.job.description).toEqual(undefined);
+    setters.setJobDescriptionUsingMerge('Wizard');
+    expect(state.job.experience).toEqual('infinite');
+    expect(state.job.description).toEqual('Wizard');
+  });
+
+  it('state merge works with non-objects', () => {
+    expect(state.race).toEqual('unknown');
+    setters.setRace('not human');
+    expect(state.race).toEqual('not human');
   });
 });

@@ -19,7 +19,7 @@ export function setters(obj) {
 }
 
 export function getters(obj) {
-  const result = {__computed: {}};
+  const result = { __computed: {} };
   _.forEach(obj, (v, k) => {
     result.__computed[k] = mobx.computed(v);
 
@@ -41,19 +41,21 @@ export const map = mobx.map;
 function addMergeFunction(obj) {
   obj.merge = (delta) => {
     _.forEach(delta, (v, k) => {
-      obj[k] = mergeOldStateWithDelta(v);
+      obj[k] = mergeOldStateWithDelta(obj[k], v);
     });
   };
 }
 
-function mergeOldStateWithDelta(newValue) {
-  if (!newValue) {
+function mergeOldStateWithDelta(oldValue, newValue) {
+  if (!newValue || !_.isObjectLike(newValue)) {
     return newValue;
   }
-  return _.mergeWith({}, newValue, (objValue, srcValue, key, object, source, stack) => {
-    if (srcValue === undefined) {
-      object[key] = undefined;
-    }
-    return undefined;
-  });
+  return _.mergeWith({}, oldValue, newValue, mergeCustomizer);
+}
+
+function mergeCustomizer(objValue, srcValue, key, object, source, stack) {
+  if (srcValue === undefined) {
+    object[key] = undefined;
+  }
+  return undefined;
 }
