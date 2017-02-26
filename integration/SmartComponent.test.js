@@ -5,14 +5,13 @@ import renderer from 'react-test-renderer';
 import { connect } from '../react-native';
 
 describe('SmartComponent', () => {
-  let MyComponent, MyConnectedComponent;
+  let MyComponent;
   let store;
   let renderSpy;
 
   beforeEach(() => {
     store = require('./Store');
     MyComponent = require('./SmartComponent').default;
-    MyConnectedComponent = connect(MyComponent);
     renderSpy = jest.fn();
   });
 
@@ -23,22 +22,25 @@ describe('SmartComponent', () => {
   });
 
   it('connected component renders normally', () => {
+    const MyConnectedComponent = connect(MyComponent);
     const tree = renderer.create(<MyConnectedComponent renderSpy={renderSpy} />);
     expect(tree.toJSON().children).toEqual(['nothing']);
     expect(renderSpy).toHaveBeenCalledTimes(1);
   });
 
-  xit('regular component does not listen to changes', () => {
+  it('regular component does not listen to changes', () => {
     const tree = renderer.create(<MyComponent renderSpy={renderSpy} />);
     expect(tree.toJSON().children).toEqual(['nothing']);
     expect(renderSpy).toHaveBeenCalledTimes(1);
 
     store.setters.setName(`Gandalf`);
+    expect(store.getters.getName()).toEqual('Gandalf');
     expect(renderSpy).toHaveBeenCalledTimes(1);
     expect(tree.toJSON().children).toEqual(['nothing']);
   });
 
   it('connected component automatically rerenders when selectors changes', () => {
+    const MyConnectedComponent = connect(MyComponent);
     const tree = renderer.create(<MyConnectedComponent renderSpy={renderSpy} />);
     expect(store.getters.getName()).toEqual('nothing');
     expect(tree.toJSON().children).toEqual(['nothing']);
@@ -52,6 +54,7 @@ describe('SmartComponent', () => {
 
   describe('using remx.map', () => {
     it('detects changes on added keys', () => {
+      const MyConnectedComponent = connect(MyComponent);
       const tree = renderer.create(<MyConnectedComponent renderSpy={renderSpy} />);
       expect(tree.toJSON().children).toEqual(['nothing']);
 
