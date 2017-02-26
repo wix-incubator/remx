@@ -25,7 +25,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "rm -rf dist && babel src --ignore test.js -d dist",
-    "test": "eslint src test && jest --coverage",
+    "test": "eslint src test integration && jest --coverage",
     "test-watch": "jest --coverage --watch",
     "release": "node ./scripts/release.js"
   },
@@ -61,9 +61,10 @@
     "preset": "react-native",
     "testPathDirs": [
       "node_modules",
-      "src"
+      "src",
+      "integration"
     ],
-    "resetMocks": true,
-    "resetModules": true
+    "resetModules": true,
+    "resetMocks": true
   }
 }
