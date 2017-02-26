@@ -49,46 +49,14 @@ describe('SmartComponent', () => {
     expect(tree.toJSON().children).toEqual(['Gandalf']);
     expect(renderSpy).toHaveBeenCalledTimes(2);
   });
+
+  describe('using remx.map', () => {
+    it('detects changes on added keys', () => {
+      const tree = renderer.create(<MyConnectedComponent renderSpy={renderSpy} />);
+      expect(tree.toJSON().children).toEqual(['nothing']);
+
+      store.setters.addProduct('123', { title: 'my product' });
+      expect(tree.toJSON().children).toEqual(['my product']);
+    });
+  });
 });
-
-// describe('smart component with map', () => {
-//   let state, setters, getters;
-//   let SmartComponent;
-
-//   beforeEach(() => {
-//   });
-
-//   function setupStore() {
-//     state = remx.state({
-//       products: remx.map()
-//     });
-
-//     setters = remx.setters({
-//       addProduct(id, product) {
-//         state.products.set(id, product);
-//       }
-//     });
-
-//     getters = remx.getters({
-//       getProduct(id) {
-//         return state.products.get(id);
-//       }
-//     });
-//   }
-
-//   function setupComponent() {
-//     SmartComponent = connect(class extends Component {
-//       render() {
-//         return (<Text>{_.get(getters.getProduct('123'), 'title', 'none')}</Text>);
-//       }
-//     });
-//   }
-
-//   it('using map will rerender when adding a new key', () => {
-//     const tree = renderer.create(<SmartComponent />);
-//     expect(tree.toJSON().children).toEqual(['none']);
-
-//     setters.addProduct('123', { title: 'my product' });
-//     expect(tree.toJSON().children).toEqual(['my product']);
-//   });
-// });
