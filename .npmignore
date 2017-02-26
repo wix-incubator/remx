@@ -1,6 +1,7 @@
 node_modules/
 test/
 scripts/
+integration/
 
 .npmignore
 
