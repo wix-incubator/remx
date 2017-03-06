@@ -55,7 +55,7 @@ describe('SmartComponent', () => {
   describe('using remx.map', () => {
     it('detects changes on added keys', () => {
       const MyConnectedComponent = connect(MyComponent);
-      const tree = renderer.create(<MyConnectedComponent renderSpy={renderSpy} />);
+      const tree = renderer.create(<MyConnectedComponent />);
       expect(tree.toJSON().children).toEqual(['nothing']);
 
       store.setters.addProduct('123', { title: 'my product' });
