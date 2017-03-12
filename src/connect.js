@@ -4,19 +4,22 @@ import React, { Component } from 'react';
 export function connect(observerFunc) {
   return (mapStateToPropsOrComponent) => {
     if (isMapStateToProps(mapStateToPropsOrComponent)) {
-      return wrappingComponent(mapStateToPropsOrComponent);
+      return receiveCompWrapWithObserverHigherOrderComponent(observerFunc, mapStateToPropsOrComponent);
     } else {
       return observerFunc(mapStateToPropsOrComponent);
     }
   };
 }
 
-function wrappingComponent(mapStateToProps) {
-  return (Comp) => (props) => {
-    const obj = mapStateToProps();
-    return (
-      <Comp {...props} {...obj} />
-    );
+function receiveCompWrapWithObserverHigherOrderComponent(observerFunc, mapStateToProps) {
+  return (Comp) => {
+    const hoc = (props) => {
+      const propsFromState = mapStateToProps(props);
+      return (
+        <Comp {...props} {...propsFromState} />
+      );
+    };
+    return observerFunc(hoc);
   };
 }
 

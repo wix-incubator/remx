@@ -46,7 +46,7 @@ describe('connect with mapStateToProps', () => {
     expect(renderSpy).toHaveBeenCalledTimes(1);
   });
 
-  xit('wraps with observer that listens on props', () => {
+  it('wraps with observer that observes mapStateToProps', () => {
     const mapStateToProps = (ownProps) => {
       return {
         textToRender: store.getters.getName()
@@ -61,6 +61,31 @@ describe('connect with mapStateToProps', () => {
 
     store.setters.setName('my name');
     expect(tree.toJSON().children).toEqual(['my name']);
+    expect(renderSpy).toHaveBeenCalledTimes(2);
+    store.setters.setName('my name2');
+    expect(tree.toJSON().children).toEqual(['my name2']);
+    expect(renderSpy).toHaveBeenCalledTimes(3);
+  });
+
+  it('passes ownProps into mapStateToProps', () => {
+    const mapStateToProps = (ownProps) => {
+      if (!ownProps) {
+        return {};
+      }
+      const textToRender = store.getters.getName() + ownProps.otherProp;
+      return {
+        textToRender
+      };
+    };
+
+    const MyConnectedComponent = connect(mapStateToProps)(MyComponent);
+
+    const tree = renderer.create(<MyConnectedComponent renderSpy={renderSpy} otherProp="123" />);
+    expect(tree.toJSON().children).toEqual(['nothing123']);
+    expect(renderSpy).toHaveBeenCalledTimes(1);
+
+    store.setters.setName('my name');
+    expect(tree.toJSON().children).toEqual(['my name123']);
     expect(renderSpy).toHaveBeenCalledTimes(2);
   });
 });
