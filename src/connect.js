@@ -4,25 +4,28 @@ import React, { Component } from 'react';
 export function connect(observerFunc) {
   return (mapStateToProps) => {
     if (_.isFunction(mapStateToProps)) {
-      return receiveCompWrapWithObserverHigherOrderComponent(observerFunc, mapStateToProps);
+      return wrapWithObserverHigherOrderComponent(observerFunc, mapStateToProps);
     } else {
       return observerFunc;
     }
   };
 }
 
-function receiveCompWrapWithObserverHigherOrderComponent(observerFunc, mapStateToProps) {
+function wrapWithObserverHigherOrderComponent(observerFunc, mapStateToProps) {
   return (Comp) => {
-    const hoc = (props) => {
-      const propsFromState = mapStateToProps(props);
-      return (
-        <Comp {...props} {...propsFromState} />
-      );
-    };
-    return observerFunc(hoc);
+    return observerOnMapStateToProps(Comp, mapStateToProps, observerFunc);
   };
 }
 
+function observerOnMapStateToProps(InnerComp, mapStateToProps, observerFunc) {
+  const hoc = (props) => {
+    const propsFromState = mapStateToProps(props);
+    return (
+      <InnerComp {...props} {...propsFromState} />
+    );
+  };
+  return observerFunc(hoc);
+}
     // return (Comp) => {
     //   const mapState = (stores) => Object.keys(mapStateToProps).reduce((result, key) => ({
     //     ...result,

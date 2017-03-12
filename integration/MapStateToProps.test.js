@@ -69,9 +69,6 @@ describe('connect with mapStateToProps', () => {
 
   it('passes ownProps into mapStateToProps', () => {
     const mapStateToProps = (ownProps) => {
-      if (!ownProps) {
-        return {};
-      }
       const textToRender = store.getters.getName() + ownProps.otherProp;
       return {
         textToRender
