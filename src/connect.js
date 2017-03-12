@@ -26,16 +26,3 @@ function observerOnMapStateToProps(InnerComp, mapStateToProps, observerFunc) {
   };
   return observerFunc(hoc);
 }
-    // return (Comp) => {
-    //   const mapState = (stores) => Object.keys(mapStateToProps).reduce((result, key) => ({
-    //     ...result,
-    //     [key]: get(stores, mapStateToProps[key])
-    //   }), {});
-
-    //   const component = injectFunc((stores, props) => ({
-    //     ...props,
-    //     ...mapState(stores)
-    //   }))(observerFunc(Comp));
-
-    //   return component;
-    // };
