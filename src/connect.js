@@ -2,11 +2,11 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 
 export function connect(observerFunc) {
-  return (mapStateToPropsOrComponent) => {
-    if (isMapStateToProps(mapStateToPropsOrComponent)) {
-      return receiveCompWrapWithObserverHigherOrderComponent(observerFunc, mapStateToPropsOrComponent);
+  return (mapStateToProps) => {
+    if (_.isFunction(mapStateToProps)) {
+      return receiveCompWrapWithObserverHigherOrderComponent(observerFunc, mapStateToProps);
     } else {
-      return observerFunc(mapStateToPropsOrComponent);
+      return observerFunc;
     }
   };
 }
@@ -21,18 +21,6 @@ function receiveCompWrapWithObserverHigherOrderComponent(observerFunc, mapStateT
     };
     return observerFunc(hoc);
   };
-}
-
-function isMapStateToProps(thing) {
-  if (!_.isFunction(thing)) {
-    return false;
-  }
-  try {
-    const result = thing();
-    return _.isPlainObject(result);
-  } catch (e) {
-    return false;
-  }
 }
 
     // return (Comp) => {
