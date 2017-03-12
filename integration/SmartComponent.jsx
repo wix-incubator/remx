@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Text } from 'react-native';
 
 import * as store from './Store';
 
-class MyComponent extends React.Component {
+class MyComponent extends Component {
   renderText(txt) {
     return (
       <Text>

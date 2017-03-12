@@ -1,3 +1,5 @@
+const mobxReact = require('mobx-react');
+const innerConnect = require('./dist/connect');
 module.exports = {
-  connect: require('mobx-react').observer
+  connect: innerConnect.connect(mobxReact.observer)
 };

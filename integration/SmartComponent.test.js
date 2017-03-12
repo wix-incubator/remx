@@ -2,7 +2,8 @@ import _ from 'lodash';
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import { connect } from '../react-native';
+const mobxReact = require('mobx-react/native');
+const connect = require('../src/connect').connect(mobxReact.observer);
 
 describe('SmartComponent', () => {
   let MyComponent;
