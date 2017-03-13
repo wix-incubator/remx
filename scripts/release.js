@@ -3,15 +3,15 @@ const p = require('path');
 const semver = require('semver');
 
 function execSync(cmd) {
-  cp.execSync(cmd, {stdio: ['inherit', 'inherit', 'inherit']});
+  cp.execSync(cmd, { stdio: ['inherit', 'inherit', 'inherit'] });
 }
 
 function execSyncRead(cmd) {
-  return String(cp.execSync(cmd, {stdio: ['inherit', 'pipe', 'inherit']})).trim();
+  return String(cp.execSync(cmd, { stdio: ['inherit', 'pipe', 'inherit'] })).trim();
 }
 
 function execSyncSilently(cmd) {
-  cp.execSync(cmd, {stdio: ['ignore', 'ignore', 'ignore']});
+  cp.execSync(cmd, { stdio: ['ignore', 'ignore', 'ignore'] });
 }
 
 function validateEnv() {
@@ -46,12 +46,8 @@ function calcNewVersion() {
   console.log(`latest version is: ${latestVersion}`);
   const packageJsonVersion = process.env.npm_package_version;
   console.log(`package.json version is: ${packageJsonVersion}`);
-  const diff = semver.diff(packageJsonVersion, latestVersion);
-  if (diff === 'major' || diff === 'minor') {
-    return packageJsonVersion;
-  } else {
-    return semver.inc(latestVersion, 'patch');
-  }
+  const greater = semver.gt(packageJsonVersion, latestVersion) ? packageJsonVersion : latestVersion;
+  return semver.inc(greater, 'patch');
 }
 
 function copyNpmRc() {
