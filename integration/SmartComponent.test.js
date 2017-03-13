@@ -2,7 +2,8 @@ import _ from 'lodash';
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import { connect } from '../react-native';
+const mobxReact = require('mobx-react/native');
+const connect = require('../src/connect').connect(mobxReact.observer);
 
 describe('SmartComponent', () => {
   let MyComponent;
@@ -22,7 +23,7 @@ describe('SmartComponent', () => {
   });
 
   it('connected component renders normally', () => {
-    const MyConnectedComponent = connect(MyComponent);
+    const MyConnectedComponent = connect()(MyComponent);
     const tree = renderer.create(<MyConnectedComponent renderSpy={renderSpy} />);
     expect(tree.toJSON().children).toEqual(['nothing']);
     expect(renderSpy).toHaveBeenCalledTimes(1);
@@ -40,7 +41,7 @@ describe('SmartComponent', () => {
   });
 
   it('connected component automatically rerenders when selectors changes', () => {
-    const MyConnectedComponent = connect(MyComponent);
+    const MyConnectedComponent = connect()(MyComponent);
     const tree = renderer.create(<MyConnectedComponent renderSpy={renderSpy} />);
     expect(store.getters.getName()).toEqual('nothing');
     expect(tree.toJSON().children).toEqual(['nothing']);
@@ -54,7 +55,7 @@ describe('SmartComponent', () => {
 
   describe('using remx.map', () => {
     it('detects changes on added keys', () => {
-      const MyConnectedComponent = connect(MyComponent);
+      const MyConnectedComponent = connect()(MyComponent);
       const tree = renderer.create(<MyConnectedComponent />);
       expect(tree.toJSON().children).toEqual(['nothing']);
 
