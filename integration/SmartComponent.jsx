@@ -4,6 +4,9 @@ import { Text } from 'react-native';
 import * as store from './Store';
 
 class MyComponent extends Component {
+
+  static staticMember = 'a static member';
+
   renderText(txt) {
     return (
       <Text>
