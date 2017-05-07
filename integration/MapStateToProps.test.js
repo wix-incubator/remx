@@ -85,4 +85,12 @@ describe('connect with mapStateToProps', () => {
     expect(tree.toJSON().children).toEqual(['my name123']);
     expect(renderSpy).toHaveBeenCalledTimes(2);
   });
+
+  it('connected component has same static members as original component', () => {
+    const mapStateToProps = (ownProps) => {
+      return {};
+    };
+    const MyConnectedComponent = connect(mapStateToProps)(MyComponent);
+    expect(MyConnectedComponent.staticMember).toEqual('a static member');
+  });
 });

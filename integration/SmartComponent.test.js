@@ -63,4 +63,9 @@ describe('SmartComponent', () => {
       expect(tree.toJSON().children).toEqual(['my product']);
     });
   });
+
+  it('connected component has same static members as original component', () => {
+    const MyConnectedComponent = connect()(MyComponent);
+    expect(MyConnectedComponent.staticMember).toEqual('a static member');
+  });
 });
