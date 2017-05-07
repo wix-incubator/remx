@@ -14,7 +14,7 @@ export function connect(observerFunc) {
 function wrapWithObserverHigherOrderComponent(observerFunc, mapStateToProps) {
   return (Comp) => {
     const wrappedComponent = observerOnMapStateToProps(Comp, mapStateToProps, observerFunc);
-    Object.keys(Comp).forEach((key) => wrappedComponent[key] = Comp[key]);
+    _.forEach(_.keys(Comp), (key) => _.set(wrappedComponent, key, _.get(Comp, key)));
     return wrappedComponent;
   };
 }
