@@ -4,30 +4,31 @@ node_js:
 
 env:
   global:
+    - YARN_CACHE=$HOME/.yarn-cache
     - NODE_VERSION=stable
-
-git:
-  depth: 3
 
 branches:
   only:
   - master
 
 cache:
-  yarn: true
-
-before_install:
-  - set -e
-  - curl -o- -L https://yarnpkg.com/install.sh | bash
-  - export PATH=$HOME/.yarn/bin:$PATH
+  directories:
+    - $YARN_CACHE
+    - $HOME/.m2
 
 install:
-  - yarn install
+  - curl -o- -L https://yarnpkg.com/install.sh | bash
+  - export PATH=$PATH:$HOME/.yarn/bin
+  - yarn config set cache-folder $YARN_CACHE
+
 
 script:
+  - set -e
+  - yarn install
   - yarn run build
   - yarn run test
   - yarn run release
+  - set +e
 
 after_script:
   - echo "BUILD FINISHED"
