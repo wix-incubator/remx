@@ -39,6 +39,7 @@ function setupGit() {
   const remoteUrl = new RegExp(`https?://(\\S+)`).exec(execSyncRead(`git remote -v`))[1];
   execSyncSilently(`git remote add deploy "https://${process.env.GIT_USER}:${process.env.GIT_TOKEN}@${remoteUrl}"`);
   execSync(`git checkout master`);
+  execSync(`git checkout yarn.lock`);
 }
 
 function calcNewVersion() {
