@@ -8,7 +8,7 @@ Idiomatic mobx
 
 ### Store
 
-in `src/stores/MyStore.js`
+in `src/stores/something/store.js`
 
 ```javascript
  import * as remx from 'remx';
@@ -30,6 +30,16 @@ in `src/stores/MyStore.js`
  });
 ```
 
+### Actions
+
+in `src/stores/something/actions.js`
+
+```javascript
+ export async function fetchName() {
+   ....
+ }
+```
+
 ### Component
 
 in `src/containers/MyScreen.jsx`
@@ -37,9 +47,15 @@ in `src/containers/MyScreen.jsx`
 ```javascript
   import { connect } from 'remx/react-native';
   
-  import * as store from '../stores/MyStore';
+  import * as store from '../../stores/something/store';
+  import * as actions from '../../stores/something/actions';
   
   class MyScreen extends Component {
+  
+    componentDidMount() {
+      actions.fetchName();
+    }
+  
     render() {
       const name = this.props.name;
       ....
