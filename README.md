@@ -64,7 +64,7 @@ in `src/containers/MyScreen.jsx`
   
   function mapStateToProps(ownProps) {
     return {
-      name: store.getters.name
+      name: store.getters.getName()
     }
   }
   
