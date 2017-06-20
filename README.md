@@ -35,8 +35,12 @@ in `src/stores/something/store.js`
 in `src/stores/something/actions.js`
 
 ```javascript
+
+ import * as store from './store';
+
  export async function fetchName() {
-   ....
+   const newName = await fetch(...);
+   store.setters.setName(newName);
  }
 ```
 
