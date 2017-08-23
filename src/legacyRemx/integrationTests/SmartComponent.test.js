@@ -1,9 +1,7 @@
-import _ from 'lodash';
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { Store } from './Store';
-import * as mobx from 'mobx';
-const mobxReact = require('mobx-react');
+
 const connect = require('../../legacyRemx').connect;
 
 describe('SmartComponent', () => {

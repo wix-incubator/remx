@@ -1,13 +1,12 @@
 import _ from 'lodash';
-import React, { Component } from 'react';
+import React from 'react';
 import { observer } from 'mobx-react';
 
-export const connect = (mapStateToProps) => {
+const connect = (mapStateToProps) => {
   if (_.isFunction(mapStateToProps)) {
     return wrapWithObserverHigherOrderComponent(mapStateToProps);
-  } else {
-    return observer;
   }
+  return observer;
 };
 
 function wrapWithObserverHigherOrderComponent(mapStateToProps) {
@@ -28,3 +27,7 @@ function observerOnMapStateToProps(InnerComp, mapStateToProps) {
   };
   return observer(hoc);
 }
+
+module.exports = {
+  connect
+};

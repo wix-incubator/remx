@@ -1,7 +1,7 @@
 import * as mobx from 'mobx';
 import { isObjectLike, isString } from 'lodash';
 
-export const proxify = (obj) => {
+function proxify(obj) {
   const tracker = createObservableMap(obj);
   const handler = {
     ownKeys: (target) => {
@@ -12,9 +12,8 @@ export const proxify = (obj) => {
       if (isString(prop)) {
         tracker.get(prop);
         return target[prop];
-      } else {
-        return undefined;
       }
+      return undefined;
     },
     set: (target, prop, value) => {
       let newValue = value;
@@ -27,7 +26,7 @@ export const proxify = (obj) => {
     }
   };
   return new Proxy(obj, handler);
-};
+}
 
 const createObservableMap = (obj) => {
   const tracker = mobx.observable.shallowMap();
@@ -38,4 +37,8 @@ const createObservableMap = (obj) => {
     tracker.set(key, obj[key]);
   });
   return tracker;
+};
+
+module.exports = {
+  proxify
 };

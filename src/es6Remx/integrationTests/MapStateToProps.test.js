@@ -1,9 +1,7 @@
-import _ from 'lodash';
-import React, { Component } from 'react';
+import React from 'react';
 import renderer from 'react-test-renderer';
 import { Store } from './Store';
 
-const mobxReact = require('mobx-react');
 const connect = require('../connect').connect;
 
 describe('connect with mapStateToProps', () => {
@@ -22,7 +20,7 @@ describe('connect with mapStateToProps', () => {
   });
 
   it('connected component behaves normally', () => {
-    const mapStateToProps = (ownProps) => {
+    const mapStateToProps = () => {
       return {};
     };
 
@@ -34,7 +32,7 @@ describe('connect with mapStateToProps', () => {
   });
 
   it('object will be injected to props', () => {
-    const mapStateToProps = (ownProps) => {
+    const mapStateToProps = () => {
       return {
         textToRender: 'Hello, World!'
       };
@@ -48,7 +46,7 @@ describe('connect with mapStateToProps', () => {
   });
 
   it('wraps with observer that observes mapStateToProps', () => {
-    const mapStateToProps = (ownProps) => {
+    const mapStateToProps = () => {
       return {
         textToRender: store.getters.getName()
       };
@@ -85,7 +83,7 @@ describe('connect with mapStateToProps', () => {
   });
 
   it('connected component has same static members as original component', () => {
-    const mapStateToProps = (ownProps) => {
+    const mapStateToProps = () => {
       return {};
     };
     const MyConnectedComponent = connect(mapStateToProps)(MyComponent);

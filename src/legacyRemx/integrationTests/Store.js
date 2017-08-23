@@ -5,17 +5,16 @@ export class Store {
     const state = remx.state({
       simpleProp: 'bla',
       person: {},
-      products: remx.map(),
+      products: {},
       dynamicObject: {}
     });
-    this.state = state; //todo: remove
 
     this.setters = remx.setters({
       setName(newName) {
         state.person.name = newName;
       },
       addProduct(id, product) {
-        state.products.set(id, product);
+        state.products[id] = product;
       },
       setDynamicObject(key, value) {
         state.dynamicObject[key] = value;
@@ -33,7 +32,7 @@ export class Store {
         return state.dynamicObject;
       },
       getProduct(id) {
-        return state.products.get(id);
+        return state.products[id];
       }
     });
   }

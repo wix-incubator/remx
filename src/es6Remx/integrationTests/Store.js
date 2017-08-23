@@ -4,7 +4,7 @@ export class Store {
   constructor() {
     const state = remx.state({
       person: {},
-      products: remx.map(),
+      products: {},
       dynamicObject: {}
     });
 
@@ -14,7 +14,7 @@ export class Store {
       },
 
       addProduct(id, product) {
-        state.products.set(id, product);
+        state.products[id] = product;
       },
       setDynamicObject(key, value) {
         state.dynamicObject[key] = value;
@@ -32,7 +32,7 @@ export class Store {
         return state.dynamicObject;
       },
       getProduct(id) {
-        return state.products.get(id);
+        return state.products[id];
       }
     });
   }

@@ -1,16 +1,16 @@
 import { isFunction } from 'lodash';
-import React, { Component } from 'react';
+import React from 'react';
 import { observable, action } from 'mobx';
 import { observer } from 'mobx-react';
 
-globalObservableKey = observable({ key: 1 });
+const globalObservableKey = observable({ key: 1 });
 
 export const triggerStateUpdate = action(() => {
-  globalObservableKey.key = globalObservableKey.key + 1;
+  globalObservableKey.key++;
 });
 
 export const touchGlobalKey = () => {
-  const touchGlobalKeyToTriggerMobx = globalObservableKey.key;
+  (() => globalObservableKey.key)();
 };
 
 export const connect = (mapStateToProps) => {
@@ -24,9 +24,8 @@ const createConnectedComponent = (Comp, mapStateToProps) => {
   const getMappedProps = (ownProps) => {
     if (isFunction(mapStateToProps)) {
       return mapStateToProps(ownProps);
-    } else {
-      return {};
     }
+    return {};
   };
   return observer((props) => {
     return (

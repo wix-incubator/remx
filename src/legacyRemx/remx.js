@@ -1,9 +1,7 @@
-import * as mobx from 'mobx';
 import _ from 'lodash';
 import { touchGlobalKey, triggerStateUpdate } from './connect';
 
 export function state(obj) {
-  addMergeFunction(obj);
   return obj;
 }
 
@@ -31,30 +29,10 @@ export function getters(obj) {
   return result;
 }
 
-export const toJS = (obj) => {
-  // console.warn('toJS is deprecated. Everything is a plain object now, no need to convert');
-  return obj;
-};
-
-export const map = () => {
-  // console.warn('map is deprecated. Just use plain object');
-  return {
-    set(key, value) {
-      this[key] = value;
-    },
-    get(key) {
-      return this[key];
-    }
-  };
-};
-
-function addMergeFunction(obj) {
-  // console.warn('merge is deprecated. You can just manipulate the plain object and (add keys, set keys etc..)');
-  obj.merge = (delta) => {
-    _.forEach(delta, (v, k) => {
-      obj[k] = mergeOldStateWithDelta(obj[k], v);
-    });
-  };
+export function merge(state, delta) {
+  _.forEach(delta, (v, k) => {
+    state[k] = mergeOldStateWithDelta(state[k], v);
+  });
 }
 
 function mergeOldStateWithDelta(oldValue, newValue) {
@@ -64,7 +42,7 @@ function mergeOldStateWithDelta(oldValue, newValue) {
   return _.mergeWith({}, oldValue, newValue, mergeCustomizer);
 }
 
-function mergeCustomizer(objValue, srcValue, key, object, source, stack) {
+function mergeCustomizer(objValue, srcValue, key, object) {
   if (srcValue === undefined) {
     object[key] = undefined;
   }

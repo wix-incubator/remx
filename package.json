@@ -1,6 +1,6 @@
 {
   "name": "remx",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "Idiomatic mobx",
   "license": "MIT",
   "keywords": [
@@ -24,46 +24,55 @@
   "homepage": "https://github.com/wix/remx",
   "main": "dist/index.js",
   "scripts": {
-    "build": "rm -rf dist && babel src --ignore test.js -d dist",
-    "test": "eslint src test integration && jest --coverage",
+    "build": "rm -rf dist && babel src -d dist",
+    "test": "xo src/**/**/**/**/**/*.* && jest --coverage",
     "test-watch": "jest --coverage --watch",
     "release": "node ./scripts/release.js"
   },
   "dependencies": {
     "lodash": "4.x.x",
-    "mobx": "3.2.2",
-    "mobx-react": "^4.2.2",
-    "react": "^15.4.1" 
+    "mobx": "3.x.x",
+    "mobx-react": "4.x.x"
   },
   "devDependencies": {
     "babel-cli": "6.x.x",
     "babel-core": "6.x.x",
-    "babel-jest": "18.x.x",
+    "babel-jest": "20.x.x",
     "babel-polyfill": "6.x.x",
-    "babel-preset-react-native": "1.x.x",
+    "babel-preset-react-native": "3.x.x",
     "babel-register": "6.x.x",
-    "eslint": "3.x.x",
-    "eslint-plugin-babel": "4.x.x",
-    "eslint-plugin-react": "6.x.x",
-    "eslint-plugin-react-native": "2.x.x",
-    "jest": "18.x.x",
-    "jest-cli": "18.x.x",
-    "react-dom": "^15.6.1",
-    "react-native": "0.38.0",
-    "react-test-renderer": "15.4.1",
-    "semver": "5.x.x"
+    "xo": "0.18.x",
+    "eslint-config-xo": "0.18.x",
+    "eslint-config-xo-react": "0.13.x",
+    "eslint-plugin-react": "7.x.x",
+    "jest": "20.x.x",
+    "jest-cli": "20.x.x",
+    "react": "16.0.0-alpha.6",
+    "react-native": "0.44.0",
+    "react-dom": "16.0.0-alpha.6",
+    "react-test-renderer": "16.0.0-alpha.6",
+    "semver": "5.x.x",
+    "shell-utils": "1.x.x"
+  },
+  "peerDependencies": {
+    "react": "x"
   },
   "babel": {
     "presets": [
       "react-native"
+    ],
+    "retainLines": true,
+    "ignore": [
+      "**/*.test.js",
+      "__mocks__",
+      "integrationTests"
     ]
   },
   "jest": {
     "preset": "react-native",
-    "testPathDirs": [
-      "node_modules",
-      "src",
-      "integration"
+    "roots": [
+      "<rootDir>/node_modules/",
+      "<rootDir>/src/"
     ],
     "resetModules": true,
     "resetMocks": true,
@@ -74,6 +83,49 @@
         "functions": 100,
         "lines": 100
       }
+    }
+  },
+  "xo": {
+    "extends": "xo-react",
+    "space": true,
+    "env": [
+      "node",
+      "jest",
+      "es6"
+    ],
+    "rules": {
+      "unicorn/filename-case": 0,
+      "unicorn/number-literal-case": 0,
+      "import/order": 0,
+      "import/named": 0,
+      "import/no-unassigned-import": 0,
+      "react/jsx-tag-spacing": 0,
+      "react/jsx-sort-props": 0,
+      "react/jsx-boolean-value": 0,
+      "react/prop-types": 0,
+      "react/jsx-no-bind": 0,
+      "react/jsx-handler-names": 0,
+      "react/forbid-component-props": 0,
+      "capitalized-comments": 0,
+      "max-nested-callbacks": 0,
+      "no-use-before-define": [
+        2,
+        {
+          "functions": false,
+          "variables": false
+        }
+      ],
+      "promise/param-names": 0,
+      "no-return-assign": 0,
+      "arrow-parens": [
+        2,
+        "always"
+      ],
+      "object-curly-spacing": [
+        2,
+        "always"
+      ],
+      "one-var": 0
     }
   }
 }

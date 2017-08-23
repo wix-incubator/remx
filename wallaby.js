@@ -15,16 +15,11 @@ module.exports = function (wallaby) {
       'package.json',
       'src/**/*.js',
       'src/**/*.jsx',
-      '!src/**/*.test.js',
-      './*.js',
-      'integration/**/*.js',
-      'integration/**/*.jsx',
-      '!integration/**/*.test.js'
+      '!src/**/*.test.js'
     ],
 
     tests: [
-      'src/**/*.test.js',
-      'integration/**/*.test.js',
+      'src/**/*.test.js'
     ],
 
     compilers: {

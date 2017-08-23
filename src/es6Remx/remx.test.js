@@ -36,19 +36,19 @@ describe('remx!', () => {
       },
 
       usingMerge(n) {
-        state.merge({ dynamicallyCreatedKeys: { foo: n } });
+        remx.merge(state, { dynamicallyCreatedKeys: { foo: n } });
       },
 
       usingMergeWithValue(v) {
-        state.merge({ dynamicallyCreatedKeys: v });
+        remx.merge(state, { dynamicallyCreatedKeys: v });
       },
 
       setJobDescriptionUsingMerge(v) {
-        state.merge({ job: { description: v } });
+        remx.merge(state, { job: { description: v } });
       },
 
       setRace(v) {
-        state.merge({ race: v });
+        remx.merge(state, { race: v });
       }
     });
 
@@ -153,7 +153,7 @@ describe('remx!', () => {
     expect(getFullNameCalled).toBe(2);
   });
 
-  it('if caching is desired, wrap the underlying call with argumentless getter', () => { //eslint-disable-line max-statements
+  it('if caching is desired, wrap the underlying call with argumentless getter', () => { // eslint-disable-line max-statements
     expect(getFullNameCalled).toBe(0);
     expect(getNameCalled).toBe(0);
     const stop = mobx.autorun(() => getters.getFullName());
@@ -177,14 +177,6 @@ describe('remx!', () => {
     stop();
   });
 
-  it('exposes deprecated toJS', () => {
-    const observable = remx.state({ arr: [], obj: {} });
-    const regularArr = remx.toJS(observable.arr);
-    expect(regularArr).toEqual([]);
-    const regularObj = remx.toJS(observable.obj);
-    expect(regularObj).toEqual({});
-  });
-
   it('should keep objects and arrays untouched', () => {
     const observable = remx.state({ arr: [], obj: {} });
     expect(observable.arr).toEqual([]);
@@ -199,8 +191,8 @@ describe('remx!', () => {
     expect(getters.getDynamicallyCreatedKey()).toEqual('Gandalf2');
   });
 
-  it('state merge function', () => {
-    expect(state.merge).toBeInstanceOf(Function);
+  it('merge function', () => {
+    expect(remx.merge).toBeInstanceOf(Function);
     expect(state.dynamicallyCreatedKeys).toEqual({});
     setters.usingMerge(`bla`);
     expect(state.dynamicallyCreatedKeys).toEqual({ foo: 'bla' });
