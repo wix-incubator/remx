@@ -1,17 +1,16 @@
-import _ from 'lodash';
-import React, { Component } from 'react';
+import React from 'react';
 import renderer from 'react-test-renderer';
+import { Store } from './Store';
 
-const mobxReact = require('mobx-react/native');
-const connect = require('../src/connect').connect(mobxReact.observer);
+const connect = require('../connect').connect;
 
 describe('connect with mapStateToProps', () => {
   let MyComponent;
-  let store;
   let renderSpy;
+  let store;
 
   beforeEach(() => {
-    store = require('./Store');
+    store = new Store();
     MyComponent = require('./MapStateToPropsComp').default;
     renderSpy = jest.fn();
   });
@@ -21,7 +20,7 @@ describe('connect with mapStateToProps', () => {
   });
 
   it('connected component behaves normally', () => {
-    const mapStateToProps = (ownProps) => {
+    const mapStateToProps = () => {
       return {};
     };
 
@@ -33,7 +32,7 @@ describe('connect with mapStateToProps', () => {
   });
 
   it('object will be injected to props', () => {
-    const mapStateToProps = (ownProps) => {
+    const mapStateToProps = () => {
       return {
         textToRender: 'Hello, World!'
       };
@@ -47,18 +46,15 @@ describe('connect with mapStateToProps', () => {
   });
 
   it('wraps with observer that observes mapStateToProps', () => {
-    const mapStateToProps = (ownProps) => {
+    const mapStateToProps = () => {
       return {
         textToRender: store.getters.getName()
       };
     };
-
     const MyConnectedComponent = connect(mapStateToProps)(MyComponent);
-
     const tree = renderer.create(<MyConnectedComponent renderSpy={renderSpy} />);
     expect(tree.toJSON().children).toEqual(['nothing']);
     expect(renderSpy).toHaveBeenCalledTimes(1);
-
     store.setters.setName('my name');
     expect(tree.toJSON().children).toEqual(['my name']);
     expect(renderSpy).toHaveBeenCalledTimes(2);
@@ -87,7 +83,7 @@ describe('connect with mapStateToProps', () => {
   });
 
   it('connected component has same static members as original component', () => {
-    const mapStateToProps = (ownProps) => {
+    const mapStateToProps = () => {
       return {};
     };
     const MyConnectedComponent = connect(mapStateToProps)(MyComponent);
