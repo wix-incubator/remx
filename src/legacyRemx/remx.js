@@ -1,44 +1,55 @@
 import * as mobx from 'mobx';
 import _ from 'lodash';
-
-mobx.useStrict(true);
+import { touchGlobalKey, triggerStateUpdate } from './connect';
 
 export function state(obj) {
   addMergeFunction(obj);
-  return mobx.observable(obj);
+  return obj;
 }
 
 export function setters(obj) {
   const result = {};
   _.forEach(obj, (v, k) => {
     if (_.isFunction(v)) {
-      result[k] = mobx.action(v);
+      result[k] = (...args) => {
+        v(...args);
+        triggerStateUpdate();
+      };
     }
   });
   return result;
 }
 
 export function getters(obj) {
-  const result = { __computed: {} };
+  const result = {};
   _.forEach(obj, (v, k) => {
-    result.__computed[k] = mobx.computed(v);
-
     result[k] = (...args) => {
-      if (args.length > 0) {
-        return result.__computed[k].derivation(...args);
-      } else {
-        return result.__computed[k].get();
-      }
+      touchGlobalKey();
+      return v(...args);
     };
   });
   return result;
 }
 
-export const toJS = mobx.toJS;
+export const toJS = (obj) => {
+  // console.warn('toJS is deprecated. Everything is a plain object now, no need to convert');
+  return obj;
+};
 
-export const map = mobx.map;
+export const map = () => {
+  // console.warn('map is deprecated. Just use plain object');
+  return {
+    set(key, value) {
+      this[key] = value;
+    },
+    get(key) {
+      return this[key];
+    }
+  };
+};
 
 function addMergeFunction(obj) {
+  // console.warn('merge is deprecated. You can just manipulate the plain object and (add keys, set keys etc..)');
   obj.merge = (delta) => {
     _.forEach(delta, (v, k) => {
       obj[k] = mergeOldStateWithDelta(obj[k], v);

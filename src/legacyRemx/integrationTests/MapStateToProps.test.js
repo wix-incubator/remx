@@ -1,17 +1,18 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import renderer from 'react-test-renderer';
+import * as mobxReact from 'mobx-react';
+import { Store } from './Store';
 
-const mobxReact = require('mobx-react/native');
-const connect = require('../src/connect').connect(mobxReact.observer);
+const connect = require('../connect').connect;
 
 describe('connect with mapStateToProps', () => {
   let MyComponent;
-  let store;
   let renderSpy;
+  let store;
 
   beforeEach(() => {
-    store = require('./Store');
+    store = new Store();
     MyComponent = require('./MapStateToPropsComp').default;
     renderSpy = jest.fn();
   });
@@ -24,7 +25,7 @@ describe('connect with mapStateToProps', () => {
     const mapStateToProps = (ownProps) => {
       return {};
     };
-
+    
     const MyConnectedComponent = connect(mapStateToProps)(MyComponent);
 
     const tree = renderer.create(<MyConnectedComponent renderSpy={renderSpy} textToRender="hello" />);
@@ -52,13 +53,10 @@ describe('connect with mapStateToProps', () => {
         textToRender: store.getters.getName()
       };
     };
-
     const MyConnectedComponent = connect(mapStateToProps)(MyComponent);
-
     const tree = renderer.create(<MyConnectedComponent renderSpy={renderSpy} />);
     expect(tree.toJSON().children).toEqual(['nothing']);
     expect(renderSpy).toHaveBeenCalledTimes(1);
-
     store.setters.setName('my name');
     expect(tree.toJSON().children).toEqual(['my name']);
     expect(renderSpy).toHaveBeenCalledTimes(2);

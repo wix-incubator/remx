@@ -1,5 +1,6 @@
-const mobxReact = require('mobx-react/native');
-const innerConnect = require('./dist/connect');
+const mobxReact = require('mobx-react');
+const connect = require('./dist').connect;
 module.exports = {
-  connect: innerConnect.connect(mobxReact.observer)
+  connect
 };
+console.warn(`Deprecated warning: do not use connect/react-native. use "import {connect} from 'remx'"`);

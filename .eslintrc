@@ -26,7 +26,7 @@
       "error",
       "except-parens"
     ],
-    "no-console": "warn",
+    "no-console": ["error", { "allow": ["warn", "error"] }],
     "no-constant-condition": "error",
     "no-control-regex": "error",
     "no-debugger": "warn",

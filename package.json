@@ -31,25 +31,26 @@
   },
   "dependencies": {
     "lodash": "4.x.x",
-    "mobx": "2.x.x",
-    "mobx-react": "3.x.x"
+    "mobx": "3.2.2",
+    "mobx-react": "^4.2.2",
+    "react": "^15.4.1" 
   },
   "devDependencies": {
-    "react-native": "0.38.0",
-    "react": "15.4.1",
-    "react-test-renderer": "15.4.1",
     "babel-cli": "6.x.x",
     "babel-core": "6.x.x",
+    "babel-jest": "18.x.x",
     "babel-polyfill": "6.x.x",
     "babel-preset-react-native": "1.x.x",
     "babel-register": "6.x.x",
-    "babel-jest": "18.x.x",
     "eslint": "3.x.x",
     "eslint-plugin-babel": "4.x.x",
     "eslint-plugin-react": "6.x.x",
     "eslint-plugin-react-native": "2.x.x",
     "jest": "18.x.x",
     "jest-cli": "18.x.x",
+    "react-dom": "^15.6.1",
+    "react-native": "0.38.0",
+    "react-test-renderer": "15.4.1",
     "semver": "5.x.x"
   },
   "babel": {
