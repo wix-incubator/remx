@@ -1,7 +1,7 @@
 import { isFunction } from 'lodash';
 import React from 'react';
 import { observable, action } from 'mobx';
-import { observer } from 'mobx-react';
+import { observer } from 'mobx-react/custom';
 
 const globalObservableKey = observable({ key: 1 });
 
