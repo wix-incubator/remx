@@ -47,7 +47,6 @@
     "jest": "20.x.x",
     "jest-cli": "20.x.x",
     "react": "16.0.0-alpha.6",
-    "react-dom": "15.x.x",
     "react-native": "0.44.0",
     "react-test-renderer": "16.0.0-alpha.6",
     "semver": "5.x.x",
