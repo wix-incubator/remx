@@ -225,11 +225,11 @@ describe('remx!', () => {
     setters.setRace('not human');
     expect(state.race).toEqual('not human');
   });
-  
+
   it('should allow setting a complex object', () => {
     const complexName = { value: 'bla', someFunc() { return true } };
     setters.setName(complexName);
-    expect(state.name.value).toBe('bla');
-    expect(state.name.someFunc()).toBe(true);
+    expect(getters.getName().value).toBe('bla');
+    expect(getters.getName().someFunc()).toBe(true);
   });
 });
