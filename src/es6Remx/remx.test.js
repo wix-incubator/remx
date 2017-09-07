@@ -227,7 +227,12 @@ describe('remx!', () => {
   });
 
   it('should allow setting a complex object', () => {
-    const complexName = { value: 'bla', someFunc() { return true } };
+    const complexName = {
+      value: 'bla',
+      someFunc() {
+        return true;
+      }
+    };
     setters.setName(complexName);
     expect(getters.getName().value).toBe('bla');
     expect(getters.getName().someFunc()).toBe(true);
