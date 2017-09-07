@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React from 'react';
-import { observer } from 'mobx-react';
+import { observer } from 'mobx-react/custom';
 
 const connect = (mapStateToProps) => {
   if (_.isFunction(mapStateToProps)) {
