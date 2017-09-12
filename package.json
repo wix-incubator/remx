@@ -40,7 +40,6 @@
     "babel-polyfill": "6.x.x",
     "babel-preset-react-native": "3.x.x",
     "babel-register": "6.x.x",
-    "xo": "0.18.x",
     "eslint-config-xo": "0.18.x",
     "eslint-config-xo-react": "0.13.x",
     "eslint-plugin-react": "7.x.x",
@@ -50,7 +49,8 @@
     "react-native": "0.44.0",
     "react-test-renderer": "16.0.0-alpha.6",
     "semver": "5.x.x",
-    "shell-utils": "1.x.x"
+    "shell-utils": "1.x.x",
+    "xo": "0.18.x"
   },
   "peerDependencies": {
     "react": "x"
