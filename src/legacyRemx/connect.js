@@ -1,7 +1,7 @@
 import { isFunction } from 'lodash';
 import React from 'react';
 import { observable, action } from 'mobx';
-import { observer } from 'mobx-react/custom';
+import { observer } from '../mobxReactClone'; // should import from mobx-react/custom when they fix issue #319
 
 const globalObservableKey = observable({ key: 1 });
 

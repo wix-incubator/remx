@@ -31,8 +31,7 @@
   },
   "dependencies": {
     "lodash": "4.x.x",
-    "mobx": "3.x.x",
-    "mobx-react": "4.x.x"
+    "mobx": "3.x.x"
   },
   "devDependencies": {
     "babel-cli": "6.x.x",
@@ -63,6 +62,7 @@
     "retainLines": true
   },
   "jest": {
+    "coveragePathIgnorePatterns": ["src/mobxReactClone.js"],
     "preset": "react-native",
     "roots": [
       "<rootDir>/node_modules/",
@@ -86,6 +86,9 @@
       "node",
       "jest",
       "es6"
+    ],
+    "ignores": [
+      "src/mobxReactClone.js"
     ],
     "rules": {
       "unicorn/filename-case": 0,
