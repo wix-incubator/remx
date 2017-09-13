@@ -18,11 +18,21 @@ describe('remx!', () => {
         experience: 'infinite'
       },
       dynamicallyCreatedKeys: {},
+      multiPropObject: {
+        prop1: '1',
+        prop2: '2',
+        prop3: '3'
+      },
       race: 'unknown'
     });
 
     setters = remx.setters({
       bla: 'blabla',
+      setMultiPropObject() {
+        state.multiPropObject.prop1 = 'changed!';
+        state.multiPropObject.prop2 = 'changed!';
+        state.multiPropObject.prop3 = 'changed!';
+      },
       setName(name) {
         state.name = name;
       },
@@ -53,6 +63,9 @@ describe('remx!', () => {
     });
 
     getters = remx.getters({
+      getMultiPropObject() {
+        return state.multiPropObject;
+      },
       getName() {
         getNameCalled++;
         return state.name;
@@ -236,5 +249,18 @@ describe('remx!', () => {
     setters.setName(complexName);
     expect(getters.getName().value).toBe('bla');
     expect(getters.getName().someFunc()).toBe(true);
+  });
+
+  it('should apply changes to the state only when setter is finished', () => {
+    let callCount = 0;
+    mobx.autorun(() => {
+      const prop1 = getters.getMultiPropObject().prop1;
+      const prop2 = getters.getMultiPropObject().prop2;
+      const prop3 = getters.getMultiPropObject().prop3;
+      callCount++;
+      return prop1 + prop2 + prop3; // fake usage to satisfy linter
+    });
+    setters.setMultiPropObject();
+    expect(callCount).toBe(2);
   });
 });
