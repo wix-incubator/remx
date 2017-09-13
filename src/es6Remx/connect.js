@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React from 'react';
-import { observer } from 'mobx-react/custom';
+import { observer } from '../mobxReactClone'; // should import from mobx-react/custom when they fix issue #319
 
 const connect = (mapStateToProps) => {
   if (_.isFunction(mapStateToProps)) {
