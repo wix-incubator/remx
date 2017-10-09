@@ -4,8 +4,84 @@ Idiomatic mobx
 
 > Soon to be unveiled
 
-## API usage
+## API:
+### State:
+The state function takes a plain object and makes it observable.
+The state should be defined inside the store, and should not be exported. All the interactions with the state should be done 
+through exported getters and setters.
+Any change to the state will trigger a re-render of any connected react component that should be effected from the change. If for example you have a state with two props, *A* and *B*, and you have a connected component that is using only prop *A*, only changes to prop *A* will triger re-render of the component.
 
+in `someStore.js`:
+```javascript
+import {state} from 'remx';
+const state = state({
+  loading: true,
+  posts: {},
+  selectedPosts: [],
+});
+```
+
+### Getters: 
+All the functions that are going to return parts of the state should be wrapped within the Getters function.
+The warpped getters functions shoud be defined inside the store and should be exported.
+
+in `someStore.js`:
+```javascript
+import * as remx from 'remx';
+export const getters = remx.getters({
+ getIsLoading() {
+   return state.isLoading;
+ },
+ getPostsByIndex(index) {
+  return state.posts[index];
+ }
+});
+```
+
+### Setters: 
+All the functions that are going to change parts of the state should be wrapped within the Setters function.
+The warpped setters functions shoud be defined inside the store and should be exported.
+
+in `someStore.js`:
+```javascript
+import * as remx from 'remx';
+export const setters = remx.setters({
+ setIsLoading(isLoading) {
+   state.isLoading = isLoading;
+ },
+ addPost(post) {
+  state.posts.push(post);
+ }
+});
+```
+
+### Connect:
+Connects a react component to the state.
+This function can optionally take a mapStateToProps function, for mapping the state into props.
+in `someComponent.js`:
+```javascript
+import {conncet} from 'remx';
+import * as store from './someStore';
+
+class SomeComponent extends React.Component {
+  render() {
+    return (
+      <div>{this.props.slectedPostTitle}</div>
+    );
+  }
+}
+
+function mapStateToProps(ownProps) {
+  return {
+    slectedPostTitle: store.getters.getPostById(ownProps.selectedPostId);
+  };
+}
+
+export default connect(mapStateToProps)(SomeComponent);
+
+```
+
+## Usage Example:
 ### Store
 
 in `src/stores/something/store.js`
