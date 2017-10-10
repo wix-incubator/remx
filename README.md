@@ -26,18 +26,22 @@ const state = remx.state(initialState);
 
 ### Getters: 
 All the functions that are going to return parts of the state should be wrapped within the Getters function.
-The warpped getters functions shoud be defined inside the store and should be exported.
+The warpped getters functions shoud be defined inside the same store file and should be exported.
 
 in `someStore.js`:
 ```javascript
 import * as remx from 'remx';
+
 export const getters = remx.getters({
- getIsLoading() {
-   return state.isLoading;
+ 
+ isLoading() {
+   return state.loading;
  },
+ 
  getPostsByIndex(index) {
   return state.posts[index];
  }
+ 
 });
 ```
 
@@ -48,13 +52,17 @@ The warpped setters functions shoud be defined inside the store and should be ex
 in `someStore.js`:
 ```javascript
 import * as remx from 'remx';
+
 export const setters = remx.setters({
- setIsLoading(isLoading) {
-   state.isLoading = isLoading;
+
+ setLoading(isLoading) {
+   state.loading = isLoading;
  },
+ 
  addPost(post) {
   state.posts.push(post);
  }
+ 
 });
 ```
 
@@ -63,20 +71,21 @@ Connects a react component to the state.
 This function can optionally take a mapStateToProps function, for mapping the state into props.
 in `someComponent.js`:
 ```javascript
-import {conncet} from 'remx';
+import React, { PureComponent }
+import { connect } from 'remx';
 import * as store from './someStore';
 
-class SomeComponent extends React.Component {
+class SomeComponent extends PureComponent {
   render() {
     return (
-      <div>{this.props.slectedPostTitle}</div>
+      <div>{this.props.selectedPostTitle}</div>
     );
   }
 }
 
 function mapStateToProps(ownProps) {
   return {
-    slectedPostTitle: store.getters.getPostById(ownProps.selectedPostId);
+    selectedPostTitle: store.getters.getPostById(ownProps.selectedPostId);
   };
 }
 
