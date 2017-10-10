@@ -64,9 +64,14 @@ Take a loot at the example project for remx is intended to be used.
   * `getters`
   * `connect`
 * almost zero boilerpate
-* zero impact on tests (can be added/removed as a plugin, does not impact any design decisions)
-* implemented with mobx, thus benefits from all the performance of memoization and avoids unnecessary re-renders
-* uses es6 Proxies (where possible) thus avoids mobx's Observable wrappers which can cause weird bugs and behaviours
+* zero impact on tests
+  * can be added/removed as a plugin
+  * does not impact any design decisions
+* implemented with mobx, thus benefits from all the performance of
+  * memoization
+  * avoids unnecessary re-renders
+* uses es6 Proxies (where possible)
+  * avoids mobx's Observable wrappers which can cause weird bugs and behaviours
 
 ## API
 ### `remx.state(initialState)`
