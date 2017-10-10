@@ -1,5 +1,6 @@
 # 2.0.0
-## Complete support for es6 Proxies, which means: cleaner api, original objects (without all those ObservableArray wrappers), more performant.
+### Complete support for es6 Proxies
+* cleaner api, original objects (without all those ObservableArray wrappers), more performant.
 
 * No need for `toJS`: from now on `remx.state(initialState)` will return a plain object.
 
