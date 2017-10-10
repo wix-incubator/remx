@@ -62,7 +62,9 @@
     "retainLines": true
   },
   "jest": {
-    "coveragePathIgnorePatterns": ["src/mobxReactClone.js"],
+    "coveragePathIgnorePatterns": [
+      "src/mobxReactClone.js"
+    ],
     "preset": "react-native",
     "roots": [
       "<rootDir>/node_modules/",
