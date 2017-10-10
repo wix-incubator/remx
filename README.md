@@ -14,6 +14,7 @@ Any change to the state will trigger a re-render of any connected react componen
 in `someStore.js`:
 ```javascript
 import {state} from 'remx';
+
 const initialState = {
   loading: true,
   posts: {},
