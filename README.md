@@ -54,7 +54,7 @@ In general, redux's middlewere is something we want to avoid. Previous experienc
 Actions is where we put our imperative business logic, and so we call them by simply invoking them (with arguments if needed).
 Actions can be asynchronous, and shouldn't return anything (to enforce uni-directional data flow). We don't need any dispatching function because our stores are just plain old JS objects (that we test separately). So although not a part of the api (there's really nothing special about `dispatch` anyway), we encourage the separation of actions and stores for low coupling, and to put action files next to the same use-case store files, for high cohesion.
 
-Take a loot at the example project for remx is intended to be used.
+Take a look at the example project to see how remx is intended to be used.
 
 ### To conclude:
 
