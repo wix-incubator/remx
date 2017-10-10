@@ -1,5 +1,7 @@
 # remx [![Build Status](https://travis-ci.org/wix/remx.svg?branch=master)](https://travis-ci.org/wix/remx)
 
+> Idiomatic Mobx
+
 ## Why
 
 Writing a react / react-native project with or without TDD, we have multiple well known and battle tested choices when it comes to state management:
