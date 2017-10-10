@@ -5,7 +5,7 @@ Idiomatic mobx
 > Soon to be unveiled
 
 ## API:
-### State:
+### `remx.state(initialState)`:
 The state function takes a plain object and makes it observable.
 The state should be defined inside the store, and should not be exported. All the interactions with the state should be done 
 through exported getters and setters.
@@ -24,7 +24,7 @@ const initialState = {
 const state = remx.state(initialState);
 ```
 
-### Getters: 
+### `remx.getters(...)`: 
 All the functions that are going to return parts of the state should be wrapped within the Getters function.
 The warpped getters functions shoud be defined inside the same store file and should be exported.
 
@@ -45,7 +45,7 @@ export const getters = remx.getters({
 });
 ```
 
-### Setters: 
+### `remx.setters(...)`: 
 All the functions that are going to change parts of the state should be wrapped within the Setters function.
 The warpped setters functions shoud be defined inside the store and should be exported.
 
@@ -66,7 +66,7 @@ export const setters = remx.setters({
 });
 ```
 
-### Connect:
+### `remx.connect(mapStateToProps)(MyComponent)`:
 Connects a react component to the state.
 This function can optionally take a mapStateToProps function, for mapping the state into props.
 in `someComponent.js`:
