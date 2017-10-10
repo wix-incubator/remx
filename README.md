@@ -47,8 +47,25 @@ Furthermore, we don't need the large amount of features mobx supports. We need a
 
 These decisions are what gave birth to remx. A mixed child of mobx implementation of observable state (backed by es6 proxies) with flux/redux design pattern enforcement. An idiomatic mobx.
 
-## API:
-### `remx.state(initialState)`:
+#### But what about dispatch? actions? middlewere?
+
+In general, redux's middlewere is something we want to avoid. Previous experience taught us that adding just 1 middlewere to a redux store can cause serious performance hit, so we recommend not to do that and just call a function explicitly. Otherwise, if we really want, we can create our own global function that wraps any other function with some logic, for example a logging function. This can be done easily without any framework.
+
+Actions is where we put our imperative business logic, and so we call them by simply invoking them (with arguments if needed).
+Actions can be asynchronous, and shouldn't return anything (to enforce uni-directional data flow). We don't need any dispatching function because our stores are just plain old JS objects (that we test separately). So although not a part of the api (there's really nothing special about `dispatch` anyway), we encourage the separation of actions and stores for low coupling, and to put action files next to the same use-case store files, for high cohesion.
+
+Take a loot at the example project for remx is intended to be used.
+
+### To conclude:
+
+* remx takes the redux (flux) architecture and enforces it through a short, simple, clean and strict API
+* almost zero boilerpate
+* zero impact on tests (can be added/removed as a plugin, does not impact any design decisions)
+* implemented with mobx, thus benefits from all the performance of memoization and avoids unnecessary re-renders
+* uses es6 Proxies (where possible) thus avoids mobx's Observable wrappers which can cause weird bugs and behaviours
+
+## API
+### `remx.state(initialState)`
 The state function takes a plain object and makes it observable.
 The state should be defined inside the store, and should not be exported. All the interactions with the state should be done 
 through exported getters and setters.
@@ -67,7 +84,7 @@ const initialState = {
 const state = remx.state(initialState);
 ```
 
-### `remx.getters(...)`: 
+### `remx.getters(...)`
 All the functions that are going to return parts of the state should be wrapped within the Getters function.
 The warpped getters functions shoud be defined inside the same store file and should be exported.
 
@@ -88,7 +105,7 @@ export const getters = remx.getters({
 });
 ```
 
-### `remx.setters(...)`: 
+### `remx.setters(...)`
 All the functions that are going to change parts of the state should be wrapped within the Setters function.
 The warpped setters functions shoud be defined inside the store and should be exported.
 
@@ -109,7 +126,7 @@ export const setters = remx.setters({
 });
 ```
 
-### `remx.connect(mapStateToProps)(MyComponent)`:
+### `remx.connect(mapStateToProps)(MyComponent)`
 Connects a react component to the state.
 This function can optionally take a mapStateToProps function, for mapping the state into props.
 in `someComponent.js`:
