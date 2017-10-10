@@ -13,7 +13,7 @@ Any change to the state will trigger a re-render of any connected react componen
 
 in `someStore.js`:
 ```javascript
-import {state} from 'remx';
+import * as remx from 'remx';
 
 const initialState = {
   loading: true,
@@ -21,7 +21,7 @@ const initialState = {
   selectedPosts: [],
 };
 
-const state = state(initialState);
+const state = remx.state(initialState);
 ```
 
 ### Getters: 
