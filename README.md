@@ -58,7 +58,11 @@ Take a loot at the example project for remx is intended to be used.
 
 ### To conclude:
 
-* remx takes the redux (flux) architecture and enforces it through a short, simple, clean and strict API
+* remx takes the redux (flux) architecture and enforces it through a short, simple, clean and strict API:
+  * `state`
+  * `setters`
+  * `getters`
+  * `connect`
 * almost zero boilerpate
 * zero impact on tests (can be added/removed as a plugin, does not impact any design decisions)
 * implemented with mobx, thus benefits from all the performance of memoization and avoids unnecessary re-renders
