@@ -140,7 +140,7 @@ Connects a react component to the state.
 This function can optionally take a mapStateToProps function, for mapping the state into props.
 in `someComponent.js`:
 ```javascript
-import React, { PureComponent }
+import React, { PureComponent } from 'react';
 import { connect } from 'remx';
 import * as store from './someStore';
 
