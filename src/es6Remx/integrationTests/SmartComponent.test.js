@@ -1,6 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { Store } from './Store';
+import { registerLogger } from '../remx';
 
 const connect = require('../../es6Remx').connect;
 
@@ -53,6 +54,17 @@ describe('SmartComponent', () => {
     expect(renderSpy).toHaveBeenCalledTimes(2);
   });
 
+  it('should trigger a log event when a connected componentd re-rerendered', () => {
+    const MyConnectedComponent = connect()(MyComponent);
+    renderer.create(<MyConnectedComponent store={store} renderSpy={renderSpy} />);
+    expect(renderSpy).toHaveBeenCalledTimes(1);
+    const spy = jest.fn();
+    registerLogger(spy);
+    store.setters.setName(`Gandalf`);
+    expect(renderSpy).toHaveBeenCalledTimes(2);
+    expect(spy.mock.calls[3][0]).toEqual({ action: 'COMPONENT_RENDER', name: 'MyComponent' });
+  });
+
   describe('using remx.map', () => {
     it('detects changes on added keys', () => {
       const MyConnectedComponent = connect()(MyComponent);
@@ -81,18 +93,6 @@ describe('SmartComponent', () => {
     expect(tree.toJSON().children).toEqual([JSON.stringify({ newKey: nestedObject })]);
     store.setters.setDynamicObjectNestedValue('someNewValue');
     expect(tree.toJSON().children).toEqual([JSON.stringify({ newKey: { nestedKey: 'someNewValue' } })]);
-  });
-
-  it('should track changes on neseted object given by mapStateToProps', () => {
-    store.setters.setDynamicObject('name', 'foo');
-    const mapStateToProps = () => ({ dynamicObject: store.getters.getDynamicObject() });
-    const MyConnectedComponent = connect(mapStateToProps)(MyComponent);
-    const tree = renderer.create(<MyConnectedComponent dynamicObjectUsingMapStateToProps={true} renderSpy={renderSpy} />);
-    expect(tree.toJSON().children).toEqual([JSON.stringify({ name: 'foo' })]);
-    expect(renderSpy).toHaveBeenCalledTimes(1);
-    store.setters.setDynamicObject('name', 'changed!');
-    expect(tree.toJSON().children).toEqual([JSON.stringify({ name: 'changed!' })]);
-    expect(renderSpy).toHaveBeenCalledTimes(2);
   });
 
   it('connected component has same static members as original component', () => {

@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import React from 'react';
 import { observer } from '../mobxReactClone'; // should import from mobx-react/custom when they fix issue #319
+import * as Logger from './logger';
 
 const connect = (mapStateToProps) => {
   if (_.isFunction(mapStateToProps)) {
@@ -18,14 +19,24 @@ function wrapWithObserverHigherOrderComponent(mapStateToProps) {
 }
 
 function observerOnMapStateToProps(InnerComp, mapStateToProps) {
-  const hoc = (props) => {
-    const propsFromState = mapStateToProps(props);
-    const ObservedInnerComp = observer(InnerComp);
-    return (
-      <ObservedInnerComp {...props} {...propsFromState} />
-    );
-  };
-  return observer(hoc);
+  class Hoc extends React.Component {
+    constructor(props) {
+      super(props);
+      // set the component name for the logger:
+      this.originalComponentName = InnerComp.name;
+    }
+    render() {
+      Logger.startBuffering();
+      const propsFromState = mapStateToProps(this.props);
+      const triggeredEvents = Logger.endBuffring();
+      Logger.log({ action: Logger.actions.MAP_STATE_TO_PROPS, connectedComponentName: InnerComp.name, returnValue: propsFromState, triggeredEvents });
+      const ObservedInnerComp = InnerComp;
+      return (
+        <ObservedInnerComp {...this.props} {...propsFromState} />
+      );
+    }
+  }
+  return observer(Hoc);
 }
 
 module.exports = {

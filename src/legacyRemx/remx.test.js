@@ -204,4 +204,24 @@ describe('remx!', () => {
     setters.setMultiPropObject();
     expect(callCount).toBe(2);
   });
+
+  describe('logger', () => {
+    it('should expose a register logger function', () => {
+      expect(remx.registerLogger).toBeTruthy();
+    });
+
+    it('should call to logger on every setter', () => {
+      const spy = jest.fn();
+      remx.registerLogger(spy);
+      setters.setName('bla');
+      expect(spy.mock.calls[0][0]).toEqual({ action: 'SETTER', name: 'setName', args: ['bla'] });
+    });
+
+    it('should call to logger on every getter', () => {
+      const spy = jest.fn();
+      remx.registerLogger(spy);
+      getters.getName('bla');
+      expect(spy.mock.calls[0][0]).toEqual({ action: 'GETTER', name: 'getName', args: ['bla'] });
+    });
+  });
 });

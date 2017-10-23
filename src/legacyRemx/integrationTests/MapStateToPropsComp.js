@@ -3,7 +3,9 @@ import { Text } from 'react-native';
 
 class MyComponent extends Component {
   render() {
-    this.props.renderSpy();
+    if (this.props.renderSpy) {
+      this.props.renderSpy();
+    }
     return (
       <Text>
         {this.props.textToRender}
