@@ -26,10 +26,9 @@ function observerOnMapStateToProps(InnerComp, mapStateToProps) {
       this.originalComponentName = InnerComp.name;
     }
     render() {
-      Logger.startBuffering();
+      Logger.startLoggingMapStateToProps();
       const propsFromState = mapStateToProps(this.props);
-      const triggeredEvents = Logger.endBuffring();
-      Logger.log({ action: Logger.actions.MAP_STATE_TO_PROPS, connectedComponentName: InnerComp.name, returnValue: propsFromState, triggeredEvents });
+      Logger.endLoggingMapStateToProps(InnerComp.name, propsFromState);
       const ObservedInnerComp = InnerComp;
       return (
         <ObservedInnerComp {...this.props} {...propsFromState} />

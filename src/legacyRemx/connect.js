@@ -24,10 +24,9 @@ export const connect = (mapStateToProps) => {
 const createConnectedComponent = (Comp, mapStateToProps) => {
   const getMappedProps = (ownProps) => {
     if (isFunction(mapStateToProps)) {
-      Logger.startBuffering();
+      Logger.startLoggingMapStateToProps();
       const propsFromState = mapStateToProps(ownProps);
-      const triggeredEvents = Logger.endBuffring();
-      Logger.log({ action: Logger.actions.MAP_STATE_TO_PROPS, connectedComponentName: Comp.name, returnValue: propsFromState, triggeredEvents });
+      Logger.endLoggingMapStateToProps(Comp.name, propsFromState);
       return propsFromState;
     }
     return {};

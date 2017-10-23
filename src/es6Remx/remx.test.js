@@ -266,21 +266,27 @@ describe('remx!', () => {
 
   describe('logger', () => {
     it('should expose a register logger function', () => {
-      expect(remx.registerLogger).toBeTruthy();
+      expect(remx.registerLoggerForDebug).toBeTruthy();
+    });
+
+    it('should warn you when registerLogger', () => {
+      global.console.warn = jest.fn();
+      remx.registerLoggerForDebug(jest.fn());
+      expect(console.warn).toBeCalledWith('Remx logger has been activated. make sure to disable it in production.');
     });
 
     it('should call to logger on every setter', () => {
       const spy = jest.fn();
-      remx.registerLogger(spy);
+      remx.registerLoggerForDebug(spy);
       setters.setName('bla');
-      expect(spy.mock.calls[0][0]).toEqual({ action: 'SETTER', name: 'setName', args: ['bla'] });
+      expect(spy.mock.calls[0][0]).toEqual({ action: 'setter', name: 'setName', args: ['bla'] });
     });
 
     it('should call to logger on every getter', () => {
       const spy = jest.fn();
-      remx.registerLogger(spy);
+      remx.registerLoggerForDebug(spy);
       getters.getName('bla');
-      expect(spy.mock.calls[0][0]).toEqual({ action: 'GETTER', name: 'getName', args: ['bla'] });
+      expect(spy.mock.calls[0][0]).toEqual({ action: 'getter', name: 'getName', args: ['bla'] });
     });
   });
 });

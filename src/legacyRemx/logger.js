@@ -1,23 +1,26 @@
 import { renderReporter, trackComponents } from '../mobxReactClone';
 
 const loggers = [];
+let isLoggerEnabled = false;
 let isBuffering = false;
 let buffer = [];
-export const actions = {
-  SETTER: 'SETTER',
-  GETTER: 'GETTER',
-  MAP_STATE_TO_PROPS: 'MAP_STATE_TO_PROPS',
-  COMPONENT_RENDER: 'COMPONENT_RENDER'
+const actions = {
+  setter: 'setter',
+  getter: 'getter',
+  mapStateToProps: 'mapStateToProps',
+  componentRender: 'componentRender'
 };
 
-export function registerLogger(logger) {
+export function registerLoggerForDebug(logger) {
   if (loggers.length === 0) {
+    console.warn('Remx logger has been activated. make sure to disable it in production.');
     activateRenderComponentSpy();
+    isLoggerEnabled = true;
   }
   loggers.push(logger);
 }
 
-export function log(data) {
+function log(data) {
   if (isBuffering) {
     buffer.push(data);
   } else {
@@ -25,21 +28,34 @@ export function log(data) {
   }
 }
 
-export function startBuffering() {
+export function logSetter(setterName, args) {
+  if (isLoggerEnabled) {
+    log({ action: actions.setter, name: setterName, args });
+  }
+}
+
+export function logGetter(getterName, args) {
+  if (isLoggerEnabled) {
+    log({ action: actions.getter, name: getterName, args });
+  }
+}
+
+export function startLoggingMapStateToProps() {
   isBuffering = true;
 }
 
-export function endBuffring() {
+export function endLoggingMapStateToProps(connectedComponentName, returnValue) {
   isBuffering = false;
-  const result = buffer;
+  if (isLoggerEnabled) {
+    log({ action: actions.mapStateToProps, connectedComponentName, returnValue, triggeredEvents: buffer });
+  }
   buffer = [];
-  return result;
 }
 
 function activateRenderComponentSpy() {
   trackComponents();
   renderReporter.on((data) => {
     const componentName = data.component.originalComponentName;
-    log({ action: actions.COMPONENT_RENDER, name: componentName });
+    log({ action: actions.componentRender, name: componentName });
   });
 }

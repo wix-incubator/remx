@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { Store } from './Store';
-import { registerLogger } from '../remx';
+import { registerLoggerForDebug } from '../remx';
 
 const connect = require('../../es6Remx').connect;
 
@@ -59,10 +59,10 @@ describe('SmartComponent', () => {
     renderer.create(<MyConnectedComponent store={store} renderSpy={renderSpy} />);
     expect(renderSpy).toHaveBeenCalledTimes(1);
     const spy = jest.fn();
-    registerLogger(spy);
+    registerLoggerForDebug(spy);
     store.setters.setName(`Gandalf`);
     expect(renderSpy).toHaveBeenCalledTimes(2);
-    expect(spy.mock.calls[3][0]).toEqual({ action: 'COMPONENT_RENDER', name: 'MyComponent' });
+    expect(spy.mock.calls[3][0]).toEqual({ action: 'componentRender', name: 'MyComponent' });
   });
 
   describe('using remx.map', () => {

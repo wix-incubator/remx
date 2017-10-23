@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { Store } from './Store';
-import { registerLogger } from '../remx';
+import { registerLoggerForDebug } from '../remx';
 
 const connect = require('../connect').connect;
 
@@ -100,14 +100,14 @@ describe('connect with mapStateToProps', () => {
     };
 
     const MyConnectedComponent = connect(mapStateToProps)(MyComponent);
-    registerLogger(spy);
+    registerLoggerForDebug(spy);
     renderer.create(<MyConnectedComponent someOwnProp="someOwnProp" />);
-    const expectedTriggerEvents = [{ action: 'GETTER', args: [], name: 'getName' }];
-    expect(spy.mock.calls[0][0]).toEqual({ action: 'MAP_STATE_TO_PROPS', connectedComponentName: 'MyComponent', triggeredEvents: expectedTriggerEvents, returnValue: { textToRender: 'nothing' } });
+    const expectedTriggerEvents = [{ action: 'getter', args: [], name: 'getName' }];
+    expect(spy.mock.calls[0][0]).toEqual({ action: 'mapStateToProps', connectedComponentName: 'MyComponent', triggeredEvents: expectedTriggerEvents, returnValue: { textToRender: 'nothing' } });
     spy.mockClear();
     store.setters.setName('bla');
-    expect(spy.mock.calls[1][0]).toEqual({ action: 'MAP_STATE_TO_PROPS', connectedComponentName: 'MyComponent', triggeredEvents: expectedTriggerEvents, returnValue: { textToRender: 'bla' } });
-    expect(spy.mock.calls[2][0]).toEqual({ action: 'COMPONENT_RENDER', name: 'MyComponent' });
+    expect(spy.mock.calls[1][0]).toEqual({ action: 'mapStateToProps', connectedComponentName: 'MyComponent', triggeredEvents: expectedTriggerEvents, returnValue: { textToRender: 'bla' } });
+    expect(spy.mock.calls[2][0]).toEqual({ action: 'componentRender', name: 'MyComponent' });
   });
 
   it('should trigger logger on re-rendering of component that was connected with mapStateToProps', () => {
@@ -120,8 +120,8 @@ describe('connect with mapStateToProps', () => {
 
     const MyConnectedComponent = connect(mapStateToProps)(MyComponent);
     renderer.create(<MyConnectedComponent someOwnProp="someOwnProp" />);
-    registerLogger(spy);
+    registerLoggerForDebug(spy);
     store.setters.setName('bla');
-    expect(spy.mock.calls[2][0]).toEqual({ action: 'COMPONENT_RENDER', name: 'MyComponent' });
+    expect(spy.mock.calls[2][0]).toEqual({ action: 'componentRender', name: 'MyComponent' });
   });
 });

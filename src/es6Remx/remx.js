@@ -1,12 +1,12 @@
 import * as mobx from 'mobx';
 import { isFunction, forEach, isObjectLike, mergeWith } from 'lodash';
 import { proxify } from './Proxify';
-import { log, actions } from './logger';
+import { logGetter, logSetter } from './logger';
 
 const _ = require('lodash');
 
 mobx.useStrict(true);
-export { registerLogger } from './logger';
+export { registerLoggerForDebug } from './logger';
 
 export function state(obj) {
   return proxify(obj);
@@ -17,7 +17,7 @@ export function setters(obj) {
   _.keys(obj).forEach((key) => {
     if (isFunction(obj[key])) {
       result[key] = mobx.action((...args) => {
-        log({ action: actions.SETTER, name: key, args });
+        logSetter(key, args);
         obj[key](...args);
       });
     }
@@ -31,7 +31,7 @@ export function getters(obj) {
     result.__computed[k] = mobx.computed(v);
 
     result[k] = (...args) => {
-      log({ action: actions.GETTER, name: k, args });
+      logGetter(k, args);
       if (args.length > 0) {
         return result.__computed[k].derivation(...args);
       }
