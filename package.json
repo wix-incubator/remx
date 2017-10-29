@@ -27,7 +27,10 @@
     "build": "rm -rf dist && babel src -d dist --ignore='**/*.test.js,__mocks__,integrationTests'",
     "test": "xo src/**/**/**/**/**/*.* && jest --coverage",
     "test-watch": "jest --coverage --watch",
-    "release": "node ./scripts/release.js"
+    "release": "node ./scripts/release.js",
+    "start-watch": "watchman -- trigger ./src remx-copy-dist ./src '**' -- node ../scripts/copyDist.js",
+    "start": "node ./scripts/copyDist.js",
+    "kill": "watchman watch-del ./src"
   },
   "dependencies": {
     "lodash": "4.x.x",
