@@ -1,6 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { Store } from './Store';
+import { registerLoggerForDebug } from '../remx';
 
 const connect = require('../../legacyRemx').connect;
 
@@ -85,5 +86,16 @@ describe('SmartComponent', () => {
   it('connected component has same static members as original component', () => {
     const MyConnectedComponent = connect()(MyComponent);
     expect(MyConnectedComponent.staticMember).toEqual('a static member');
+  });
+
+  it('should trigger a log event when a connected componentd re-rerendered', () => {
+    const MyConnectedComponent = connect()(MyComponent);
+    renderer.create(<MyConnectedComponent store={store} renderSpy={renderSpy} />);
+    expect(renderSpy).toHaveBeenCalledTimes(1);
+    const spy = jest.fn();
+    registerLoggerForDebug(spy);
+    store.setters.setName(`Gandalf`);
+    expect(renderSpy).toHaveBeenCalledTimes(2);
+    expect(spy.mock.calls[3][0]).toEqual({ action: 'componentRender', name: 'MyComponent' });
   });
 });

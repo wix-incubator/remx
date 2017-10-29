@@ -1,6 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { Store } from './Store';
+import { registerLoggerForDebug } from '../remx';
 
 const connect = require('../connect').connect;
 
@@ -88,5 +89,39 @@ describe('connect with mapStateToProps', () => {
     };
     const MyConnectedComponent = connect(mapStateToProps)(MyComponent);
     expect(MyConnectedComponent.staticMember).toEqual('a static member');
+  });
+
+  it('should trigger logger when mapStateToProps called', () => {
+    const spy = jest.fn();
+    const mapStateToProps = () => {
+      return {
+        textToRender: store.getters.getName()
+      };
+    };
+
+    const MyConnectedComponent = connect(mapStateToProps)(MyComponent);
+    registerLoggerForDebug(spy);
+    renderer.create(<MyConnectedComponent someOwnProp="someOwnProp" />);
+    const expectedTriggerEvents = [{ action: 'getter', args: [], name: 'getName' }];
+    expect(spy.mock.calls[0][0]).toEqual({ action: 'mapStateToProps', connectedComponentName: 'MyComponent', triggeredEvents: expectedTriggerEvents, returnValue: { textToRender: 'nothing' } });
+    spy.mockClear();
+    store.setters.setName('bla');
+    expect(spy.mock.calls[1][0]).toEqual({ action: 'mapStateToProps', connectedComponentName: 'MyComponent', triggeredEvents: expectedTriggerEvents, returnValue: { textToRender: 'bla' } });
+    expect(spy.mock.calls[2][0]).toEqual({ action: 'componentRender', name: 'MyComponent' });
+  });
+
+  it('should trigger logger on re-rendering of component that was connected with mapStateToProps', () => {
+    const spy = jest.fn();
+    const mapStateToProps = () => {
+      return {
+        textToRender: store.getters.getName()
+      };
+    };
+
+    const MyConnectedComponent = connect(mapStateToProps)(MyComponent);
+    renderer.create(<MyConnectedComponent someOwnProp="someOwnProp" />);
+    registerLoggerForDebug(spy);
+    store.setters.setName('bla');
+    expect(spy.mock.calls[2][0]).toEqual({ action: 'componentRender', name: 'MyComponent' });
   });
 });

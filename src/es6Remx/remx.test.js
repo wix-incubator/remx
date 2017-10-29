@@ -263,4 +263,30 @@ describe('remx!', () => {
     setters.setMultiPropObject();
     expect(callCount).toBe(2);
   });
+
+  describe('logger', () => {
+    it('should expose a register logger function', () => {
+      expect(remx.registerLoggerForDebug).toBeTruthy();
+    });
+
+    it('should warn you when registerLogger', () => {
+      global.console.warn = jest.fn();
+      remx.registerLoggerForDebug(jest.fn());
+      expect(console.warn).toBeCalledWith('Remx logger has been activated. make sure to disable it in production.');
+    });
+
+    it('should call to logger on every setter', () => {
+      const spy = jest.fn();
+      remx.registerLoggerForDebug(spy);
+      setters.setName('bla');
+      expect(spy.mock.calls[0][0]).toEqual({ action: 'setter', name: 'setName', args: ['bla'] });
+    });
+
+    it('should call to logger on every getter', () => {
+      const spy = jest.fn();
+      remx.registerLoggerForDebug(spy);
+      getters.getName('bla');
+      expect(spy.mock.calls[0][0]).toEqual({ action: 'getter', name: 'getName', args: ['bla'] });
+    });
+  });
 });
