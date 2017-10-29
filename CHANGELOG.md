@@ -7,3 +7,5 @@
 * `import { connect } from remx/react-native;` is now changed to: `import { connect } from remx`. Agnostic to environment.
 
 * There is no more `merge` function on the state object. remx.state is now a plain object so you can use any merge function you want, or you can just mutate the state. (You can still import the merge function from remx: `import { merge } from remx` for easier merging)
+
+* Added `registerLoggerForDebug`
