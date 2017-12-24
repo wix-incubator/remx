@@ -1,0 +1,3 @@
+describe(`MultiStore`, () => {
+  it('', () => {});
+});
