@@ -68,6 +68,6 @@ function isDev() {
     process.env.NODE_ENV === 'development';
 }
 
-export function toJS(data){
+export function toJS(data) {
   return data;
 }

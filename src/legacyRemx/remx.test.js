@@ -233,7 +233,7 @@ describe('remx!', () => {
 
   it('should export fake toJS for migration purposes', () => {
     expect(remx.toJS).toBeDefined();
-    const array = [1,2,3];
+    const array = [1, 2, 3];
     expect(remx.toJS(array)).toBe(array);
   });
 });

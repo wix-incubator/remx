@@ -54,6 +54,6 @@ function mergeCustomizer(objValue, srcValue, key, object) {
   return undefined;
 }
 
-export function toJS(data){
+export function toJS(data) {
   return data;
 }
