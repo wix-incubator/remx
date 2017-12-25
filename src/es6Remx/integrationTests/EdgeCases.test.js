@@ -48,7 +48,7 @@ describe(`EdgeCases`, () => {
     expect(runs).toEqual([-1, 1, 2]);
   });
 
-  xit('supports cyclic objects', () => {
+  it('supports cyclic objects', () => {
     const obj = { a: { b: { c: {} } } };
     obj.a.b.c = obj;
 
