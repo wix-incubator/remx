@@ -25,12 +25,12 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "rm -rf dist && babel src -d dist --ignore='**/*.test.js,__mocks__,integrationTests'",
-    "test": "xo 'src/**' && jest --coverage",
+    "test": "xo 'src/**' 'scripts/**' && jest --coverage",
     "test-watch": "jest --coverage --watch",
     "release": "node ./scripts/release.js",
     "start-watch": "watchman -- trigger ./src remx-copy-dist ./src '**' -- node ../scripts/copyDist.js",
     "start": "node ./scripts/copyDist.js",
-    "kill": "watchman watch-del ./src"
+    "clean": "watchman watch-del-all && rm -rf dist"
   },
   "dependencies": {
     "lodash": "4.x.x",
@@ -39,18 +39,18 @@
   "devDependencies": {
     "babel-cli": "6.x.x",
     "babel-core": "6.x.x",
-    "babel-jest": "21.x.x",
+    "babel-jest": "22.x.x",
     "babel-polyfill": "6.x.x",
     "babel-preset-react-native": "4.x.x",
     "babel-register": "6.x.x",
     "eslint-config-xo": "0.18.x",
-    "eslint-config-xo-react": "0.13.x",
+    "eslint-config-xo-react": "0.15.x",
     "eslint-plugin-react": "7.x.x",
-    "jest": "21.x.x",
-    "jest-cli": "21.x.x",
-    "react": "16.0.0",
-    "react-native": "0.49.3",
-    "react-test-renderer": "16.0.0",
+    "jest": "22.x.x",
+    "jest-cli": "22.x.x",
+    "react": "16.2.0",
+    "react-native": "0.51.0",
+    "react-test-renderer": "16.2.0",
     "semver": "5.x.x",
     "shell-utils": "1.x.x",
     "xo": "0.18.x",
@@ -128,7 +128,8 @@
         2,
         "always"
       ],
-      "one-var": 0
+      "one-var": 0,
+      "react/destructuring-assignment": 0
     }
   }
 }
