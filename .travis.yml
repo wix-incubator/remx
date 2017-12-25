@@ -1,33 +1,19 @@
-language: node_js
-node_js:
-  - node
-
-env:
-  global:
-    - YARN_CACHE=$HOME/.yarn-cache
-    - NODE_VERSION=stable
+os: linux
+language: generic
 
 branches:
   only:
   - master
 
-cache:
-  directories:
-    - $YARN_CACHE
-    - $HOME/.m2
-
 install:
-  - curl -o- -L https://yarnpkg.com/install.sh | bash
-  - export PATH=$PATH:$HOME/.yarn/bin
-  - yarn config set cache-folder $YARN_CACHE
-
+  - nvm install 8
 
 script:
   - set -e
-  - yarn install
-  - yarn run build
-  - yarn run test
-  - yarn run release
+  - ./scripts/travis-fold "npm install"
+  - ./scripts/travis-fold "npm run build"
+  - ./scripts/travis-fold "npm run test"
+  - ./scripts/travis-fold "npm run release"
   - set +e
 
 after_script:
