@@ -230,4 +230,10 @@ describe('remx!', () => {
       expect(spy.mock.calls[0][0]).toEqual({ action: 'getter', name: 'getName', args: ['bla'] });
     });
   });
+
+  it('should export fake toJS for migration purposes', () => {
+    expect(remx.toJS).toBeDefined();
+    const array = [1, 2, 3];
+    expect(remx.toJS(array)).toBe(array);
+  });
 });
