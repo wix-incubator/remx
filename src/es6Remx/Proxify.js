@@ -1,6 +1,7 @@
 import * as mobx from 'mobx';
 
 const { keys, isObjectLike, isString } = require('lodash');
+
 const alreadyProxiedObjects = new WeakMap();
 
 function proxify(obj) {
