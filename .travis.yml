@@ -10,10 +10,10 @@ install:
 
 script:
   - set -e
-  - ./scripts/travis-fold "npm install"
-  - ./scripts/travis-fold "npm run build"
-  - ./scripts/travis-fold "npm run test"
-  - ./scripts/travis-fold "npm run release"
+  - ./scripts/travis-fold.sh "npm install"
+  - ./scripts/travis-fold.sh "npm run build"
+  - ./scripts/travis-fold.sh "npm run test"
+  - ./scripts/travis-fold.sh "npm run release"
   - set +e
 
 after_script:
