@@ -232,8 +232,12 @@ describe('remx!', () => {
   });
 
   it('should export fake toJS for migration purposes', () => {
+    const consoleBackup = console.warn;
+    console.warn = jest.fn();
     expect(remx.toJS).toBeDefined();
     const array = [1, 2, 3];
-    expect(remx.toJS(array)).toBe(array);
+    expect(remx.toJS(array)).toEqual(array);
+    expect(console.warn.mock.calls[0][0]).toContain('deprecate');
+    console.warn = consoleBackup;
   });
 });

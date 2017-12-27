@@ -1,5 +1,5 @@
 import * as mobx from 'mobx';
-import { isFunction, forEach, isObjectLike, mergeWith } from 'lodash';
+import { isFunction, forEach, isObjectLike, mergeWith, cloneDeep } from 'lodash';
 import { proxify } from './Proxify';
 import { logGetter, logSetter } from './logger';
 
@@ -69,5 +69,8 @@ function isDev() {
 }
 
 export function toJS(data) {
-  return data;
+  console.warn(`remx.toJS() is deprecated. Please remove it from your code ASAP. 
+    Be aware that things can break after removing it, most of the time because of problematic data flow. 
+    Please take your time to investigate the root of cause in case of a problem, toJS() is an expansive action`);
+  return cloneDeep(data);
 }
