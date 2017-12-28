@@ -29,7 +29,9 @@ function proxify(obj) {
       return true;
     }
   };
-  return new Proxy(obj, handler);
+  const proxiedObject = new Proxy(obj, handler);
+  alreadyProxiedObjects.set(proxiedObject, true);
+  return proxiedObject;
 }
 
 const createObservableMap = (obj) => {

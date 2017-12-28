@@ -31,6 +31,24 @@ describe(`EdgeCases`, () => {
     });
   });
 
+  it('support setting partial remx state inside another state', () => {
+    const state1 = remx.state({ obj1: { arr1: [] } });
+    const state2 = remx.state({});
+
+    const getter1 = remx.getters({ getObj1: () => state1.obj1 });
+    const setter2 = remx.setters({ set: () => state2.someProp = getter1.getObj1() });
+
+    let callCount = 0;
+    const stop = mobx.autorun(() => {
+      JSON.stringify(getter1.getObj1());
+      callCount++;
+    });
+    expect(callCount).toEqual(1);
+    setter2.set();
+    expect(callCount).toEqual(1);
+    stop();
+  });
+
   it('support observing on observable objects (remx state inside remx state)', () => {
     const runs = [];
     const stop = mobx.autorun(() => {
