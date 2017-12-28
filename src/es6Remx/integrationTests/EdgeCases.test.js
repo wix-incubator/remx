@@ -47,6 +47,28 @@ describe(`EdgeCases`, () => {
     setter2.set();
     expect(callCount).toEqual(1);
     stop();
+    expect(state2.someProp).toEqual({ arr1: [] });
+  });
+
+  it('supports partial state from another state with arrays', () => {
+    const key1 = { name: 'key1' };
+    const key2 = { name: 'key2' };
+    const state1 = remx.state({ obj1: { arr1: [key1, key2] } });
+    const state2 = remx.state({});
+
+    const getter1 = remx.getters({ getArr: () => state1.obj1.arr1 });
+    const setter2 = remx.setters({ set: (k) => state2.someProp = k });
+
+    let callCount = 0;
+    const stop = mobx.autorun(() => {
+      JSON.stringify(getter1.getArr());
+      callCount++;
+    });
+    expect(callCount).toEqual(1);
+    setter2.set(getter1.getArr()[0]);
+    expect(callCount).toEqual(1);
+    stop();
+    expect(state2.someProp).toEqual({ name: 'key1' });
   });
 
   it('support observing on observable objects (remx state inside remx state)', () => {
