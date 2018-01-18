@@ -95,7 +95,7 @@ const state = remx.state(initialState);
 
 ### `remx.getters(...)`
 All the functions that are going to return parts of the state should be wrapped within the Getters function.
-The wrapped getters functions shoud be defined inside the same store file and should be exported.
+The wrapped getters functions should be defined inside the same store file and should be exported.
 
 in `someStore.js`:
 ```javascript
@@ -116,7 +116,7 @@ export const getters = remx.getters({
 
 ### `remx.setters(...)`
 All the functions that are going to change parts of the state should be wrapped within the Setters function.
-The wrapped setters functions shoud be defined inside the store and should be exported.
+The wrapped setters functions should be defined inside the store and should be exported.
 
 in `someStore.js`:
 ```javascript
