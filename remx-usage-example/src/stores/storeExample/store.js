@@ -4,10 +4,10 @@ remx.registerLoggerForDebug(console.log);
 const initialState = {
   randomJoke: null,
   savedJokes: [{title: 'slot0', id: '0' }]
-}
+};
 
 const state = remx.state(initialState);
-export const getters = remx.getters({
+const getters = remx.getters({
   getRandomJoke() {
     return state.randomJoke;
   },
@@ -16,7 +16,7 @@ export const getters = remx.getters({
   }
 });
 
-export const setters = remx.setters({
+const setters = remx.setters({
   addSlot() {
     state.savedJokes.push({title: 'slot'+ state.savedJokes.length, id:  state.savedJokes.length});
   },
@@ -29,3 +29,8 @@ export const setters = remx.setters({
     return state.randomJoke = joke;
   }
 });
+
+export const store = {
+  ...setters,
+  ...getters
+};
