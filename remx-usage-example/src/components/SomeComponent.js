@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'remx';
-import * as store from './../stores/storeExample/store';
+import {store} from './../stores/storeExample/store';
 import * as actions from './../stores/storeExample/actions';
 
 class SomeComponent extends PureComponent {
@@ -29,7 +29,7 @@ class SomeComponent extends PureComponent {
           <input type="number" value={this.state.index} onChange={(e) => this.setState({index: e.target.value || 0 })}/>
           <button onClick={() => actions.editSlot(this.state.index, this.props.joke)}>Save joke</button>
         </div>
-    
+
       {this.props.name}
       </div>
     );
@@ -38,8 +38,8 @@ class SomeComponent extends PureComponent {
 
 function mapStateToProps(ownProps) {
   return {
-    joke: store.getters.getRandomJoke(),
-    savedJokes: store.getters.getAllSavedJokes()
+    joke: store.getRandomJoke(),
+    savedJokes: store.getAllSavedJokes()
   };
 }
 

@@ -98,10 +98,11 @@ All the functions that are going to return parts of the state should be wrapped 
 The wrapped getters functions should be defined inside the same store file and should be exported.
 
 in `someStore.js`:
+
 ```javascript
 import * as remx from 'remx';
 
-export const getters = remx.getters({
+const getters = remx.getters({
  
  isLoading() {
    return state.loading;
@@ -112,6 +113,10 @@ export const getters = remx.getters({
  }
  
 });
+
+export const store = {
+  ...getters
+};
 ```
 
 ### `remx.setters(...)`
@@ -119,10 +124,11 @@ All the functions that are going to change parts of the state should be wrapped 
 The wrapped setters functions should be defined inside the store and should be exported.
 
 in `someStore.js`:
+
 ```javascript
 import * as remx from 'remx';
 
-export const setters = remx.setters({
+const setters = remx.setters({
 
  setLoading(isLoading) {
    state.loading = isLoading;
@@ -133,16 +139,22 @@ export const setters = remx.setters({
  }
  
 });
+
+export const store = {
+  ...setters
+};
+
 ```
 
 ### `remx.connect(mapStateToProps)(MyComponent)`
 Connects a react component to the state.
 This function can optionally take a mapStateToProps function, for mapping the state into props.
 in `someComponent.js`:
+
 ```javascript
 import React, { PureComponent } from 'react';
 import { connect } from 'remx';
-import * as store from './someStore';
+import { store } from './someStore';
 
 class SomeComponent extends PureComponent {
   render() {
@@ -154,7 +166,7 @@ class SomeComponent extends PureComponent {
 
 function mapStateToProps(ownProps) {
   return {
-    selectedPostTitle: store.getters.getPostById(ownProps.selectedPostId);
+    selectedPostTitle: store.getPostById(ownProps.selectedPostId);
   };
 }
 
