@@ -45,7 +45,7 @@ But doing that is not as simple as wrapping everything with mobx. One major thin
 
 Furthermore, we don't need the large amount of features mobx supports. We need a small subset of the api, and we need to be very explicit about what goes where, to enforce our chosen redux-like data-flow architecture.
 
-These decisions are what gave birth to remx. A mixed child of mobx implementation of observable state (backed by es6 proxies) with flux/redux design pattern enforcement. An idiomatic mobx.
+These decisions are what gave birth to remx. A mixed child of mobx implementation of observable state (backed by es6 proxies) with flux/redux design pattern enforcement. An opinionated mobx.
 
 #### But what about dispatch? actions? middlewere?
 
@@ -196,5 +196,3 @@ registerLoggerForDebug(console.log); //will log all remx actions:
 //on component re-rendered: {action: "componentRender", name: "SomeComponent"}
 
 ```
-
-
