@@ -1,6 +1,6 @@
 # remx [![Build Status](https://travis-ci.org/wix/remx.svg?branch=master)](https://travis-ci.org/wix/remx)
 
-> Idiomatic Mobx
+> Opinionated Mobx
 
 ## Why
 
@@ -8,13 +8,13 @@ Writing a react / react-native project with or without TDD, we have multiple wel
 
 * local component state
   * Pros: Easy to implement, zero boilerplate, works out of the box
-  * Cons: Not very good in terms of [scale](https://en.wikipedia.org/wiki/Scalability), component becomes a [God Object](https://en.wikipedia.org/wiki/God_object), very hard to test.
+  * Cons: In our opinion not very good in terms of [scale](https://en.wikipedia.org/wiki/Scalability), component becomes a [God Object](https://en.wikipedia.org/wiki/God_object), very hard to test.
 * redux
   * Pros: is a design pattern, scales very well, individual parts can be tested.
   * Cons: lots of boilerplate, hard to test-drive (TDD), tests tend to be tightly coupled to the redux library, [state has low cohesion](https://en.wikipedia.org/wiki/Cohesion_(computer_science))
 * mobx
   * Pros: Easy to implement, almost no boilerplate, performant, high cohesion
-  * Cons: doesn't scale very well due to not being a design pattern, can be implemented in lots of different ways, complex API due to large amount of features.
+  * Cons: Can be used in lots of different ways, In our opinion complex API due to large amount of features.
 
 When we look at those battle-proven solutions, and especially if we try to build a large scale project that can be worked on by lots of different people from different teams, we see that we have a need for some combintaion of the above.
 Let's try to break down our actual requirementes and see if we can build a system that will answer those.
