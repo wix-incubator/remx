@@ -1,14 +1,14 @@
 {
   "name": "remx",
   "version": "2.0.0",
-  "description": "Idiomatic mobx",
+  "description": "Opinionated mobx",
   "license": "MIT",
   "keywords": [
     "React",
     "Native",
     "redux",
     "mobx",
-    "idiomatic"
+    "Opinionated"
   ],
   "author": "Daniel Zlotin <zlotindaniel@gmail.com>",
   "publishConfig": {
