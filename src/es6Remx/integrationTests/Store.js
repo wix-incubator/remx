@@ -29,7 +29,7 @@ export class Store {
         return state.person.name || 'nothing';
       },
       getDynamicObject() {
-        return state.dynamicObject;
+        return JSON.stringify(state.dynamicObject);
       },
       getProduct(id) {
         return state.products[id];

@@ -78,7 +78,7 @@ describe('SmartComponent', () => {
 
   it('should track dynamically added keys', () => {
     const MyConnectedComponent = connect()(MyComponent);
-    const tree = renderer.create(<MyConnectedComponent store={store} testDynamicObject={true} />);
+    const tree = renderer.create(<MyConnectedComponent store={store} testDynamicObject />);
     expect(tree.toJSON().children).toEqual(['{}']);
 
     store.setters.setDynamicObject('newKey', 'newValue');
@@ -87,7 +87,7 @@ describe('SmartComponent', () => {
 
   it('should track nested dynamically added keys', () => {
     const MyConnectedComponent = connect()(MyComponent);
-    const tree = renderer.create(<MyConnectedComponent store={store} testDynamicObject={true} />);
+    const tree = renderer.create(<MyConnectedComponent store={store} testDynamicObject />);
     const nestedObject = { nestedKey: 'nestedValue' };
     store.setters.setDynamicObject('newKey', nestedObject);
     expect(tree.toJSON().children).toEqual([JSON.stringify({ newKey: nestedObject })]);

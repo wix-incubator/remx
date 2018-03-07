@@ -26,7 +26,7 @@
   "scripts": {
     "build": "rm -rf dist && babel src -d dist --ignore='**/*.test.js,__mocks__,integrationTests'",
     "test": "xo 'src/**' 'scripts/**' && jest --coverage",
-    "test-watch": "jest --coverage --watch",
+    "test-watch": "jest --watch",
     "release": "node ./scripts/release.js",
     "start-watch": "watchman -- trigger ./src remx-copy-dist ./src '**' -- node ../scripts/copyDist.js",
     "start": "node ./scripts/copyDist.js",

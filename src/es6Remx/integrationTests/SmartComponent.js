@@ -18,7 +18,7 @@ class MyComponent extends Component {
     if (this.props.store.getters.getProduct('123')) {
       return this.renderText(this.props.store.getters.getProduct('123').title);
     } else if (this.props.testDynamicObject) {
-      return this.renderText(JSON.stringify(this.props.store.getters.getDynamicObject()));
+      return this.renderText(this.props.store.getters.getDynamicObject());
     }
     return this.renderText(this.props.store.getters.getName());
   }
