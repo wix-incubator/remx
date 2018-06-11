@@ -1,3 +1,5 @@
+import * as _ from 'lodash';
+
 describe(`EdgeCases`, () => {
   let remx, mobx;
   let state, setters, getters, anotherState;
@@ -126,5 +128,59 @@ describe('prod test', () => {
     expect(() => state.obj = 1).not.toThrow();
     stop();
     process = origProcess; // eslint-disable-line no-global-assign
+  });
+});
+
+describe(`state instance`, () => {
+  const remx = require('../remx');
+  class Store {
+    constructor() {
+      this.reset();
+    }
+
+    reset() {
+      const state = remx.state({
+        foo: {
+          bar: 123
+        }
+      });
+
+      const setters = remx.setters({
+        setFooBar(n) {
+          state.foo.bar = n;
+        },
+
+        addSomething(k, v) {
+          state[k] = v;
+        }
+      });
+
+      const getters = remx.getters({
+        getFooBar() {
+          return state.foo.bar;
+        },
+
+        getSomething(k) {
+          return state[k];
+        }
+      });
+
+      _.functions(setters).forEach((name) => this[name] = setters[name]);
+      _.functions(getters).forEach((name) => this[name] = getters[name]);
+    }
+  }
+
+  it('reset example', () => {
+    const store = new Store();
+    expect(store.getFooBar()).toEqual(123);
+    expect(store.getSomething('hi')).toEqual(undefined);
+    store.setFooBar(456);
+    store.addSomething('hi', 'ho');
+    expect(store.getFooBar()).toEqual(456);
+    expect(store.getSomething('hi')).toEqual('ho');
+
+    store.reset();
+    expect(store.getFooBar()).toEqual(123);
+    expect(store.getSomething('hi')).toEqual(undefined);
   });
 });
