@@ -1,4 +1,4 @@
-import * as _ from 'lodash';
+import _ from 'lodash';
 import React from 'react';
 import { observer } from '../mobxReactClone'; // should import from mobx-react/custom when they fix issue #319
 import * as Logger from './logger';
@@ -13,12 +13,13 @@ const connect = (mapStateToProps) => {
 function wrapWithObserverHigherOrderComponent(mapStateToProps) {
   return (Comp) => {
     const wrappedComponent = observerOnMapStateToProps(Comp, mapStateToProps);
+    _.forEach(_.keys(Comp), (key) => _.set(wrappedComponent, key, _.get(Comp, key)));
     return wrappedComponent;
   };
 }
 
 function observerOnMapStateToProps(InnerComp, mapStateToProps) {
-  class Hoc extends InnerComp {
+  class Hoc extends React.Component {
     constructor(props) {
       super(props);
       // set the component name for the logger:
