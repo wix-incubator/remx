@@ -2,6 +2,7 @@ import * as _ from 'lodash';
 import React from 'react';
 import { observer } from '../mobxReactClone'; // should import from mobx-react/custom when they fix issue #319
 import * as Logger from './logger';
+import hoistNonReactStatics from 'hoist-non-react-statics';
 
 const connect = (mapStateToProps) => {
   if (_.isFunction(mapStateToProps)) {
@@ -13,12 +14,13 @@ const connect = (mapStateToProps) => {
 function wrapWithObserverHigherOrderComponent(mapStateToProps) {
   return (Comp) => {
     const wrappedComponent = observerOnMapStateToProps(Comp, mapStateToProps);
+    mergeStaticMembers(Comp, wrappedComponent);
     return wrappedComponent;
   };
 }
 
 function observerOnMapStateToProps(InnerComp, mapStateToProps) {
-  class Hoc extends InnerComp {
+  class Hoc extends React.Component {
     constructor(props) {
       super(props);
       // set the component name for the logger:
@@ -35,6 +37,10 @@ function observerOnMapStateToProps(InnerComp, mapStateToProps) {
     }
   }
   return observer(Hoc);
+}
+
+function mergeStaticMembers(SrcComp, DestComp) {
+  hoistNonReactStatics(DestComp, SrcComp);
 }
 
 module.exports = {

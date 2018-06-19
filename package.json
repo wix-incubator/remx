@@ -34,7 +34,8 @@
   },
   "dependencies": {
     "lodash": "4.x.x",
-    "mobx": "3.x.x"
+    "mobx": "3.x.x",
+    "hoist-non-react-statics": "2.x.x"
   },
   "devDependencies": {
     "babel-cli": "6.x.x",

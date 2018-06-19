@@ -133,4 +133,28 @@ describe('connect with mapStateToProps', () => {
     store.setters.setName('bla');
     expect(spy.mock.calls[2][0]).toEqual({ action: 'componentRender', name: 'MyComponent' });
   });
+
+  it('connected components received connected props', () => {
+    const mapStateToProps = () => {
+      return {
+        textToRender: 'text'
+      };
+    };
+
+    const result = [];
+
+    class Comp extends React.Component {
+      constructor(props) {
+        super(props);
+        result.push(props.textToRender);
+      }
+      render() {
+        return 'ok';
+      }
+    }
+
+    const MyConnectedComponent = connect(mapStateToProps)(Comp);
+    renderer.create(<MyConnectedComponent />);
+    expect(result).toEqual(['text']);
+  });
 });
