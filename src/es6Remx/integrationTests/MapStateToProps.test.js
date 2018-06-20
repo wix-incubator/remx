@@ -32,8 +32,8 @@ describe('connect with mapStateToProps', () => {
     expect(renderSpy).toHaveBeenCalledTimes(1);
   });
 
-  it('connectedp props are merged with ownProps', () => {
-    const mapStateToProps = (ownProps) => {
+  it('connected props are merged with pass props', () => {
+    const mapStateToProps = () => {
       return {
         textToRender: 'Hello, World!'
       };
