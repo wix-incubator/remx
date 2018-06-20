@@ -32,6 +32,20 @@ describe('connect with mapStateToProps', () => {
     expect(renderSpy).toHaveBeenCalledTimes(1);
   });
 
+  it('connectedp props are merged with ownProps', () => {
+    const mapStateToProps = (ownProps) => {
+      return {
+        textToRender: 'Hello, World!'
+      };
+    };
+
+    const MyConnectedComponent = connect(mapStateToProps)(MyComponent);
+
+    const tree = renderer.create(<MyConnectedComponent renderSpy={renderSpy} />);
+    expect(tree.toJSON().children).toEqual(['Hello, World!']);
+    expect(renderSpy).toHaveBeenCalledTimes(1);
+  });
+
   it('object will be injected to props', () => {
     const mapStateToProps = () => {
       return {
