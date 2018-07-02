@@ -82,6 +82,34 @@ describe('remx!', () => {
     });
   }
 
+  it('preserves objects shapes', () => {
+    expect(Object.keys(state)).toEqual([
+      'name',
+      'lastName',
+      'age',
+      'job',
+      'multiPropObject',
+      'dynamicallyCreatedKeys',
+      'race'
+    ]);
+    expect(Object.keys(getters)).toEqual([
+      'getMultiPropObject',
+      'getName',
+      'getFullName',
+      'getDynamicallyCreatedKey'
+    ]);
+    expect(Object.keys(setters)).toEqual([
+      'setMultiPropObject',
+      'setName',
+      'setAge',
+      'createKeyDynamically',
+      'usingMerge',
+      'usingMergeWithValue',
+      'setJobDescriptionUsingMerge',
+      'setRace'
+    ]);
+  });
+
   beforeEach(() => {
     prepareStore();
   });

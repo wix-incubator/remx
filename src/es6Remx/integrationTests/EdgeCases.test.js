@@ -90,6 +90,32 @@ describe(`EdgeCases`, () => {
     expect(runs).toEqual([-1, 1, 2]);
   });
 
+  it('support setting complex getters object inside state', () => {
+    const makeEntity = () => {
+      const state = remx.state({ id: 1 });
+      const getters = remx.getters({
+        _getId() {
+          return state.id;
+        },
+        getId() {
+          return getters._getId();
+        }
+      });
+      return getters;
+    };
+
+    const makeStore = () => {
+      const state = remx.state({ entity: makeEntity() });
+      return remx.getters({
+        getEntity() {
+          return state.entity;
+        }
+      });
+    };
+
+    expect(makeStore().getEntity().getId()).toEqual(1);
+  });
+
   it('supports cyclic objects', () => {
     const obj = { a: { b: { c: {} } } };
     obj.a.b.c = obj;

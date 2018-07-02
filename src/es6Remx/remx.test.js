@@ -85,6 +85,40 @@ describe('remx!', () => {
     });
   });
 
+  it('preserves objects shapes', () => {
+    expect(Object.keys(state)).toEqual([
+      'name',
+      'lastName',
+      'age',
+      'job',
+      'dynamicallyCreatedKeys',
+      'multiPropObject',
+      'race'
+    ]);
+    expect(Object.keys(getters)).toEqual([
+      'getMultiPropObject',
+      'getName',
+      'getFullName',
+      'getDynamicallyCreatedKey',
+      'getAge'
+    ]);
+    expect(Object.keys(setters)).toEqual([
+      'setMultiPropObject',
+      'setName',
+      'setAge',
+      'createKeyDynamically',
+      'usingMerge',
+      'usingMergeWithValue',
+      'setJobDescriptionUsingMerge',
+      'setRace'
+    ]);
+  });
+
+  it('wraps observable state without impacting testability', () => {
+    expect(state.name).toEqual('Gandalf');
+    expect(state.lastName).toEqual('The grey');
+  });
+
   it('wraps observable state without impacting testability', () => {
     expect(state.name).toEqual('Gandalf');
     expect(state.lastName).toEqual('The grey');

@@ -27,7 +27,8 @@ export function setters(obj) {
 }
 
 export function getters(obj) {
-  const result = { __computed: {} };
+  const result = {};
+  Object.defineProperty(result, '__computed', { value: {} });
   forEach(obj, (v, k) => {
     result.__computed[k] = mobx.computed(v);
 
