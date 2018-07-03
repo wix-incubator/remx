@@ -171,4 +171,43 @@ describe('connect with mapStateToProps', () => {
     renderer.create(<MyConnectedComponent />);
     expect(result).toEqual(['text']);
   });
+
+  it('connected component has the same prorotype as original component', () => {
+    const mapStateToProps = () => {
+      return {
+        textToRender: 'text'
+      };
+    };
+
+    class Comp extends React.Component {
+      classFunction() {
+        return {};
+      }
+    }
+
+    const MyConnectedComponent = connect(mapStateToProps)(Comp);
+    expect(MyConnectedComponent.prototype.classFunction).toBeDefined();
+  });
+
+  it('connected component does not override original constructor', () => {
+    const mapStateToProps = () => {
+      return {
+        textToRender: 'text'
+      };
+    };
+
+    class Comp extends React.Component {
+      constructor(props) {
+        super(props);
+        this.classFunction();
+      }
+
+      classFunction() {
+        return {};
+      }
+    }
+
+    const MyConnectedComponent = connect(mapStateToProps)(Comp);
+    expect(MyConnectedComponent.constructor === Comp.prototype.constructor).toBeFalsy();
+  });
 });

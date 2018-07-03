@@ -15,6 +15,7 @@ function wrapWithObserverHigherOrderComponent(mapStateToProps) {
   return (Comp) => {
     const wrappedComponent = observerOnMapStateToProps(Comp, mapStateToProps);
     mergeStaticMembers(Comp, wrappedComponent);
+    injectPrototype(Comp, wrappedComponent);
     return wrappedComponent;
   };
 }
@@ -26,6 +27,7 @@ function observerOnMapStateToProps(InnerComp, mapStateToProps) {
       // set the component name for the logger:
       this.originalComponentName = InnerComp.name;
     }
+
     render() {
       Logger.startLoggingMapStateToProps();
       const propsFromState = mapStateToProps(this.props);
@@ -41,6 +43,14 @@ function observerOnMapStateToProps(InnerComp, mapStateToProps) {
 
 function mergeStaticMembers(SrcComp, DestComp) {
   hoistNonReactStatics(DestComp, SrcComp);
+}
+
+function injectPrototype(Comp, wrappedComponent) {
+  Object.getOwnPropertyNames(Comp.prototype).forEach((proto) => {
+    if (!wrappedComponent.prototype[proto]) {
+      wrappedComponent.prototype[proto] = Comp.prototype[proto];
+    }
+  });
 }
 
 module.exports = {
