@@ -114,6 +114,15 @@ describe('connect with mapStateToProps', () => {
     expect(MyConnectedComponent.options).toBeDefined();
   });
 
+  it('connected component has same static functions as original component', () => {
+    const mapStateToProps = () => {
+      return {};
+    };
+
+    const MyConnectedComponent = connect(mapStateToProps)(MyComponent);
+    expect(MyConnectedComponent.prototype.classFunction).toEqual();
+  });
+
   it('should trigger logger when mapStateToProps called', () => {
     const spy = jest.fn();
     const mapStateToProps = () => {
@@ -170,5 +179,44 @@ describe('connect with mapStateToProps', () => {
     const MyConnectedComponent = connect(mapStateToProps)(Comp);
     renderer.create(<MyConnectedComponent />);
     expect(result).toEqual(['text']);
+  });
+
+  it('connected component has the same prorotype as original component', () => {
+    const mapStateToProps = () => {
+      return {
+        textToRender: 'text'
+      };
+    };
+
+    class Comp extends React.Component {
+      classFunction() {
+        return {};
+      }
+    }
+
+    const MyConnectedComponent = connect(mapStateToProps)(Comp);
+    expect(MyConnectedComponent.prototype.classFunction).toBeDefined();
+  });
+
+  it('connected component does not override original constructor', () => {
+    const mapStateToProps = () => {
+      return {
+        textToRender: 'text'
+      };
+    };
+
+    class Comp extends React.Component {
+      constructor(props) {
+        super(props);
+        this.classFunction();
+      }
+
+      classFunction() {
+        return {};
+      }
+    }
+
+    const MyConnectedComponent = connect(mapStateToProps)(Comp);
+    expect(MyConnectedComponent.constructor === Comp.prototype.constructor).toBeFalsy();
   });
 });
