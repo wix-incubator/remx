@@ -114,15 +114,6 @@ describe('connect with mapStateToProps', () => {
     expect(MyConnectedComponent.options).toBeDefined();
   });
 
-  it('connected component has same static functions as original component', () => {
-    const mapStateToProps = () => {
-      return {};
-    };
-
-    const MyConnectedComponent = connect(mapStateToProps)(MyComponent);
-    expect(MyConnectedComponent.prototype.classFunction).toEqual();
-  });
-
   it('should trigger logger when mapStateToProps called', () => {
     const spy = jest.fn();
     const mapStateToProps = () => {
