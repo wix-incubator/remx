@@ -86,7 +86,6 @@ describe('connect with mapStateToProps', () => {
   it('connected component has same static members as original component', () => {
     const mapStateToProps = () => {
       return {
-        
       };
     };
     const MyConnectedComponent = connect(mapStateToProps)(MyComponent);
