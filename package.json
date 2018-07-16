@@ -84,7 +84,13 @@
         "functions": 100,
         "lines": 100
       }
-    }
+    },
+    "coverageReporters": [
+      "json",
+      "lcov",
+      "text",
+      "html"
+    ]
   },
   "xo": {
     "extends": "xo-react",
