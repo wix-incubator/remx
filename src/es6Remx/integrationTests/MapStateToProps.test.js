@@ -101,7 +101,7 @@ describe('connect with mapStateToProps', () => {
     const mapStateToProps = () => {
       return {};
     };
-    const MyConnectedComponent = connect(mapStateToProps)(MyComponent);
+    const MyConnectedComponent = connect(mapStateToProps())(MyComponent);
     expect(MyConnectedComponent.staticMember).toEqual('a static member');
   });
 
@@ -110,7 +110,7 @@ describe('connect with mapStateToProps', () => {
       return {};
     };
 
-    const MyConnectedComponent = connect(mapStateToProps)(MyComponent);
+    const MyConnectedComponent = connect(mapStateToProps())(MyComponent);
     expect(MyConnectedComponent.options).toBeDefined();
   });
 
