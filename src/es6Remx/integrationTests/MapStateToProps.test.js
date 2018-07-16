@@ -99,7 +99,9 @@ describe('connect with mapStateToProps', () => {
 
   it('connected component has same static members as original component', () => {
     const mapStateToProps = () => {
-      return {};
+      return {
+
+      };
     };
     const MyConnectedComponent = connect(mapStateToProps)(MyComponent);
     expect(MyConnectedComponent.staticMember).toEqual('a static member');
@@ -107,7 +109,9 @@ describe('connect with mapStateToProps', () => {
 
   it('connected component has same static functions as original component', () => {
     const mapStateToProps = () => {
-      return {};
+      return {
+
+      };
     };
 
     const MyConnectedComponent = connect(mapStateToProps)(MyComponent);
