@@ -4,7 +4,7 @@ const semver = require('semver');
 const fs = require('fs');
 const _ = require('lodash');
 
-const ONLY_ON_BRANCH = 'master';
+const ONLY_ON_BRANCH = 'origin/master';
 const VERSION_TAG = 'latest';
 const VERSION_INC = 'patch';
 
