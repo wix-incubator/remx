@@ -1,11 +1,11 @@
-import * as _ from 'lodash';
+import isFunction from 'lodash.isfunction';
 import React from 'react';
 import { observer } from '../mobxReactClone'; // should import from mobx-react/custom when they fix issue #319
 import * as Logger from './logger';
 import hoistNonReactStatics from 'hoist-non-react-statics';
 
 const connect = (mapStateToProps) => {
-  if (_.isFunction(mapStateToProps)) {
+  if (isFunction(mapStateToProps)) {
     return wrapWithObserverHigherOrderComponent(mapStateToProps);
   }
   return observer;

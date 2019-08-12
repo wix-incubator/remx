@@ -1,5 +1,3 @@
-import * as _ from 'lodash';
-
 describe(`EdgeCases`, () => {
   let remx, mobx;
   let state, setters, getters, anotherState;
@@ -191,8 +189,8 @@ describe(`state instance`, () => {
         }
       });
 
-      _.functions(setters).forEach((name) => this[name] = setters[name]);
-      _.functions(getters).forEach((name) => this[name] = getters[name]);
+      Object.keys(setters).forEach((name) => this[name] = setters[name]);
+      Object.keys(getters).forEach((name) => this[name] = getters[name]);
     }
   }
 

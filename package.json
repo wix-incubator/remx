@@ -34,6 +34,8 @@
   },
   "dependencies": {
     "lodash": "4.x.x",
+    "lodash.isfunction": "^3.0.9",
+    "lodash.isobjectlike": "^4.0.0",
     "mobx": "3.x.x",
     "hoist-non-react-statics": "2.x.x"
   },

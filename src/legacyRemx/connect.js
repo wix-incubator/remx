@@ -1,4 +1,4 @@
-import { isFunction } from 'lodash';
+import isFunction from 'lodash.isfunction';
 import React from 'react';
 import { observable, action } from 'mobx';
 import { observer } from '../mobxReactClone'; // should import from mobx-react/custom when they fix issue #319
@@ -45,7 +45,8 @@ const createConnectedComponent = (Comp, mapStateToProps) => {
           {...this.props}
           {...getMappedProps(this.props)}
           globalObservableKey={globalObservableKey.key}
-        />);
+        />
+      );
     }
   }
 

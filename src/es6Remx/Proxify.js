@@ -1,6 +1,6 @@
 import * as mobx from 'mobx';
 
-const { keys, isObjectLike, isString } = require('lodash');
+import isObjectLike from 'lodash.isobjectlike';
 
 const alreadyProxiedObjects = new WeakMap();
 
@@ -13,7 +13,7 @@ function proxify(obj) {
       return Reflect.ownKeys(target);
     },
     get: (target, prop) => {
-      if (isString(prop)) {
+      if (typeof prop === 'string') {
         tracker.get(prop);
         return target[prop];
       }
@@ -36,7 +36,7 @@ function proxify(obj) {
 
 const createObservableMap = (obj) => {
   const tracker = mobx.observable.shallowMap();
-  keys(obj).forEach((key) => {
+  Object.keys(obj).forEach((key) => {
     if (isObjectLike(obj[key]) && !alreadyProxiedObjects.has(obj[key])) {
       obj[key] = proxify(obj[key]);
     }
