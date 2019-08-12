@@ -1,4 +1,4 @@
-import { renderReporter, trackComponents } from '../mobxReactClone';
+import { renderReporter, trackComponents } from 'mobx-react/custom';
 
 const loggers = [];
 let isLoggerEnabled = false;

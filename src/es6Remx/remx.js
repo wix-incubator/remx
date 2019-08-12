@@ -5,7 +5,7 @@ import mergeWith from '../utils/mergeWith';
 import { proxify } from './Proxify';
 import { logGetter, logSetter } from './logger';
 
-mobx.useStrict(isDev());
+mobx.configure({ enforceActions: isDev(), isolateGlobalState: true });
 
 export { registerLoggerForDebug } from './logger';
 

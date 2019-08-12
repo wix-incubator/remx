@@ -35,7 +35,7 @@ function proxify(obj) {
 }
 
 const createObservableMap = (obj) => {
-  const tracker = mobx.observable.shallowMap();
+  const tracker = mobx.observable.map({}, { deep: false });
   Object.keys(obj).forEach((key) => {
     if (isObjectLike(obj[key]) && !alreadyProxiedObjects.has(obj[key])) {
       obj[key] = proxify(obj[key]);

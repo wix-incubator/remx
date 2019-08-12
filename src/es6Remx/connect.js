@@ -1,6 +1,6 @@
 import isFunction from 'lodash.isfunction';
 import React from 'react';
-import { observer } from '../mobxReactClone'; // should import from mobx-react/custom when they fix issue #319
+import { observer } from 'mobx-react/custom'; // should import from mobx-react/custom when they fix issue #319
 import * as Logger from './logger';
 import hoistNonReactStatics from 'hoist-non-react-statics';
 
