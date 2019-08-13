@@ -35,10 +35,7 @@ describe('mergeWith', () => {
   });
 
   it('should overwrite primitives with source object clones', () => {
-    const actual = mergeWith({ a: 0 }, { a: { b: ['c'] } }, (a, b) => {
-      return Array.isArray(a) ? a.concat(b) : undefined;
-    });
-
+    const actual = mergeWith({ a: 0 }, { a: { b: ['c'] } }, () => undefined);
     expect(actual).toEqual({ a: { b: ['c'] } });
   });
 
