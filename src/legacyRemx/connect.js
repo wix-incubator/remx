@@ -45,7 +45,8 @@ const createConnectedComponent = (Comp, mapStateToProps) => {
           {...this.props}
           {...getMappedProps(this.props)}
           globalObservableKey={globalObservableKey.key}
-        />);
+        />
+      );
     }
   }
 
