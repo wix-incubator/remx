@@ -13,5 +13,12 @@
                 <role>owner</role>
             </roles>
         </developer>
+             <developer>
+            <name>Lev Vidrak</name>
+            <email>levv@wix.com</email>
+            <roles>
+                <role>owner</role>
+            </roles>
+        </developer>
     </developers>
 </project>
