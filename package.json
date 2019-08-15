@@ -33,10 +33,7 @@
     "clean": "watchman watch-del-all && rm -rf dist"
   },
   "dependencies": {
-    "hoist-non-react-statics": "2.x.x",
-    "lodash": "4.x.x",
-    "lodash.isfunction": "^3.0.9",
-    "lodash.isobjectlike": "^4.0.0",
+    "mobx": "<=4.3.1",
     "mobx-react": "^5.2.3"
   },
   "devDependencies": {
@@ -50,13 +47,14 @@
     "eslint-config-xo": "0.18.x",
     "eslint-config-xo-react": "0.15.x",
     "eslint-plugin-react": "7.x.x",
+    "hoist-non-react-statics": "^2.5.5",
     "jest": "22.x.x",
     "jest-cli": "22.x.x",
-    "mobx": "<=4.3.1",
+    "lodash.isfunction": "^3.0.9",
+    "lodash.isobjectlike": "^4.0.0",
     "react": "16.2.0",
     "react-native": "0.51.0",
     "react-test-renderer": "16.2.0",
-    "seamless-immutable": "7.x.x",
     "semver": "5.x.x",
     "shell-utils": "1.x.x",
     "webpack": "^4.16.4",

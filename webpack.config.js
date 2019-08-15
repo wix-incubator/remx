@@ -24,5 +24,12 @@ module.exports = {
       commonjs2: 'react',
       amd: 'react'
     },
+    mobx: 'mobx',
+    'mobx-react': {
+      root: 'mobxReact',
+      commonjs: 'mobx-react',
+      commonjs2: 'mobx-react',
+      amd: 'mobx-react'
+    },
   },
 };
