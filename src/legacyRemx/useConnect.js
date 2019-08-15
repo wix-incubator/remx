@@ -7,7 +7,7 @@ import * as Logger from './logger';
  * but in the most cases it is desired, so it's sane default
  */
 const useConnect = (mapStateToProps, dependencies = []) => {
-  const [mutableState] = React.useState({ counter: 0 });
+  const [mutableState] = React.useState({});
   const [, updateCounter] = React.useState(0);
 
   const dispose = React.useMemo(
