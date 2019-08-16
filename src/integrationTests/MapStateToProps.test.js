@@ -206,5 +206,31 @@ import renderer from 'react-test-renderer';
       renderer.create(<MyConnectedComponent />);
       expect(result).toEqual(['text']);
     });
+
+    it('Triggers update on deep mutation', () => {
+      store.setters.addProduct('123', { title: 'InitialTitle' });
+
+      const mapStateToProps = () => {
+        return {
+          product: store.getters.getProduct('123')
+        };
+      };
+
+      const MyConnectedComponent = connect(mapStateToProps)(MyComponent);
+
+      const tree = renderer.create(
+        <MyConnectedComponent renderSpy={renderSpy} />,
+      );
+
+      expect(tree.toJSON().children).toEqual(['InitialTitle']);
+      expect(renderSpy).toHaveBeenCalledTimes(1);
+
+      store.setters.setProductTitle('123', 'New');
+
+      const expectedChildren = { es6Remx: 'InitialTitle', legacyRemx: 'New' };
+      const expectedCallCounts = { es6Remx: 1, legacyRemx: 2 };
+      expect(tree.toJSON().children).toEqual([expectedChildren[version]]);
+      expect(renderSpy).toHaveBeenCalledTimes(expectedCallCounts[version]);
+    });
   });
 });

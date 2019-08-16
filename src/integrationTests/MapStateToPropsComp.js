@@ -10,7 +10,11 @@ class MyComponent extends Component {
     if (this.props.renderSpy) {
       this.props.renderSpy();
     }
-    return (
+    return this.props.product ? (
+      <Text>
+        {this.props.product.title}
+      </Text>
+    ) : (
       <Text>
         {this.props.textToRender}
       </Text>

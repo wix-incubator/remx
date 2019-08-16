@@ -14,6 +14,9 @@ export default class Store {
       addProduct(id, product) {
         state.products[id] = product;
       },
+      setProductTitle(id, title) {
+        state.products[id].title = title;
+      },
       setDynamicObject(key, value) {
         state.dynamicObject[key] = value;
       },
