@@ -199,6 +199,29 @@ const useSomeComponentConnect = (props) => useConnect(() => ({
 export default SomeComponent;
 ```
 
+Note that accessing props outside of mapStateToProps won't be tracked and may cause issues with
+components not being updated.
+
+```javascript
+// Bad (product.price accessing is not tracked):
+const ProductPriceComponent = (props) => {
+  const {product} = useConnect(() => store.getters.getProduct());
+
+  return (
+    <div>Price: {product.price} USD</div>
+  );
+}
+
+// Good:
+const ProductPriceComponent = (props) => {
+  const {price} = useConnect(() => store.getters.getProduct().price);
+
+  return (
+    <div>Price: {price} USD</div>
+  );
+}
+```
+
 ### `remx.registerLoggerForDebug(loggerFunc)`
 Takes a logger and call it on the following actions:
 
