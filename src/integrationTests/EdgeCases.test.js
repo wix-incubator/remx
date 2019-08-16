@@ -36,7 +36,7 @@ import * as _ from 'lodash';
 
     afterEach(() => {
       delete global.__mobxInstanceCount; // prevent warnings
-    })
+    });
 
     it('support setting partial remx state inside another state', () => {
       const state1 = remx.state({ obj1: { arr1: [] } });
@@ -52,7 +52,7 @@ import * as _ from 'lodash';
       });
       expect(callCount).toEqual(1);
       setter2.set();
-      const expectedCallCounts = {es6Remx: 1, legacyRemx: 2};
+      const expectedCallCounts = { es6Remx: 1, legacyRemx: 2 };
       expect(callCount).toEqual(expectedCallCounts[version]);
       stop();
       expect(state2.someProp).toEqual({ arr1: [] });
@@ -74,7 +74,7 @@ import * as _ from 'lodash';
       });
       expect(callCount).toEqual(1);
       setter2.set(getter1.getArr()[0]);
-      const expectedCallCounts = {es6Remx: 1, legacyRemx: 2};
+      const expectedCallCounts = { es6Remx: 1, legacyRemx: 2 };
       expect(callCount).toEqual(expectedCallCounts[version]);
       stop();
       expect(state2.someProp).toEqual({ name: 'key1' });

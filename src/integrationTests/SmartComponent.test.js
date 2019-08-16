@@ -10,7 +10,7 @@ import renderer from 'react-test-renderer';
     let connect;
 
     beforeEach(() => {
-      const Store = require('./Store').Store;
+      const Store = require('./Store').default;
       store = new Store(require(`../${version}/remx`));
       MyComponent = require('./SmartComponent').default;
       renderSpy = jest.fn();
@@ -20,7 +20,7 @@ import renderer from 'react-test-renderer';
 
     afterEach(() => {
       delete global.__mobxInstanceCount; // prevent warnings
-    })
+    });
 
     it('renders normally', () => {
       const tree = renderer.create(<MyComponent store={store} renderSpy={renderSpy} />);

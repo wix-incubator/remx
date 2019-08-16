@@ -9,7 +9,7 @@ import renderer from 'react-test-renderer';
     let connect;
     let registerLoggerForDebug;
     beforeEach(() => {
-      const Store = require('./Store').Store;
+      const Store = require('./Store').default;
       store = new Store(require(`../${version}/remx`));
       MyComponent = require('./MapStateToPropsComp').default;
       renderSpy = jest.fn();
@@ -19,7 +19,7 @@ import renderer from 'react-test-renderer';
 
     afterEach(() => {
       delete global.__mobxInstanceCount; // prevent warnings
-    })
+    });
 
     it('defensive coding', () => {
       expect(connect({})).toBeDefined();
