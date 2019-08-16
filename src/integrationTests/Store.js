@@ -1,7 +1,5 @@
-import * as remx from '../../es6Remx';
-
 export class Store {
-  constructor() {
+  constructor(remx) {
     const state = remx.state({
       person: {},
       products: {},
@@ -37,5 +35,3 @@ export class Store {
     });
   }
 }
-
-export const storeInstance = new Store();
