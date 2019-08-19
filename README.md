@@ -205,7 +205,9 @@ components not being updated.
 ```javascript
 // Bad (product.price accessing is not tracked):
 const ProductPriceComponent = (props) => {
-  const {product} = useConnect(() => store.getters.getProduct());
+  const {product} = useConnect(() => ({
+    product: store.getters.getProduct(),
+  }));
 
   return (
     <div>Price: {product.price} USD</div>
@@ -214,7 +216,9 @@ const ProductPriceComponent = (props) => {
 
 // Good:
 const ProductPriceComponent = (props) => {
-  const {price} = useConnect(() => store.getters.getProduct().price);
+  const {price} = useConnect(() => ({
+    price: store.getters.getProduct().price
+  }));
 
   return (
     <div>Price: {price} USD</div>
