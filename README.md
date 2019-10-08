@@ -29,7 +29,7 @@ We can take this design pattern and use it to build a scalable architecture, we 
 
 So one thing we do want to enforce is some data-flow architecture. Still, no frameworks required.
 
-Well, then where does state management comes into play?
+Well, then where does state management come into play?
 
 When we want to connect this `LoginFlow` into a react view. We want this view to listen to changes and re-render itself according to some presentation logic (which will be test-driven as well).
 
