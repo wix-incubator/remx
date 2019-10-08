@@ -1,7 +1,5 @@
-import * as remx from '../../es6Remx';
-
-export class Store {
-  constructor() {
+export default class Store {
+  constructor(remx) {
     const state = remx.state({
       person: {},
       products: {},
@@ -15,6 +13,9 @@ export class Store {
 
       addProduct(id, product) {
         state.products[id] = product;
+      },
+      setProductTitle(id, title) {
+        state.products[id].title = title;
       },
       setDynamicObject(key, value) {
         state.dynamicObject[key] = value;
@@ -37,5 +38,3 @@ export class Store {
     });
   }
 }
-
-export const storeInstance = new Store();
