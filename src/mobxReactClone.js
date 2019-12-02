@@ -552,7 +552,7 @@ function isObjectShallowModified(prev, next) {
  * ReactiveMixin
  */
 var reactiveMixin = {
-  componentWillMount: function componentWillMount() {
+  UNSAFE_componentWillMount: function UNSAFE_componentWillMount() {
     var _this = this;
 
     if (isUsingStaticRendering === true) return;
@@ -610,9 +610,9 @@ var reactiveMixin = {
           // This unidiomatic React usage but React will correctly warn about this so we continue as usual
           // See #85 / Pull #44
           isRenderingPending = true;
-          if (typeof _this.componentWillReact === "function") _this.componentWillReact(); // TODO: wrap in action?
+          if (typeof _this.UNSAFE_componentWillReact === "function") _this.UNSAFE_componentWillReact(); // TODO: wrap in action?
           if (_this.__$mobxIsUnmounted !== true) {
-            // If we are unmounted at this point, componentWillReact() had a side effect causing the component to unmounted
+            // If we are unmounted at this point, UNSAFE_componentWillReact() had a side effect causing the component to unmounted
             // TODO: remove this check? Then react will properly warn about the fact that this should not happen? See #73
             // However, people also claim this migth happen during unit tests..
             var hasError = true;
@@ -660,7 +660,7 @@ var reactiveMixin = {
     this.render = initialRender;
   },
 
-  componentWillUnmount: function componentWillUnmount() {
+  UNSAFE_componentWillUnmount: function UNSAFE_componentWillUnmount() {
     if (isUsingStaticRendering === true) return;
     this.render.$mobx && this.render.$mobx.dispose();
     this.__$mobxIsUnmounted = true;
@@ -768,8 +768,8 @@ function observer(arg1, arg2) {
 }
 
 function mixinLifecycleEvents(target) {
-  patch(target, "componentWillMount", true);
-  ["componentDidMount", "componentWillUnmount", "componentDidUpdate"].forEach(function (funcName) {
+  patch(target, "UNSAFE_componentWillMount", true);
+  ["componentDidMount", "UNSAFE_componentWillUnmount", "componentDidUpdate"].forEach(function (funcName) {
     patch(target, funcName);
   });
   if (!target.shouldComponentUpdate) {
@@ -824,8 +824,8 @@ var Provider = (_temp = _class = function (_Component) {
       };
     }
   }, {
-    key: 'componentWillReceiveProps',
-    value: function componentWillReceiveProps(nextProps) {
+    key: 'UNSAFE_componentWillReceiveProps',
+    value: function UNSAFE_componentWillReceiveProps(nextProps) {
       // Maybe this warning is too aggressive?
       if (Object.keys(nextProps).length !== Object.keys(this.props).length) console.warn("MobX Provider: The set of provided stores has changed. Please avoid changing stores as the change might not propagate to all children");
       if (!nextProps.suppressChangedStoreWarning) for (var key in nextProps) {
