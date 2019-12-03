@@ -30,12 +30,15 @@
     "release": "node ./scripts/release.js",
     "start-watch": "watchman -- trigger ./src remx-copy-dist ./src '**' -- node ../scripts/copyDist.js",
     "start": "node ./scripts/copyDist.js",
-    "clean": "watchman watch-del-all && rm -rf dist"
+    "clean": "watchman watch-del-all && rm -rf dist",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "dependencies": {
     "lodash": "4.x.x",
     "mobx": "3.x.x",
-    "hoist-non-react-statics": "2.x.x"
+    "hoist-non-react-statics": "2.x.x",
+    "snyk": "^1.192.3"
   },
   "devDependencies": {
     "babel-cli": "6.x.x",
@@ -138,5 +141,6 @@
       "one-var": 0,
       "react/destructuring-assignment": 0
     }
-  }
+  },
+  "snyk": true
 }
