@@ -552,7 +552,7 @@ function isObjectShallowModified(prev, next) {
  * ReactiveMixin
  */
 var reactiveMixin = {
-  componentWillMount: function componentWillMount() {
+  UNSAFE_componentWillMount: function UNSAFE_componentWillMount() {
     var _this = this;
 
     if (isUsingStaticRendering === true) return;
@@ -768,7 +768,7 @@ function observer(arg1, arg2) {
 }
 
 function mixinLifecycleEvents(target) {
-  patch(target, "componentWillMount", true);
+  patch(target, "UNSAFE_componentWillMount", true);
   ["componentDidMount", "componentWillUnmount", "componentDidUpdate"].forEach(function (funcName) {
     patch(target, funcName);
   });
