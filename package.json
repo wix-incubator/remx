@@ -24,7 +24,7 @@
   "homepage": "https://github.com/wix/remx",
   "main": "dist/index.js",
   "scripts": {
-    "build": "rm -rf dist && webpack -p",
+    "build": "rm -rf dist && babel src -d dist --ignore='**/*.test.js,__mocks__,integrationTests'",
     "test": "xo 'src/**' 'scripts/**' && jest --coverage",
     "test-watch": "jest --watch",
     "release": "node ./scripts/release.js",
@@ -35,6 +35,9 @@
     "prepublish": "npm run snyk-protect"
   },
   "dependencies": {
+    "hoist-non-react-statics": "^2.5.5",
+    "lodash.isfunction": "^3.0.9",
+    "lodash.isobjectlike": "^4.0.0",
     "mobx": "<=4.3.1",
     "mobx-react": "^5.2.3",
     "snyk": "^1.192.3"
@@ -50,18 +53,13 @@
     "eslint-config-xo": "0.18.x",
     "eslint-config-xo-react": "0.15.x",
     "eslint-plugin-react": "7.x.x",
-    "hoist-non-react-statics": "^2.5.5",
     "jest": "22.x.x",
     "jest-cli": "22.x.x",
-    "lodash.isfunction": "^3.0.9",
-    "lodash.isobjectlike": "^4.0.0",
     "react": "^16.9.0",
     "react-native": "0.51.0",
     "react-test-renderer": "^16.9.0",
     "semver": "5.x.x",
     "shell-utils": "1.x.x",
-    "webpack": "^4.16.4",
-    "webpack-cli": "^3.1.0",
     "xo": "0.18.x"
   },
   "peerDependencies": {
