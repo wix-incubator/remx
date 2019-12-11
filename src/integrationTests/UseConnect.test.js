@@ -7,8 +7,8 @@ import { StoreMock } from './StoreMock';
     let store;
     let storeMock;
     let renderSpy;
-    const MyComponent = require('./UseConnectComponent').default;
-    const remx = require(`../${version}/remx`);
+    const remx = require(`../${version}`);
+    const MyComponent = require('./UseConnectComponent').default(remx);
     const registerLoggerForDebug = remx.registerLoggerForDebug;
 
     beforeEach(() => {
@@ -56,18 +56,16 @@ import { StoreMock } from './StoreMock';
 
       expect(renderSpy).toHaveBeenCalledTimes(2);
 
-      const expectedEvents = version === 'legacyRemx'
-        ? {action: 'getter', args: ['123'], name: 'getProduct'}
-        : {
-          action: 'mapStateToProps',
-          connectedComponentName: 'useConnect hook',
-          returnValue: { dynamicObject: expect.anything(), name: 'Gandalf', product: undefined },
-          triggeredEvents: [
+      const expectedEvents = {
+        action: 'mapStateToProps',
+        connectedComponentName: 'useConnect hook',
+        returnValue: { dynamicObject: expect.anything(), name: 'Gandalf', product: undefined },
+        triggeredEvents: [
             { action: 'getter', args: ['123'], name: 'getProduct' },
             { action: 'getter', args: [], name: 'getDynamicObject' },
             { action: 'getter', args: [], name: 'getName' }
-          ]
-        }
+        ]
+      };
       expect(spy.mock.calls[1][0]).toEqual(expectedEvents);
     });
 
