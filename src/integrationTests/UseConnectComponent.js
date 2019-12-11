@@ -1,6 +1,5 @@
 import React from 'react';
 import { Text } from 'react-native';
-import { useConnect } from '..';
 
 const renderText = (txt) => (
   <Text>
@@ -8,7 +7,7 @@ const renderText = (txt) => (
   </Text>
 );
 
-const MyComponent = (props) => {
+export default (remx) => (props) => {
   const mapStateToProps = props.mapStateToProps ?
     props.mapStateToProps :
     () => ({
@@ -21,7 +20,7 @@ const MyComponent = (props) => {
     props.dependenciesSelector(props) :
     undefined;
 
-  const connectedProps = useConnect(mapStateToProps, dependencies);
+  const connectedProps = remx.useConnect(mapStateToProps, dependencies);
 
   if (props.renderSpy) {
     props.renderSpy();
@@ -39,5 +38,3 @@ const MyComponent = (props) => {
   }
   return renderText(connectedProps.name);
 };
-
-export default MyComponent;
