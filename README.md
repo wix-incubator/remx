@@ -29,7 +29,7 @@ We can take this design pattern and use it to build a scalable architecture, we 
 
 So one thing we do want to enforce is some data-flow architecture. Still, no frameworks required.
 
-Well, then where does state management comes into play?
+Well, then where does state management come into play?
 
 When we want to connect this `LoginFlow` into a react view. We want this view to listen to changes and re-render itself according to some presentation logic (which will be test-driven as well).
 
@@ -172,6 +172,58 @@ function mapStateToProps(ownProps) {
 
 export default connect(mapStateToProps)(SomeComponent);
 
+```
+
+### `remx.useConnect(mapStateToProps)`
+Hook-style alternative to remx.connect.
+It makes sure, the component is re-rendered on observable values change.
+Supports optional second argument (default value: `[]`), not recommended to use.
+
+```javascript
+import React, { PureComponent } from 'react';
+import { useConnect } from 'remx';
+import { store } from './someStore';
+
+const SomeComponent = (props) => {
+  const {selectedPostTitle} = useSomeComponentConnect(props);
+
+  return (
+    <div>{selectedPostTitle}</div>
+  );
+}
+
+const useSomeComponentConnect = (props) => useConnect(() => ({
+  selectedPostTitle: store.getPostById(ownProps.selectedPostId);
+}))
+
+export default SomeComponent;
+```
+
+Note that accessing props outside of mapStateToProps won't be tracked and may cause issues with
+components not being updated.
+
+```javascript
+// Bad (product.price accessing is not tracked):
+const ProductPriceComponent = (props) => {
+  const {product} = useConnect(() => ({
+    product: store.getters.getProduct(),
+  }));
+
+  return (
+    <div>Price: {product.price} USD</div>
+  );
+}
+
+// Good:
+const ProductPriceComponent = (props) => {
+  const {price} = useConnect(() => ({
+    price: store.getters.getProduct().price
+  }));
+
+  return (
+    <div>Price: {price} USD</div>
+  );
+}
 ```
 
 ### `remx.registerLoggerForDebug(loggerFunc)`

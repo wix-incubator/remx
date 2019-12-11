@@ -1,9 +1,6 @@
-import * as remx from '../../legacyRemx';
-
-export class Store {
-  constructor() {
+export default class Store {
+  constructor(remx) {
     const state = remx.state({
-      simpleProp: 'bla',
       person: {},
       products: {},
       dynamicObject: {}
@@ -13,8 +10,12 @@ export class Store {
       setName(newName) {
         state.person.name = newName;
       },
+
       addProduct(id, product) {
         state.products[id] = product;
+      },
+      setProductTitle(id, title) {
+        state.products[id].title = title;
       },
       setDynamicObject(key, value) {
         state.dynamicObject[key] = value;
@@ -29,7 +30,7 @@ export class Store {
         return state.person.name || 'nothing';
       },
       getDynamicObject() {
-        return state.dynamicObject;
+        return JSON.stringify(state.dynamicObject);
       },
       getProduct(id) {
         return state.products[id];
@@ -37,6 +38,3 @@ export class Store {
     });
   }
 }
-
-export const storeInstance = new Store();
-

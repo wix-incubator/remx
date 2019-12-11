@@ -1,14 +1,16 @@
-import * as remx from '../../es6Remx';
+/* istanbul ignore file */
 
-export class Store {
+const clone = (obj) => obj && JSON.parse(JSON.stringify(obj));
+
+export class StoreMock {
   constructor() {
-    const state = remx.state({
+    const state = {
       person: {},
       products: {},
       dynamicObject: {}
-    });
+    };
 
-    this.setters = remx.setters({
+    this.setters = {
       setName(newName) {
         state.person.name = newName;
       },
@@ -22,9 +24,9 @@ export class Store {
       setDynamicObjectNestedValue(value) {
         state.dynamicObject.newKey.nestedKey = value;
       }
-    });
+    };
 
-    this.getters = remx.getters({
+    this.getters = {
       getName() {
         return state.person.name || 'nothing';
       },
@@ -32,10 +34,10 @@ export class Store {
         return JSON.stringify(state.dynamicObject);
       },
       getProduct(id) {
-        return state.products[id];
+        return clone(state.products[id]);
       }
-    });
+    };
   }
 }
 
-export const storeInstance = new Store();
+export const storeInstance = new StoreMock();
