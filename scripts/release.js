@@ -2,7 +2,6 @@
 const exec = require('shell-utils').exec;
 const semver = require('semver');
 const fs = require('fs');
-const _ = require('lodash');
 
 const ONLY_ON_BRANCH = 'origin/master';
 const VERSION_TAG = 'latest';
@@ -53,7 +52,8 @@ email=\${NPM_EMAIL}
   fs.writeFileSync(`.npmrc`, content);
 }
 
-function versionTagAndPublish() { const packageVersion = semver.clean(process.env.npm_package_version);
+function versionTagAndPublish() {
+  const packageVersion = semver.clean(process.env.npm_package_version);
   const [packagePrereleaseComponent] = semver.prerelease(process.env.npm_package_version) || [];
   console.log(`package version: ${packageVersion}`);
   console.log(`package packagePrereleaseComponent: ${packagePrereleaseComponent}`);
@@ -62,9 +62,9 @@ function versionTagAndPublish() { const packageVersion = semver.clean(process.en
   console.log(`current published version: ${currentPublished}`);
 
   const incIdentifier = packagePrereleaseComponent ? 'prerelease' : VERSION_INC;
-  const version = semver.gt(packageVersion, currentPublished)
-    ? packageVersion
-    : semver.inc(currentPublished, incIdentifier, packagePrereleaseComponent);
+  const version = semver.gt(packageVersion, currentPublished) ?
+    packageVersion :
+    semver.inc(currentPublished, incIdentifier, packagePrereleaseComponent);
   tryPublishAndTag(version);
 }
 
