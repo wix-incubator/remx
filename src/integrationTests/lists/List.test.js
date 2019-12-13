@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import React from 'react';
 import { Text } from 'react-native';
 import renderer from 'react-test-renderer';
@@ -38,5 +37,5 @@ describe('List support', () => {
 
 function getRenderedTexts(tree) {
   const childTexts = tree.root.findAllByType(Text);
-  return _.map(childTexts, (child) => child.instance.props.children);
+  return childTexts.map((child) => child.instance.props.children);
 }

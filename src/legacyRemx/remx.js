@@ -1,6 +1,11 @@
-import _ from 'lodash';
+import isFunction from 'lodash.isfunction';
+import isObjectLike from 'lodash.isobjectlike';
+import mergeWith from '../utils/mergeWith';
+import { toJS as mobxToJS, configure } from 'mobx';
 import { touchGlobalKey, triggerStateUpdate } from './connect';
 import { logGetter, logSetter } from './logger';
+
+configure({ isolateGlobalState: true });
 
 export function state(obj) {
   return obj;
@@ -8,10 +13,10 @@ export function state(obj) {
 
 export function setters(obj) {
   const result = {};
-  _.forEach(obj, (v, k) => {
-    if (_.isFunction(v)) {
+  Object.keys(obj).forEach((k) => {
+    if (isFunction(obj[k])) {
       result[k] = (...args) => {
-        v(...args);
+        obj[k](...args);
         logSetter(k, args);
         triggerStateUpdate();
       };
@@ -22,11 +27,11 @@ export function setters(obj) {
 
 export function getters(obj) {
   const result = {};
-  _.forEach(obj, (v, k) => {
+  Object.keys(obj).forEach((k) => {
     result[k] = (...args) => {
       touchGlobalKey();
       logGetter(k, args);
-      return v(...args);
+      return obj[k](...args);
     };
   });
   return result;
@@ -35,16 +40,16 @@ export function getters(obj) {
 export { registerLoggerForDebug } from './logger';
 
 export function merge(state, delta) {
-  _.forEach(delta, (v, k) => {
-    state[k] = mergeOldStateWithDelta(state[k], v);
+  Object.keys(delta).forEach((k) => {
+    state[k] = mergeOldStateWithDelta(state[k], delta[k]);
   });
 }
 
 function mergeOldStateWithDelta(oldValue, newValue) {
-  if (!newValue || !_.isObjectLike(newValue)) {
+  if (!newValue || !isObjectLike(newValue)) {
     return newValue;
   }
-  return _.mergeWith({}, oldValue, newValue, mergeCustomizer);
+  return mergeWith({}, oldValue, newValue, mergeCustomizer);
 }
 
 function mergeCustomizer(objValue, srcValue, key, object) {
@@ -55,8 +60,8 @@ function mergeCustomizer(objValue, srcValue, key, object) {
 }
 
 export function toJS(data) {
-  console.warn(`remx.toJS() is deprecated. Please remove it from your code ASAP. 
-    Be aware that things can break after removing it, most of the time because of problematic data flow. 
+  console.warn(`remx.toJS() is deprecated. Please remove it from your code ASAP.
+    Be aware that things can break after removing it, most of the time because of problematic data flow.
     Please take your time to investigate the root of cause in case of a problem, toJS() is an expansive action`);
-  return _.cloneDeep(data);
+  return mobxToJS(data);
 }

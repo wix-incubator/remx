@@ -1,5 +1,3 @@
-import * as _ from 'lodash';
-
 ['es6Remx', 'legacyRemx'].forEach((version) => {
   describe(`EdgeCases (${version})`, () => {
     let remx, mobx;
@@ -198,8 +196,8 @@ import * as _ from 'lodash';
           }
         });
 
-        _.functions(setters).forEach((name) => this[name] = setters[name]);
-        _.functions(getters).forEach((name) => this[name] = getters[name]);
+        Object.keys(setters).forEach((name) => this[name] = setters[name]);
+        Object.keys(getters).forEach((name) => this[name] = getters[name]);
       }
     }
 

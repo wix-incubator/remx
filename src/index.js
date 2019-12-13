@@ -1,4 +1,3 @@
-
 if (global.Proxy) {
   module.exports = {
     ...require('./es6Remx'),

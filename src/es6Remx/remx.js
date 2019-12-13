@@ -1,11 +1,11 @@
 import * as mobx from 'mobx';
-import { isFunction, forEach, isObjectLike, mergeWith, cloneDeep } from 'lodash';
+import isFunction from 'lodash.isfunction';
+import isObjectLike from 'lodash.isobjectlike';
+import mergeWith from '../utils/mergeWith';
 import { proxify } from './Proxify';
 import { logGetter, logSetter } from './logger';
 
-const _ = require('lodash');
-
-mobx.useStrict(isDev());
+mobx.configure({ enforceActions: isDev(), isolateGlobalState: true });
 
 export { registerLoggerForDebug } from './logger';
 
@@ -15,7 +15,7 @@ export function state(obj) {
 
 export function setters(obj) {
   const result = {};
-  _.keys(obj).forEach((key) => {
+  Object.keys(obj).forEach((key) => {
     if (isFunction(obj[key])) {
       result[key] = mobx.action((...args) => {
         logSetter(key, args);
@@ -29,8 +29,8 @@ export function setters(obj) {
 export function getters(obj) {
   const result = {};
   Object.defineProperty(result, '__computed', { value: {} });
-  forEach(obj, (v, k) => {
-    result.__computed[k] = mobx.computed(v);
+  Object.keys(obj).forEach((k) => {
+    result.__computed[k] = mobx.computed(obj[k]);
 
     result[k] = (...args) => {
       logGetter(k, args);
@@ -44,8 +44,8 @@ export function getters(obj) {
 }
 
 export function merge(state, delta) {
-  forEach(delta, (v, k) => {
-    state[k] = mergeOldStateWithDelta(state[k], v);
+  Object.keys(delta).forEach((k) => {
+    state[k] = mergeOldStateWithDelta(state[k], delta[k]);
   });
 }
 
@@ -70,8 +70,8 @@ function isDev() {
 }
 
 export function toJS(data) {
-  console.warn(`remx.toJS() is deprecated. Please remove it from your code ASAP. 
-    Be aware that things can break after removing it, most of the time because of problematic data flow. 
+  console.warn(`remx.toJS() is deprecated. Please remove it from your code ASAP.
+    Be aware that things can break after removing it, most of the time because of problematic data flow.
     Please take your time to investigate the root of cause in case of a problem, toJS() is an expansive action`);
-  return cloneDeep(data);
+  return mobx.toJS(data);
 }

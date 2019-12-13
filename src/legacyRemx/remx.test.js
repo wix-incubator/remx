@@ -1,5 +1,4 @@
 import * as remx from './remx';
-import _ from 'lodash';
 import * as mobx from 'mobx';
 
 describe('remx!', () => {
@@ -144,7 +143,9 @@ describe('remx!', () => {
     expect(getNameCalled).toBe(0);
     expect(getters.getName()).toEqual('Gandalf');
     expect(getNameCalled).toBe(1);
-    _.times(4, () => expect(getters.getName()).toEqual('Gandalf'));
+    for (let i = 0; i < 4; i++) {
+      expect(getters.getName()).toEqual('Gandalf');
+    }
     expect(getNameCalled).toBe(5);
     setters.setName('bob');
     expect(getters.getName()).toEqual('bob');

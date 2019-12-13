@@ -2,7 +2,6 @@
 const exec = require('shell-utils').exec;
 const semver = require('semver');
 const fs = require('fs');
-const _ = require('lodash');
 
 const ONLY_ON_BRANCH = 'origin/master';
 const VERSION_TAG = 'latest';
@@ -55,12 +54,17 @@ email=\${NPM_EMAIL}
 
 function versionTagAndPublish() {
   const packageVersion = semver.clean(process.env.npm_package_version);
+  const [packagePrereleaseComponent] = semver.prerelease(process.env.npm_package_version) || [];
   console.log(`package version: ${packageVersion}`);
+  console.log(`package packagePrereleaseComponent: ${packagePrereleaseComponent}`);
 
   const currentPublished = findCurrentPublishedVersion();
   console.log(`current published version: ${currentPublished}`);
 
-  const version = semver.gt(packageVersion, currentPublished) ? packageVersion : semver.inc(currentPublished, VERSION_INC);
+  const incIdentifier = packagePrereleaseComponent ? 'prerelease' : VERSION_INC;
+  const version = semver.gt(packageVersion, currentPublished) ?
+    packageVersion :
+    semver.inc(currentPublished, incIdentifier, packagePrereleaseComponent);
   tryPublishAndTag(version);
 }
 
@@ -76,7 +80,7 @@ function tryPublishAndTag(version) {
       console.log(`Released ${theCandidate}`);
       return;
     } catch (err) {
-      const alreadyPublished = _.includes(err.toString(), 'You cannot publish over the previously published version');
+      const alreadyPublished = err.toString().includes('You cannot publish over the previously published version');
       if (!alreadyPublished) {
         throw err;
       }
