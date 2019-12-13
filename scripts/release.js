@@ -80,7 +80,7 @@ function tryPublishAndTag(version) {
       console.log(`Released ${theCandidate}`);
       return;
     } catch (err) {
-      const alreadyPublished = _.includes(err.toString(), 'You cannot publish over the previously published version');
+      const alreadyPublished = err.toString().includes('You cannot publish over the previously published version');
       if (!alreadyPublished) {
         throw err;
       }
