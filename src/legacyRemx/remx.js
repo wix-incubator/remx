@@ -1,9 +1,11 @@
 import isFunction from 'lodash.isfunction';
 import isObjectLike from 'lodash.isobjectlike';
 import mergeWith from '../utils/mergeWith';
-import { toJS as mobxToJS } from 'mobx';
+import { toJS as mobxToJS, configure } from 'mobx';
 import { touchGlobalKey, triggerStateUpdate } from './connect';
 import { logGetter, logSetter } from './logger';
+
+configure({ isolateGlobalState: true });
 
 export function state(obj) {
   return obj;

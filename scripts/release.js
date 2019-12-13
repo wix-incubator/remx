@@ -53,14 +53,18 @@ email=\${NPM_EMAIL}
   fs.writeFileSync(`.npmrc`, content);
 }
 
-function versionTagAndPublish() {
-  const packageVersion = semver.clean(process.env.npm_package_version);
+function versionTagAndPublish() { const packageVersion = semver.clean(process.env.npm_package_version);
+  const [packagePrereleaseComponent] = semver.prerelease(process.env.npm_package_version) || [];
   console.log(`package version: ${packageVersion}`);
+  console.log(`package packagePrereleaseComponent: ${packagePrereleaseComponent}`);
 
   const currentPublished = findCurrentPublishedVersion();
   console.log(`current published version: ${currentPublished}`);
 
-  const version = semver.gt(packageVersion, currentPublished) ? packageVersion : semver.inc(currentPublished, VERSION_INC);
+  const incIdentifier = packagePrereleaseComponent ? 'prerelease' : VERSION_INC;
+  const version = semver.gt(packageVersion, currentPublished)
+    ? packageVersion
+    : semver.inc(currentPublished, incIdentifier, packagePrereleaseComponent);
   tryPublishAndTag(version);
 }
 

@@ -1,3 +1,8 @@
+# 3.0.0
+
+* Upgraded to `mobx@4` and `mobx-react@5`.
+
+
 # 2.0.0
 ### Complete support for es6 Proxies
 * cleaner api, original objects (without all those ObservableArray wrappers), more performant.

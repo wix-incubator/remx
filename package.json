@@ -1,6 +1,6 @@
 {
   "name": "remx",
-  "version": "3.0.0",
+  "version": "3.0.0-rc.0",
   "description": "Opinionated mobx",
   "license": "MIT",
   "keywords": [
@@ -46,7 +46,6 @@
     "babel-cli": "6.x.x",
     "babel-core": "6.x.x",
     "babel-jest": "22.x.x",
-    "babel-loader": "^7.1.5",
     "babel-polyfill": "6.x.x",
     "babel-preset-react-native": "4.x.x",
     "babel-register": "6.x.x",
