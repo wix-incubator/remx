@@ -193,7 +193,7 @@ const SomeComponent = (props) => {
 }
 
 const useSomeComponentConnect = (props) => useConnect(() => ({
-  selectedPostTitle: store.getPostById(ownProps.selectedPostId);
+  selectedPostTitle: store.getPostById(props.selectedPostId);
 }))
 
 export default SomeComponent;
