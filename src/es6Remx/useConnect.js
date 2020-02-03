@@ -50,6 +50,13 @@ const useConnect = (mapStateToProps, dependencies = []) => {
   mutableState.dispose = dispose;
 
   React.useEffect(() => () => mutableState.dispose(), []);
+
+  /* istanbul ignore if  */
+  if (!Object.prototype.hasOwnProperty.call(mutableState, 'returnValue')) {
+    // Sometimes mobx reactions may be delayed, TODO: figure out why
+    return mapStateToProps();
+  }
+
   return mutableState.returnValue;
 };
 
