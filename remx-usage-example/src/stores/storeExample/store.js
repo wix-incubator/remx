@@ -1,9 +1,10 @@
 import * as remx from 'remx';
+
 remx.registerLoggerForDebug(console.log);
 
 const initialState = {
   randomJoke: null,
-  savedJokes: [{title: 'slot0', id: '0' }]
+  savedJokes: [{ title: 'slot0', id: '0' }]
 };
 
 const state = remx.state(initialState);
@@ -18,10 +19,10 @@ const getters = remx.getters({
 
 const setters = remx.setters({
   addSlot() {
-    state.savedJokes.push({title: 'slot'+ state.savedJokes.length, id:  state.savedJokes.length});
+    state.savedJokes.push({ title: 'slot' + state.savedJokes.length, id: state.savedJokes.length });
   },
   editSlot(index, newTitle) {
-    if(state.savedJokes[index]) {
+    if (state.savedJokes[index]) {
       state.savedJokes[index].title = newTitle;
     }
   },
