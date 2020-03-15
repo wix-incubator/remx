@@ -21,5 +21,5 @@ declare module 'remx' {
 
   type Getter<T, A extends any[]> = (...args: A) => T
 
-  export function useRemxValue<T, A>(getter: Getter<T, A>, dependencies: A): T;
+  export function useRemxValue<T, A>(getter: Getter<T, A>, ...dependencies: A): T;
 }
