@@ -1,6 +1,7 @@
 import React from 'react';
 import * as mobx from 'mobx';
 import * as Logger from './logger';
+import useForceUpdate from '../utils/useForceUpdate';
 
 /**
  * Default value [] for dependencies doesn't match other React hooks behaviour,
@@ -8,7 +9,7 @@ import * as Logger from './logger';
  */
 const useConnect = (mapStateToProps, dependencies = []) => {
   const [mutableState] = React.useState({});
-  const [, updateCounter] = React.useState(0);
+  const forceUpdate = useForceUpdate();
 
   const dispose = React.useMemo(
     () =>
@@ -31,9 +32,7 @@ const useConnect = (mapStateToProps, dependencies = []) => {
           );
           return mutableState.returnValue;
         },
-        () => {
-          updateCounter((counter) => counter + 1);
-        },
+        forceUpdate,
         { fireImmediately: false },
       ),
     dependencies,
