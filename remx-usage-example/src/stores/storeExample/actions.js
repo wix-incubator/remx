@@ -1,13 +1,13 @@
-import {store} from './store';
+import { store } from './store';
 
-export function addSlot(){
+export function addSlot() {
   store.addSlot();
 }
-export function editSlot(index, title){
+export function editSlot(index, title) {
   store.editSlot(index, title);
 }
 
-export async function fetchRandomJoke(){
+export async function fetchRandomJoke() {
   const response = await fetch('http://api.icndb.com/jokes/random');
   const result = await response.json();
   store.setJoke(result.value.joke);
