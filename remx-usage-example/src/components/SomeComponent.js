@@ -17,14 +17,14 @@ class SomeComponent extends PureComponent {
     return (
       <div>
         <h1>
-Click on the button to fetch more jokes
+          Click on the button to fetch more jokes
         </h1>
         <div dangerouslySetInnerHTML={{ __html: this.props.joke }}/>
         <button onClick={() => actions.fetchRandomJoke()}>
-Are you joking?
+          Are you joking?
         </button>
         <h1>
-Saved Jokes:
+          Saved Jokes:
         </h1>
         <div>
           {this.props.savedJokes.map((title, index) => (
@@ -34,15 +34,15 @@ Saved Jokes:
 ))}
         </div>
         <button onClick={() => actions.addSlot()}>
-Add empty slot
+          Add empty slot
         </button>
         <div>
           <span>
-index:
+            index:
           </span>
           <input type="number" value={this.state.index} onChange={(e) => this.setState({ index: e.target.value || 0 })}/>
           <button onClick={() => actions.editSlot(this.state.index, this.props.joke)}>
-Save joke
+            Save joke
           </button>
         </div>
 
