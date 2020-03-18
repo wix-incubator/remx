@@ -17,9 +17,5 @@ declare module 'remx' {
 
   export function setters<T extends {}>(s: T): T;
 
-  export function useConnect<T extends {}>(mapStateToProps: () => T, dependencies?: any[]);
-
-  type Getter<T, A extends any[]> = (...args: A) => T
-
-  export function useRemxValue<T, A>(getter: Getter<T, A>, ...dependencies: A): T;
+  export function useConnect<T extends {}, A extends any[]>(mapStateToProps: (...a: A) => T, dependencies?: A): T;
 }

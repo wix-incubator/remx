@@ -9,9 +9,9 @@ const renderText = (txt) => (
 
 export default (remx) => (props) => {
   const { productId, store } = props;
-  const product = remx.useRemxValue(store.getters.getProduct, productId);
-  const name = remx.useRemxValue(store.getters.getName);
-  const dynamicObject = remx.useRemxValue(store.getters.getDynamicObject);
+  const product = remx.useConnect(store.getters.getProduct, productId);
+  const name = remx.useConnect(store.getters.getName);
+  const dynamicObject = remx.useConnect(store.getters.getDynamicObject);
 
   if (props.renderSpy) {
     props.renderSpy();
