@@ -174,10 +174,10 @@ export default connect(mapStateToProps)(SomeComponent);
 
 ```
 
-### `remx.useConnect(mapStateToProps)`
+### `remx.useConnect(fn, arguments)`
 Hook-style alternative to remx.connect.
 It makes sure, the component is re-rendered on observable values change.
-Supports optional second argument (default value: `[]`), not recommended to use.
+Second argument (optional) is array of arguments that will be passed to the provided function.
 
 ```javascript
 import React, { PureComponent } from 'react';
@@ -194,9 +194,21 @@ const SomeComponent = (props) => {
 
 const useSomeComponentConnect = (props) => useConnect(() => ({
   selectedPostTitle: store.getPostById(props.selectedPostId);
-}))
+}));
 
 export default SomeComponent;
+```
+
+Alternative style:
+
+```javascript
+const SomeComponent = (props) => {
+  const selectedPostTitle = useConnect(store.getPostById, [props.selectedPostId]);
+
+  return (
+    <div>{selectedPostTitle}</div>
+  );
+}
 ```
 
 Note that accessing props outside of mapStateToProps won't be tracked and may cause issues with

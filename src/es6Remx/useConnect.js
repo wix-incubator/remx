@@ -1,6 +1,7 @@
 import React from 'react';
 import * as mobx from 'mobx';
 import * as Logger from './logger';
+import useUpdate from '../utils/useUpdate';
 
 /**
  * Default value [] for dependencies doesn't match other React hooks behaviour,
@@ -8,7 +9,7 @@ import * as Logger from './logger';
  */
 const useConnect = (mapStateToProps, dependencies = []) => {
   const [mutableState] = React.useState({});
-  const [, updateCounter] = React.useState(0);
+  const update = useUpdate();
 
   const dispose = React.useMemo(
     () =>
@@ -17,7 +18,7 @@ const useConnect = (mapStateToProps, dependencies = []) => {
           Logger.startLoggingMapStateToProps();
           mutableState.lastError = undefined;
           try {
-            mutableState.returnValue = mapStateToProps();
+            mutableState.returnValue = mapStateToProps(...dependencies);
           } catch (err) {
             console.warn(
               'Encountered an uncaught exception that was thrown by mapStateToProps in useConnect hook',
@@ -31,9 +32,7 @@ const useConnect = (mapStateToProps, dependencies = []) => {
           );
           return mutableState.returnValue;
         },
-        () => {
-          updateCounter((counter) => counter + 1);
-        },
+        update,
         { fireImmediately: false },
       ),
     dependencies,
@@ -54,7 +53,7 @@ const useConnect = (mapStateToProps, dependencies = []) => {
   /* istanbul ignore if  */
   if (!Object.prototype.hasOwnProperty.call(mutableState, 'returnValue')) {
     // Sometimes mobx reactions may be delayed, TODO: figure out why
-    return mapStateToProps();
+    return mapStateToProps(...dependencies);
   }
 
   return mutableState.returnValue;
