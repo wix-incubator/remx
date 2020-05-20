@@ -95,6 +95,33 @@
       expect(runs).toEqual([-1, 1, 2]);
     });
 
+    it('support reusing already proxified objects)', () => {
+      const initial = {counter: {count: 1}}
+      const state = remx.state({});
+      state.a = {...initial};
+      state.b = {...initial};
+      const getters = remx.getters({
+        getCount() {
+          return state.b.counter.count;
+        }
+      });
+      setters = remx.setters({
+        modify(val) {
+          state.b.counter.count = val;
+        },
+      });
+
+      const runs = [];
+      mobx.autorun(() => {
+        runs.push(getters.getCount());
+      });
+
+      setters.modify(2);
+      setters.modify(3);
+
+      expect(runs).toEqual([1, 2, 3]);
+    });
+
     it('support setting complex getters object inside state', () => {
       const makeEntity = () => {
         const state = remx.state({ id: 1 });
