@@ -95,7 +95,7 @@
       expect(runs).toEqual([-1, 1, 2]);
     });
 
-    it.only('support reusing already proxified objects)', () => {
+    it.skip('support reusing already proxified objects)', () => {
       const initial = {counter: {count: 1}}
       const state = remx.state({});
       state.a = {...initial};
