@@ -96,10 +96,10 @@
     });
 
     it.skip('support reusing already proxified objects)', () => {
-      const initial = {counter: {count: 1}}
+      const initial = { counter: { count: 1 } };
       const state = remx.state({});
-      state.a = {...initial};
-      state.b = {...initial};
+      state.a = { ...initial };
+      state.b = { ...initial };
       const getters = remx.getters({
         getCount() {
           return state.b.counter.count;
@@ -108,7 +108,7 @@
       setters = remx.setters({
         modify(val) {
           state.b.counter.count = val;
-        },
+        }
       });
 
       const runs = [];
