@@ -17,4 +17,9 @@ describe('immutableDate', () => {
     const date = new Date();
     expect(date).not.toBe(immutableDate(date));
   });
+
+  it('should return a Date instance', () => {
+    const date = new Date();
+    expect(immutableDate(date)).toBeInstanceOf(Date);
+  });
 });
