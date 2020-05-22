@@ -19,7 +19,9 @@ export default function immutableDate(date) {
     'setYear'
   ].forEach((key) => {
     date[key] = () => {
-      throw new Error(`[remx] attempted to call Date#${key}, modifying dates in store are disallowed, create a new Date instead`);
+      throw new Error(
+        `[remx] attempted to call Date#${key}, modifying dates in store are disallowed, create a new Date instead`
+      );
     };
   });
   return date;
