@@ -154,6 +154,29 @@
 
       expect(() => setters.add(obj)).not.toThrow();
     });
+
+    it('supports Date', () => {
+      const date = new Date(10000);
+      const state = remx.state({ date });
+      const getters = remx.getters({ getDate() {
+        return state.date;
+      } });
+
+      expect(getters.getDate().valueOf()).toEqual(10000);
+    });
+
+    it('throws on date modification', () => {
+      const state = remx.state({ date: new Date() });
+      const getters = remx.getters({ getDate() {
+        return state.date;
+      } });
+
+      if (version !== 'legacyRemx') {
+        expect(() => getters.getDate().setHours(1)).toThrowError(
+          '[remx] attempted to call Date#setHours, modifying dates in store are disallowed, create a new Date instead'
+        );
+      }
+    });
   });
 
   describe('prod test', () => {

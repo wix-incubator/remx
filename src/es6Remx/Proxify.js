@@ -1,6 +1,7 @@
 import * as mobx from 'mobx';
 
 import isObjectLike from 'lodash.isobjectlike';
+import immutableDate from '../utils/immutableDate';
 
 const alreadyProxiedObjects = new WeakMap();
 
@@ -37,10 +38,14 @@ function proxify(obj) {
 const createObservableMap = (obj) => {
   const tracker = mobx.observable.map({}, { deep: false });
   Object.keys(obj).forEach((key) => {
-    if (isObjectLike(obj[key]) && !alreadyProxiedObjects.has(obj[key])) {
-      obj[key] = proxify(obj[key]);
+    const value = obj[key];
+    if (isObjectLike(value) && !alreadyProxiedObjects.has(value) && value instanceof Date === false) {
+      obj[key] = proxify(value);
     }
-    tracker.set(key, obj[key]);
+    if (value instanceof Date) {
+      obj[key] = immutableDate(value);
+    }
+    tracker.set(key, value);
   });
   return tracker;
 };
