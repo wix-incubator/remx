@@ -86,7 +86,10 @@
         "lines": 100
       }
     },
-    "coveragePathIgnorePatterns": ["/node_modules/", ".test.js"],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      ".test.js"
+    ],
     "coverageReporters": [
       "json",
       "lcov",
