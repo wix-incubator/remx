@@ -1,19 +1,20 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import { grabConsoleErrors } from '../utils/testUtils';
 
 ['es6Remx'].forEach((version) => {
   describe(`SmartComponent (${version})`, () => {
+    const Store = require('./Store').default;
+    const connect = require(`../${version}/connect`).connect;
+    const remx = require(`../${version}/remx`);
     let MyComponent;
     let store;
     let renderSpy;
-    let connect;
 
     beforeEach(() => {
-      const Store = require('./Store').default;
-      store = new Store(require(`../${version}/remx`));
       MyComponent = require('./SmartComponent').default;
+      store = new Store(remx);
       renderSpy = jest.fn();
-      connect = require(`../${version}/connect`).connect;
     });
 
     afterEach(() => {
@@ -21,7 +22,8 @@ import renderer from 'react-test-renderer';
     });
 
     it('renders normally', () => {
-      const tree = renderer.create(<MyComponent store={store} renderSpy={renderSpy} />);
+      let tree;
+      expect(grabConsoleErrors(() => tree = renderer.create(<MyComponent store={store} renderSpy={renderSpy} />)));
       expect(tree.toJSON().children).toEqual(['nothing']);
       expect(renderSpy).toHaveBeenCalledTimes(1);
     });
@@ -33,8 +35,63 @@ import renderer from 'react-test-renderer';
       expect(renderSpy).toHaveBeenCalledTimes(1);
     });
 
+    describe('warning on accessing state in untracked React components', () => {
+      it('desn\'t warn on accesing state outside of React component', () => {
+        expect(grabConsoleErrors(() => store.getters.getProduct('0'))).toEqual([]);
+      });
+
+      it('not connected classic component warns', () => {
+        expect(grabConsoleErrors(() => renderer.create(<MyComponent store={store} renderSpy={renderSpy} />)))
+          .toEqual([
+            ['[REMX] attemted to access prop \'products\' in react component untracked by remx'],
+            ['[REMX] attemted to access prop \'123\' in react component untracked by remx'],
+            ['[REMX] attemted to access prop \'person\' in react component untracked by remx'],
+            ['[REMX] attemted to access prop \'name\' in react component untracked by remx']
+          ]);
+      });
+
+      it('connected classic component doesn\'t warn', () => {
+        const MyConnectedComponent = connect()(MyComponent);
+        expect(grabConsoleErrors(() =>
+          renderer.create(<MyConnectedComponent store={store} renderSpy={renderSpy} />))
+        )
+            .toEqual([]);
+      });
+
+      it('not connected functional component warns', () => {
+        const Fc = () => store.getters.getProduct('0') || null;
+        expect(grabConsoleErrors(() => renderer.create(<Fc />)))
+          .toEqual([
+            ['[REMX] attemted to access prop \'products\' in react component untracked by remx'],
+            ['[REMX] attemted to access prop \'0\' in react component untracked by remx']
+          ]);
+      });
+
+      it('connected functional component doesn\'t warn', () => {
+        const Fc = () => store.getters.getProduct('0') || null;
+        const ConnectedFC = connect()(Fc);
+        expect(grabConsoleErrors(() => renderer.create(<ConnectedFC />))).toEqual([]);
+      });
+
+      it('not connected forwardRef component warns', () => {
+        const FcFw = React.forwardRef(() => store.getters.getProduct('0') || null);
+        expect(grabConsoleErrors(() => renderer.create(<FcFw />)))
+          .toEqual([
+            ['[REMX] attemted to access prop \'products\' in react component untracked by remx'],
+            ['[REMX] attemted to access prop \'0\' in react component untracked by remx']
+          ]);
+      });
+
+      it('connected forwardRef component doesn\'t warn', () => {
+        const FcFw = React.forwardRef(() => store.getters.getProduct('0') || null);
+        const ConnectedFCFW = connect()(FcFw);
+        expect(grabConsoleErrors(() => renderer.create(<ConnectedFCFW />))).toEqual([]);
+      });
+    });
+
     it('regular component does not listen to changes', () => {
-      const tree = renderer.create(<MyComponent store={store} renderSpy={renderSpy} />);
+      let tree;
+      expect(grabConsoleErrors(() => tree = renderer.create(<MyComponent store={store} renderSpy={renderSpy} />)));
       expect(tree.toJSON().children).toEqual(['nothing']);
       expect(renderSpy).toHaveBeenCalledTimes(1);
 

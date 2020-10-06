@@ -2,6 +2,7 @@ import * as mobx from 'mobx';
 import isFunction from 'lodash.isfunction';
 import isObjectLike from 'lodash.isobjectlike';
 import mergeWith from '../utils/mergeWith';
+import { isDev } from '../utils/isDev';
 import { proxify } from './Proxify';
 import { logGetter, logSetter } from './logger';
 
@@ -61,12 +62,6 @@ function mergeCustomizer(objValue, srcValue, key, object) {
     object[key] = undefined;
   }
   return undefined;
-}
-
-function isDev() {
-  return global.__DEV__ ||
-    process.env.NODE_ENV === 'dev' ||
-    process.env.NODE_ENV === 'development';
 }
 
 export function toJS(data) {
