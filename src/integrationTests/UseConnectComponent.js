@@ -11,7 +11,7 @@ export default (remx) => (props) => {
   const mapStateToProps = props.mapStateToProps ?
     props.mapStateToProps :
     () => ({
-      product: props.store.getters.getProduct('123'),
+      productTitle: props.store.getters.getProduct('123') && props.store.getters.getProduct('123').title,
       dynamicObject: props.store.getters.getDynamicObject(),
       name: props.store.getters.getName()
     });
@@ -26,8 +26,8 @@ export default (remx) => (props) => {
     props.renderSpy();
   }
 
-  if (connectedProps.product) {
-    return renderText(connectedProps.product.title);
+  if (connectedProps.productTitle) {
+    return renderText(connectedProps.productTitle);
   } else if (props.testDynamicObject) {
     /* istanbul ignore next */
     return renderText(
