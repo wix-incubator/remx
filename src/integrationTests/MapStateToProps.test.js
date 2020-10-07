@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-['es6Remx', 'legacyRemx'].forEach((version) => {
+['es6Remx'].forEach((version) => {
   describe(`connect with mapStateToProps (${version})`, () => {
     let MyComponent;
     let renderSpy;
@@ -126,9 +126,7 @@ import renderer from 'react-test-renderer';
       };
 
       const MyConnectedComponent = connect(mapStateToProps())(MyComponent);
-      if (version !== 'legacyRemx') {
-        expect(MyConnectedComponent.options).toBeDefined();
-      }
+      expect(MyConnectedComponent.options).toBeDefined();
     });
 
     it('should trigger logger when mapStateToProps called', () => {
@@ -158,28 +156,6 @@ import renderer from 'react-test-renderer';
         connectedComponentName: 'MyComponent',
         triggeredEvents: expectedTriggerEvents,
         returnValue: { textToRender: 'bla' }
-      });
-      expect(spy.mock.calls[2][0]).toEqual({
-        action: 'componentRender',
-        name: 'MyComponent'
-      });
-    });
-
-    it('should trigger logger on re-rendering of component that was connected with mapStateToProps', () => {
-      const spy = jest.fn();
-      const mapStateToProps = () => {
-        return {
-          textToRender: store.getters.getName()
-        };
-      };
-
-      const MyConnectedComponent = connect(mapStateToProps)(MyComponent);
-      renderer.create(<MyConnectedComponent someOwnProp="someOwnProp" />);
-      registerLoggerForDebug(spy);
-      store.setters.setName('bla');
-      expect(spy.mock.calls[2][0]).toEqual({
-        action: 'componentRender',
-        name: 'MyComponent'
       });
     });
 
@@ -227,10 +203,8 @@ import renderer from 'react-test-renderer';
 
       store.setters.setProductTitle('123', 'New');
 
-      const expectedChildren = { es6Remx: 'InitialTitle', legacyRemx: 'New' };
-      const expectedCallCounts = { es6Remx: 1, legacyRemx: 2 };
-      expect(tree.toJSON().children).toEqual([expectedChildren[version]]);
-      expect(renderSpy).toHaveBeenCalledTimes(expectedCallCounts[version]);
+      expect(tree.toJSON().children).toEqual(['InitialTitle']);
+      expect(renderSpy).toHaveBeenCalledTimes(1);
     });
   });
 });

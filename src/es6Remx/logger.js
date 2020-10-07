@@ -1,5 +1,3 @@
-import { renderReporter, trackComponents } from 'mobx-react/custom';
-
 const loggers = [];
 let isLoggerEnabled = false;
 let isBuffering = false;
@@ -14,7 +12,6 @@ const actions = {
 export function registerLoggerForDebug(logger) {
   if (loggers.length === 0) {
     console.warn('Remx logger has been activated. make sure to disable it in production.');
-    activateRenderComponentSpy();
     isLoggerEnabled = true;
   }
   loggers.push(logger);
@@ -50,12 +47,4 @@ export function endLoggingMapStateToProps(connectedComponentName, returnValue) {
     log({ action: actions.mapStateToProps, connectedComponentName, returnValue, triggeredEvents: buffer });
   }
   buffer = [];
-}
-
-function activateRenderComponentSpy() {
-  trackComponents();
-  renderReporter.on((data) => {
-    const componentName = data.component.originalComponentName ? data.component.originalComponentName : data.component.constructor.name;
-    log({ action: actions.componentRender, name: componentName });
-  });
 }
