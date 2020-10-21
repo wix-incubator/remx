@@ -2,6 +2,7 @@
 id: why
 title: Why?
 sidebar_label: Why?
+slug: /
 ---
 
 Writing a react / react-native project with or without TDD, we have multiple well known and battle tested choices when it comes to state management:
