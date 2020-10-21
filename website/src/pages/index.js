@@ -8,7 +8,7 @@ import styles from './styles.module.css';
 
 const features = [
   {
-    title: 'Easy to Use',
+    title: 'Easy to Implement',
     imageUrl: 'img/undraw_docusaurus_mountain.svg',
     description: (
       <>
@@ -18,7 +18,7 @@ const features = [
     ),
   },
   {
-    title: 'Focus on What Matters',
+    title: 'Zero Boilerplate',
     imageUrl: 'img/undraw_docusaurus_tree.svg',
     description: (
       <>
@@ -28,7 +28,7 @@ const features = [
     ),
   },
   {
-    title: 'Powered by React',
+    title: 'Works out of the Box',
     imageUrl: 'img/undraw_docusaurus_react.svg',
     description: (
       <>
@@ -59,7 +59,7 @@ function Home() {
   const {siteConfig = {}} = context;
   return (
     <Layout
-      title={`Hello from ${siteConfig.title}`}
+      title={`${siteConfig.title} - ${siteConfig.tagline}`}
       description="Description will go into a meta tag in <head />">
       <header className={clsx('hero hero--primary', styles.heroBanner)}>
         <div className="container">

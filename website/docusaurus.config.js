@@ -1,6 +1,6 @@
 module.exports = {
   title: 'Remx',
-  tagline: 'Remx - Opinionated Mobx',
+  tagline: 'Opinionated Mobx',
   url: 'https://your-docusaurus-test-site.com',
   baseUrl: '/',
   onBrokenLinks: 'throw',
