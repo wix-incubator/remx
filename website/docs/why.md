@@ -1,8 +1,9 @@
-# remx [![Build Status](https://travis-ci.org/wix/remx.svg?branch=master)](https://travis-ci.org/wix/remx)
-
-> Opinionated Mobx
-
-## Why
+---
+id: why
+title: Why?
+sidebar_label: Why?
+slug: /
+---
 
 Writing a react / react-native project with or without TDD, we have multiple well known and battle tested choices when it comes to state management:
 
@@ -17,7 +18,7 @@ Writing a react / react-native project with or without TDD, we have multiple wel
   * Cons: Can be used in lots of different ways, In our opinion complex API due to large amount of features.
 
 When we look at those battle-proven solutions, and especially if we try to build a large scale project that can be worked on by lots of different people from different teams, we see that we have a need for some combintaion of the above.
-Let's try to break down our actual requirements and see if we can build a system that will answer those.
+Let's try to break down our actual requirementes and see if we can build a system that will answer those.
 
 #### What do we really need from a state management library?
 Well for starters, starting to write our business logic by doing TDD does not require any state management at all. In fact, I would argue that it can only hinder. Try that for example: start by writing test-first all features of a JS(node) application with unit tests *without* any mention of redux. It is really difficult: if all we want to do is, for example, write a unit of logic that does some login flow, with loading state and authentication and error flows, we see that we have little use of any of these libraries.
@@ -72,191 +73,3 @@ Take a look at the example project to see how remx is intended to be used.
   * avoids unnecessary re-renders
 * uses es6 Proxies (where possible)
   * avoids mobx's Observable wrappers which can cause weird bugs and behaviours
-
-## API
-### `remx.state(initialState)`
-The state function takes a plain object and makes it observable.
-The state should be defined inside the store, and should not be exported. All the interactions with the state should be done 
-through exported getters and setters.
-Any change to the state will trigger a re-render of any connected react component that should be effected from the change. If for example you have a state with two props, *A* and *B*, and you have a connected component that is using only prop *A*, only changes to prop *A* will triger re-render of the component.
-
-in `someStore.js`:
-```javascript
-import * as remx from 'remx';
-
-const initialState = {
-  loading: true,
-  posts: {},
-  selectedPosts: [],
-};
-
-const state = remx.state(initialState);
-```
-
-### `remx.getters(...)`
-All the functions that are going to return parts of the state should be wrapped within the Getters function.
-The wrapped getters functions should be defined inside the same store file and should be exported.
-
-in `someStore.js`:
-
-```javascript
-import * as remx from 'remx';
-
-const getters = remx.getters({
- 
- isLoading() {
-   return state.loading;
- },
- 
- getPostsByIndex(index) {
-  return state.posts[index];
- }
- 
-});
-
-export const store = {
-  ...getters
-};
-```
-
-### `remx.setters(...)`
-All the functions that are going to change parts of the state should be wrapped within the Setters function.
-The wrapped setters functions should be defined inside the store and should be exported.
-
-in `someStore.js`:
-
-```javascript
-import * as remx from 'remx';
-
-const setters = remx.setters({
-
- setLoading(isLoading) {
-   state.loading = isLoading;
- },
- 
- addPost(post) {
-  state.posts.push(post);
- }
- 
-});
-
-export const store = {
-  ...setters
-};
-
-```
-
-### `remx.connect(mapStateToProps)(MyComponent)`
-Connects a react component to the state.
-This function can optionally take a mapStateToProps function, for mapping the state into props.
-in `someComponent.js`:
-
-```javascript
-import React, { PureComponent } from 'react';
-import { connect } from 'remx';
-import { store } from './someStore';
-
-class SomeComponent extends PureComponent {
-  render() {
-    return (
-      <div>{this.props.selectedPostTitle}</div>
-    );
-  }
-}
-
-function mapStateToProps(ownProps) {
-  return {
-    selectedPostTitle: store.getPostById(ownProps.selectedPostId);
-  };
-}
-
-export default connect(mapStateToProps)(SomeComponent);
-
-```
-
-### `remx.useConnect(fn, arguments)`
-Hook-style alternative to remx.connect.
-It makes sure, the component is re-rendered on observable values change.
-Second argument (optional) is array of arguments that will be passed to the provided function.
-
-```javascript
-import React, { PureComponent } from 'react';
-import { useConnect } from 'remx';
-import { store } from './someStore';
-
-const SomeComponent = (props) => {
-  const {selectedPostTitle} = useSomeComponentConnect(props);
-
-  return (
-    <div>{selectedPostTitle}</div>
-  );
-}
-
-const useSomeComponentConnect = (props) => useConnect(() => ({
-  selectedPostTitle: store.getPostById(props.selectedPostId);
-}));
-
-export default SomeComponent;
-```
-
-Alternative style:
-
-```javascript
-const SomeComponent = (props) => {
-  const selectedPostTitle = useConnect(store.getPostById, [props.selectedPostId]);
-
-  return (
-    <div>{selectedPostTitle}</div>
-  );
-}
-```
-
-Note that accessing props outside of mapStateToProps won't be tracked and may cause issues with
-components not being updated.
-
-```javascript
-// Bad (product.price accessing is not tracked):
-const ProductPriceComponent = (props) => {
-  const {product} = useConnect(() => ({
-    product: store.getters.getProduct(),
-  }));
-
-  return (
-    <div>Price: {product.price} USD</div>
-  );
-}
-
-// Good:
-const ProductPriceComponent = (props) => {
-  const {price} = useConnect(() => ({
-    price: store.getters.getProduct().price
-  }));
-
-  return (
-    <div>Price: {price} USD</div>
-  );
-}
-```
-
-### `remx.registerLoggerForDebug(loggerFunc)`
-Takes a logger and call it on the following actions:
-
-
-```javascript
-import {registerLoggerForDebug} from 'remx'
-registerLoggerForDebug(console.log); //will log all remx actions:
-//on setter call: {action: "setter", name: "someSetterName", args: ["arg1", "arg2"])}
-//on getter call: {action: "getter", name: "someGetterName", args: ["arg1", "arg2"])}
-//on mapsStateToProps: 
-/*   
-     {
-      "action":"mapStateToProps",
-      "connectedComponentName":"SomeComponent",
-      "returnValue":{},
-      "triggeredEvents":[] // an arry of actions that have been triggered during the run of mapStateToProps
-      } 
-*/   
-
-//on component re-rendered: {action: "componentRender", name: "SomeComponent"}
-
-```
