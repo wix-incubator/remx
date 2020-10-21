@@ -1,12 +1,12 @@
 module.exports = {
   title: 'Remx',
   tagline: 'Opinionated Mobx',
-  url: 'https://your-docusaurus-test-site.com',
-  baseUrl: '/',
+  url: 'https://wix.github.io',
+  baseUrl: '/remx',
   onBrokenLinks: 'throw',
   favicon: 'img/favicon.ico',
-  organizationName: 'wix-incubator', // Usually your GitHub org/user name.
-  projectName: 'remx-docs', // Usually your repo name.
+  organizationName: 'wix', // Usually your GitHub org/user name.
+  projectName: 'remx', // Usually your repo name.
   themeConfig: {
     navbar: {
       title: 'Remx',
