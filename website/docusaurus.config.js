@@ -22,6 +22,7 @@ module.exports = {
           position: 'left',
         },
         {to: 'blog', label: 'Blog', position: 'left'},
+        {to: 'docs/api', label: 'API', position: 'left'},
         {
           href: 'https://github.com/wix/remx',
           label: 'GitHub',
