@@ -2,7 +2,7 @@ module.exports = {
   title: 'Remx',
   tagline: 'Opinionated Mobx',
   url: 'https://wix.github.io',
-  baseUrl: '/remx',
+  baseUrl: '/remx/',
   onBrokenLinks: 'throw',
   favicon: 'img/favicon.ico',
   organizationName: 'wix', // Usually your GitHub org/user name.
