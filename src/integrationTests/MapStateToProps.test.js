@@ -1,20 +1,19 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import { connect } from '../es6Remx/connect';
+import { registerLoggerForDebug } from '../es6Remx/remx';
+
+import Store from './Store';
+import MyComponent from './MapStateToPropsComp';
+import * as remx from '../es6Remx/remx';
 
 ['es6Remx'].forEach((version) => {
   describe(`connect with mapStateToProps (${version})`, () => {
-    let MyComponent;
     let renderSpy;
     let store;
-    let connect;
-    let registerLoggerForDebug;
     beforeEach(() => {
-      const Store = require('./Store').default;
-      store = new Store(require(`../${version}/remx`));
-      MyComponent = require('./MapStateToPropsComp').default;
       renderSpy = jest.fn();
-      connect = require(`../${version}/connect`).connect;
-      registerLoggerForDebug = require(`../${version}/remx`).registerLoggerForDebug;
+      store = new Store(remx);
     });
 
     afterEach(() => {
@@ -83,10 +82,14 @@ import renderer from 'react-test-renderer';
       );
       expect(tree.toJSON().children).toEqual(['nothing']);
       expect(renderSpy).toHaveBeenCalledTimes(1);
-      store.setters.setName('my name');
+      renderer.act(() => {
+        store.setters.setName('my name');
+      });
       expect(tree.toJSON().children).toEqual(['my name']);
       expect(renderSpy).toHaveBeenCalledTimes(2);
-      store.setters.setName('my name2');
+      renderer.act(() => {
+        store.setters.setName('my name2');
+      });
       expect(tree.toJSON().children).toEqual(['my name2']);
       expect(renderSpy).toHaveBeenCalledTimes(3);
     });
@@ -107,7 +110,9 @@ import renderer from 'react-test-renderer';
       expect(tree.toJSON().children).toEqual(['nothing123']);
       expect(renderSpy).toHaveBeenCalledTimes(1);
 
-      store.setters.setName('my name');
+      renderer.act(() => {
+        store.setters.setName('my name');
+      });
       expect(tree.toJSON().children).toEqual(['my name123']);
       expect(renderSpy).toHaveBeenCalledTimes(2);
     });
@@ -150,7 +155,9 @@ import renderer from 'react-test-renderer';
         returnValue: { textToRender: 'nothing' }
       });
       spy.mockClear();
-      store.setters.setName('bla');
+      renderer.act(() => {
+        store.setters.setName('bla');
+      });
       expect(spy.mock.calls[1][0]).toEqual({
         action: 'mapStateToProps',
         connectedComponentName: 'MyComponent',
@@ -203,8 +210,8 @@ import renderer from 'react-test-renderer';
 
       store.setters.setProductTitle('123', 'New');
 
-      expect(tree.toJSON().children).toEqual(['InitialTitle']);
-      expect(renderSpy).toHaveBeenCalledTimes(1);
+      expect(tree.toJSON().children).toEqual(['New']);
+      expect(renderSpy).toHaveBeenCalledTimes(2);
     });
   });
 });

@@ -20,23 +20,14 @@ function wrapWithObserverHigherOrderComponent(mapStateToProps) {
 }
 
 function observerOnMapStateToProps(InnerComp, mapStateToProps) {
-  class Hoc extends React.Component {
-    constructor(props) {
-      super(props);
-      // set the component name for the logger:
-      this.originalComponentName = InnerComp.name;
-    }
-    render() {
-      Logger.startLoggingMapStateToProps();
-      const propsFromState = mapStateToProps(this.props);
-      Logger.endLoggingMapStateToProps(InnerComp.name, propsFromState);
-      const ObservedInnerComp = InnerComp;
-      return (
-        <ObservedInnerComp {...this.props} {...propsFromState} />
-      );
-    }
-  }
-  return observer(Hoc);
+  return observer((props) => {
+    Logger.startLoggingMapStateToProps();
+    const propsFromState = mapStateToProps(props);
+    Logger.endLoggingMapStateToProps(InnerComp.name, propsFromState);
+    return (
+      <InnerComp {...props} {...propsFromState} />
+    );
+  });
 }
 
 function mergeStaticMembers(SrcComp, DestComp) {
