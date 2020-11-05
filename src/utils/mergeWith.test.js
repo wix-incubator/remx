@@ -1,8 +1,8 @@
 /* original: https://github.com/lodash/lodash/blob/912d6b04/test/test.js#L15183 */
 import mergeWith from './mergeWith';
+import { noop } from './noop';
 
 const identity = (value) => value;
-const noop = () => {};
 
 describe('mergeWith', () => {
   it('should ignore bad sources', () => {

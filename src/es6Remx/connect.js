@@ -1,6 +1,6 @@
 import isFunction from 'lodash.isfunction';
 import React from 'react';
-import { observer } from 'mobx-react';
+import { observer } from './observer';
 import * as Logger from './logger';
 import hoistNonReactStatics from 'hoist-non-react-statics';
 

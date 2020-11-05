@@ -5,6 +5,12 @@ import { connect } from '../../index';
 
 import store from './Store';
 
+const Item = connect()((params) => (
+  <Text>
+    {params.item.text}
+  </Text>
+));
+
 class MyList extends Component {
   render() {
     this.props.renderSpy();
@@ -12,17 +18,13 @@ class MyList extends Component {
       <FlatList
         data={this.props.items}
         renderItem={this.renderItem}
-        keyExtractor={(i) => i.id}
+        keyExtractor={(_, i) => i}
       />
     );
   }
 
   renderItem(params) {
-    return (
-      <Text>
-        {params.item.text}
-      </Text>
-    );
+    return <Item {...params} />;
   }
 }
 
