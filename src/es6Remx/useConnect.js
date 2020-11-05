@@ -2,6 +2,7 @@ import React from 'react';
 import * as mobx from 'mobx';
 import * as Logger from './logger';
 import useUpdate from '../utils/useUpdate';
+import { incrementRenderingObserverDepth, decrementRenderingObserverDepth } from './globalState';
 
 /**
  * Default value [] for dependencies doesn't match other React hooks behaviour,
@@ -18,6 +19,7 @@ const useConnect = (mapStateToProps, dependencies = []) => {
           Logger.startLoggingMapStateToProps();
           mutableState.lastError = undefined;
           try {
+            incrementRenderingObserverDepth();
             mutableState.returnValue = mapStateToProps(...dependencies);
           } catch (err) {
             console.warn(
@@ -25,6 +27,8 @@ const useConnect = (mapStateToProps, dependencies = []) => {
               err,
             );
             mutableState.lastError = err;
+          } finally {
+            decrementRenderingObserverDepth();
           }
           Logger.endLoggingMapStateToProps(
             'useConnect hook',
@@ -53,7 +57,12 @@ const useConnect = (mapStateToProps, dependencies = []) => {
   /* istanbul ignore if  */
   if (!Object.prototype.hasOwnProperty.call(mutableState, 'returnValue')) {
     // Sometimes mobx reactions may be delayed, TODO: figure out why
-    return mapStateToProps(...dependencies);
+    incrementRenderingObserverDepth();
+    try {
+      return mapStateToProps(...dependencies);
+    } finally {
+      decrementRenderingObserverDepth();
+    }
   }
 
   return mutableState.returnValue;
