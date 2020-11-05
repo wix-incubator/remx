@@ -1,12 +1,11 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-['es6Remx', 'legacyRemx'].forEach((version) => {
+['es6Remx'].forEach((version) => {
   describe(`SmartComponent (${version})`, () => {
     let MyComponent;
     let store;
     let renderSpy;
-    let registerLoggerForDebug;
     let connect;
 
     beforeEach(() => {
@@ -15,7 +14,6 @@ import renderer from 'react-test-renderer';
       MyComponent = require('./SmartComponent').default;
       renderSpy = jest.fn();
       connect = require(`../${version}/connect`).connect;
-      registerLoggerForDebug = require(`../${version}/remx`).registerLoggerForDebug;
     });
 
     afterEach(() => {
@@ -58,17 +56,6 @@ import renderer from 'react-test-renderer';
       expect(store.getters.getName()).toEqual('Gandalf');
       expect(tree.toJSON().children).toEqual(['Gandalf']);
       expect(renderSpy).toHaveBeenCalledTimes(2);
-    });
-
-    it('should trigger a log event when a connected componentd re-rerendered', () => {
-      const MyConnectedComponent = connect()(MyComponent);
-      renderer.create(<MyConnectedComponent store={store} renderSpy={renderSpy} />);
-      expect(renderSpy).toHaveBeenCalledTimes(1);
-      const spy = jest.fn();
-      registerLoggerForDebug(spy);
-      store.setters.setName(`Gandalf`);
-      expect(renderSpy).toHaveBeenCalledTimes(2);
-      expect(spy.mock.calls[3][0]).toEqual({ action: 'componentRender', name: 'MyComponent' });
     });
 
     describe('using remx.map', () => {

@@ -1,5 +1,10 @@
 import * as remx from './remx';
 import * as mobx from 'mobx';
+import { grabConsole } from '../utils/testUtils';
+
+const strictError = expect.stringContaining(
+    '[MobX] Since strict-mode is enabled, changing (observed) observable values without using an action is not allowed. Tried to modify:'
+);
 
 describe('remx!', () => {
   let state, setters, getters, getNameCalled, getFullNameCalled;
@@ -125,17 +130,17 @@ describe('remx!', () => {
 
   it('enforces strict mode, no one is allowed to touch state outside of mobx actions', () => {
     const stopObservation = mobx.autorun(() => getters.getName());
-    expect(() => {
+    expect(grabConsole(() => {
       state.name = 'hi';
-    }).toThrow();
+    })).toEqual([['warn', strictError]]);
     stopObservation();
   });
 
   it('enforces strict mode recursively', () => {
     const stopObservation = mobx.autorun(() => getters.getAge());
-    expect(() => {
+    expect(grabConsole(() => {
       state.age.is = 3;
-    }).toThrow();
+    })).toEqual([['warn', strictError]]);
     stopObservation();
   });
 

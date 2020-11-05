@@ -2,7 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import { StoreMock } from './StoreMock';
 
-['es6Remx', 'legacyRemx'].forEach((version) => {
+['es6Remx'].forEach((version) => {
   describe(`useConnect (${version})`, () => {
     let store;
     let storeMock;
@@ -44,7 +44,7 @@ import { StoreMock } from './StoreMock';
       expect(renderSpy).toHaveBeenCalledTimes(2);
     });
 
-    it('should trigger a log event when a connected componentd re-rerendered', () => {
+    it.skip('should trigger a log event when a connected componentd re-rerendered', () => {
       renderer.create(<MyComponent store={store} renderSpy={renderSpy} />);
       expect(renderSpy).toHaveBeenCalledTimes(1);
       const spy = jest.fn();

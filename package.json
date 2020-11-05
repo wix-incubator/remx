@@ -38,8 +38,8 @@
     "hoist-non-react-statics": "^2.5.5",
     "lodash.isfunction": "^3.0.9",
     "lodash.isobjectlike": "^4.0.0",
-    "mobx": "4.0.0 - 4.3.1",
-    "mobx-react": "^5.2.3",
+    "mobx": "^6.0.1",
+    "mobx-react": "^7.0.0",
     "snyk": "^1.192.3"
   },
   "devDependencies": {
