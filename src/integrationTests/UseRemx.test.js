@@ -2,7 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import { StoreMock } from './StoreMock';
 
-['es6Remx', 'legacyRemx'].forEach((version) => {
+['es6Remx'].forEach((version) => {
   describe(`useRemxValue (${version})`, () => {
     let store;
     let storeMock;

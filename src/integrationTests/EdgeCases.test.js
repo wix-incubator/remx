@@ -1,4 +1,4 @@
-['es6Remx', 'legacyRemx'].forEach((version) => {
+['es6Remx'].forEach((version) => {
   describe(`EdgeCases (${version})`, () => {
     let remx, mobx;
     let state, setters, getters, anotherState;
@@ -171,11 +171,9 @@
         return state.date;
       } });
 
-      if (version !== 'legacyRemx') {
-        expect(() => getters.getDate().setHours(1)).toThrowError(
-          '[remx] attempted to call Date#setHours, modifying dates in store are disallowed, create a new Date instead'
-        );
-      }
+      expect(() => getters.getDate().setHours(1)).toThrowError(
+        '[remx] attempted to call Date#setHours, modifying dates in store are disallowed, create a new Date instead'
+      );
     });
   });
 
