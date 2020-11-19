@@ -8,32 +8,32 @@ import styles from './styles.module.css';
 
 const features = [
   {
-    title: 'Easy to Implement',
-    imageUrl: 'img/undraw_docusaurus_mountain.svg',
+    title: 'Easy',
+    imageUrl: '',//TODO: add .svg images in img folder
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        Remx was designed from the ground up to be easily installed and
+        used in your websites and apps for state management.
       </>
     ),
   },
   {
     title: 'Zero Boilerplate',
-    imageUrl: 'img/undraw_docusaurus_tree.svg',
+    imageUrl: '',
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        Docusaurus lets you focus on your features, and we&apos;ll do the chores. Go
+        ahead and install Remx in your website or app.
       </>
     ),
   },
   {
-    title: 'Works out of the Box',
-    imageUrl: 'img/undraw_docusaurus_react.svg',
+    title: 'Fast and Reliable',
+    imageUrl: '',
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        Extend or customize your data management. Remx is
+        reliable and fast to use.
       </>
     ),
   },
