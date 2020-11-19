@@ -1,6 +1,6 @@
 module.exports = {
   title: 'Remx',
-  tagline: 'Opinionated Mobx',
+  tagline: '',//TODO: add descriptive tagline
   url: 'https://wix.github.io',
   baseUrl: '/remx/',
   onBrokenLinks: 'throw',
@@ -77,7 +77,7 @@ module.exports = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Wix.com, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Wix.com, Inc.`,
     },
   },
   presets: [

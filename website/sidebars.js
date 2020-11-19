@@ -1,6 +1,6 @@
 module.exports = {
   someSidebar: {
-    Introduction: ['why'],
+    Introduction: ['why', 'examples'],
     API: ['api-reference', 'state', 'getters', 'setters', 'connect', 'useConnect', 'registerLoggerForDebug']
   },
 };
