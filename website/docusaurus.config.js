@@ -36,8 +36,12 @@ module.exports = {
           title: 'Docs',
           items: [
             {
-              label: 'Why?',
-              to: 'docs/',
+              label: 'Getting Started',
+              to: 'docs/introduction/getting-started',
+            },
+            {
+              label: 'Motivation',
+              to: 'docs/introduction/motivation',
             },
             {
               label: 'API',
@@ -46,16 +50,24 @@ module.exports = {
           ],
         },
         {
-          title: 'More',
+          title: 'Find us',
           items: [
             {
               label: 'GitHub',
               href: 'https://github.com/wix/remx',
             },
+            {
+              label: 'Create Issue',
+              href: 'https://github.com/wix/remx/issues/new',
+            },
+            {
+              label: 'Wix Engineering',
+              href: 'https://www.wix.engineering/',
+            }
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Wix.com, Inc.`,
+      copyright: `Copyright © ${new Date().getFullYear()} <a href="https://www.wix.com/">Wix.com, Inc.</a>`,
     },
   },
   presets: [
