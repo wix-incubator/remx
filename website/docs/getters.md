@@ -15,15 +15,12 @@ in `someStore.js`:
 import * as remx from 'remx';
 
 const getters = remx.getters({
- 
  isLoading() {
    return state.loading;
  },
- 
  getPostsByIndex(index) {
   return state.posts[index];
- }
- 
+ },
 });
 
 export const store = {

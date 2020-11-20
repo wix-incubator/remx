@@ -1,6 +1,6 @@
 module.exports = {
   title: 'Remx',
-  tagline: 'Opinionated Mobx',
+  tagline: '',//TODO: add descriptive tagline
   url: 'https://wix.github.io',
   baseUrl: '/remx/',
   onBrokenLinks: 'throw',
@@ -16,12 +16,11 @@ module.exports = {
       },
       items: [
         {
-          to: 'docs/',
-          activeBasePath: 'docs',
+          to: 'docs/introduction/getting-started',
+          activeBasePath: 'docs/introduction/',
           label: 'Docs',
           position: 'left',
         },
-        {to: 'blog', label: 'Blog', position: 'left'},
         {to: 'docs/api', label: 'API', position: 'left'},
         {
           href: 'https://github.com/wix/remx',
@@ -37,8 +36,12 @@ module.exports = {
           title: 'Docs',
           items: [
             {
-              label: 'Why?',
-              to: 'docs/',
+              label: 'Getting Started',
+              to: 'docs/introduction/getting-started',
+            },
+            {
+              label: 'Motivation',
+              to: 'docs/introduction/motivation',
             },
             {
               label: 'API',
@@ -47,37 +50,24 @@ module.exports = {
           ],
         },
         {
-          title: 'Community',
+          title: 'Find us',
           items: [
-            {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-            },
-            {
-              label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
-            },
-            {
-              label: 'Twitter',
-              href: 'https://twitter.com/docusaurus',
-            },
-          ],
-        },
-        {
-          title: 'More',
-          items: [
-            {
-              label: 'Blog',
-              to: 'blog',
-            },
             {
               label: 'GitHub',
               href: 'https://github.com/wix/remx',
             },
+            {
+              label: 'Create Issue',
+              href: 'https://github.com/wix/remx/issues/new',
+            },
+            {
+              label: 'Wix Engineering',
+              href: 'https://www.wix.engineering/',
+            }
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Wix.com, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} <a href="https://www.wix.com/">Wix.com, Inc.</a>`,
     },
   },
   presets: [
@@ -88,11 +78,6 @@ module.exports = {
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl:
             'https://github.com/wix/remx/edit/master/website/',
-        },
-        blog: {
-          showReadingTime: true,
-          editUrl:
-            'https://github.com/wix/remx/edit/master/website/blog/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),

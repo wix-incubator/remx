@@ -10,7 +10,7 @@ Takes a logger and call it on the following actions:
 
 
 ```javascript
-import {registerLoggerForDebug} from 'remx'
+import {registerLoggerForDebug} from 'remx';
 registerLoggerForDebug(console.log); //will log all remx actions:
 //on setter call: {action: "setter", name: "someSetterName", args: ["arg1", "arg2"])}
 //on getter call: {action: "getter", name: "someGetterName", args: ["arg1", "arg2"])}

@@ -15,19 +15,15 @@ in `someStore.js`:
 import * as remx from 'remx';
 
 const setters = remx.setters({
-
  setLoading(isLoading) {
    state.loading = isLoading;
  },
- 
  addPost(post) {
   state.posts.push(post);
- }
- 
+ },
 });
 
 export const store = {
   ...setters
 };
-
 ```
