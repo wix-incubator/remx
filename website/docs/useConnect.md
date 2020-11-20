@@ -21,7 +21,7 @@ const SomeComponent = (props) => {
   return (
     <div>{selectedPostTitle}</div>
   );
-}
+};
 
 const useSomeComponentConnect = (props) => useConnect(() => ({
   selectedPostTitle: store.getPostById(props.selectedPostId);
@@ -39,7 +39,7 @@ const SomeComponent = (props) => {
   return (
     <div>{selectedPostTitle}</div>
   );
-}
+};
 ```
 
 Note that accessing props outside of mapStateToProps won't be tracked and may cause issues with
@@ -55,7 +55,7 @@ const ProductPriceComponent = (props) => {
   return (
     <div>Price: {product.price} USD</div>
   );
-}
+};
 
 // Good:
 const ProductPriceComponent = (props) => {
@@ -66,5 +66,5 @@ const ProductPriceComponent = (props) => {
   return (
     <div>Price: {price} USD</div>
   );
-}
+};
 ```
