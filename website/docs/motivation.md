@@ -1,8 +1,8 @@
 ---
-id: why
-title: Why?
-sidebar_label: Why?
-slug: /
+id: motivation
+title: Motivation
+sidebar_label: Motivation
+slug: /introduction/motivation
 ---
 
 Writing a react / react-native project with or without TDD, we have multiple well known and battle tested choices when it comes to state management:
@@ -20,7 +20,7 @@ Writing a react / react-native project with or without TDD, we have multiple wel
 When we look at those battle-proven solutions, and especially if we try to build a large scale project that can be worked on by lots of different people from different teams, we see that we have a need for some combintaion of the above.
 Let's try to break down our actual requirementes and see if we can build a system that will answer those.
 
-#### What do we really need from a state management library?
+### What do we really need from a state management library?
 Well for starters, starting to write our business logic by doing TDD does not require any state management at all. In fact, I would argue that it can only hinder. Try that for example: start by writing test-first all features of a JS(node) application with unit tests *without* any mention of redux. It is really difficult: if all we want to do is, for example, write a unit of logic that does some login flow, with loading state and authentication and error flows, we see that we have little use of any of these libraries.
 
 We can just test-drive some `LoginFlow.js` with regular functions/objects, call those functions from `LoginFlow.test.js` and assert on some exported state. That's it. No frameworks needed.
@@ -48,7 +48,7 @@ Furthermore, we don't need the large amount of features mobx supports. We need a
 
 These decisions are what gave birth to remx. A mixed child of mobx implementation of observable state (backed by es6 proxies) with flux/redux design pattern enforcement.
 
-#### But what about dispatch? actions? middlewere?
+### But what about dispatch? actions? middlewere?
 
 In general, redux's middlewere is something we want to avoid. Previous experience taught us that adding just 1 middlewere to a redux store can cause serious performance hit, so we recommend not to do that and just call a function explicitly. Otherwise, if we really want, we can create our own global function that wraps any other function with some logic, for example a logging function. This can be done easily without any framework.
 
@@ -57,7 +57,7 @@ Actions can be asynchronous, and shouldn't return anything (to enforce uni-direc
 
 Take a look at the example project to see how remx is intended to be used.
 
-### To conclude:
+### To conclude
 
 * remx takes the redux (flux) architecture and enforces it through a short, simple, clean and strict API:
   * `state`
