@@ -22,7 +22,7 @@ const features = [
     imageUrl: '',
     description: (
       <>
-        Docusaurus lets you focus on your features, and we&apos;ll do the chores. Go
+        Remx lets you focus on your features, and we&apos;ll do the chores. Go
         ahead and install Remx in your website or app.
       </>
     ),
