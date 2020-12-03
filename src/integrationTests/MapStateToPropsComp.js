@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Text } from 'react-native';
+
+import { Text } from '../utils/testUtils';
 
 class MyComponent extends Component {
   static get options() {

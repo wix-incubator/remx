@@ -1,5 +1,6 @@
 import React from 'react';
-import { Text } from 'react-native';
+
+import { Text } from '../utils/testUtils';
 
 const renderText = (txt) => (
   <Text>
