@@ -20,4 +20,4 @@ export const grabConsole = (fn, methods = ['log', 'warn', 'error', 'trace']) => 
 };
 
 export const grabConsoleErrors = (fn) => grabConsole(fn, ['error']).map((args) => args.slice(1));
-// export const grabConsoleWarns = (fn) => grabConsole(fn, ['warn']).map((args) => args.slice(1));
+export const grabConsoleWarns = (fn) => grabConsole(fn, ['warn']).map((args) => args.slice(1));

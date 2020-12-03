@@ -1,12 +1,11 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { grabConsoleErrors } from '../utils/testUtils';
+import { grabConsoleWarns, grabConsoleErrors } from '../utils/testUtils';
 
 ['es6Remx'].forEach((version) => {
   describe(`SmartComponent (${version})`, () => {
     const Store = require('./Store').default;
-    const connect = require(`../${version}/connect`).connect;
-    const remx = require(`../${version}/remx`);
+    const remx = require(`../${version}`);
     let MyComponent;
     let store;
     let renderSpy;
@@ -29,7 +28,7 @@ import { grabConsoleErrors } from '../utils/testUtils';
     });
 
     it('connected component renders normally', () => {
-      const MyConnectedComponent = connect()(MyComponent);
+      const MyConnectedComponent = remx.observer(MyComponent);
       const tree = renderer.create(<MyConnectedComponent store={store} renderSpy={renderSpy} />);
       expect(tree.toJSON().children).toEqual(['nothing']);
       expect(renderSpy).toHaveBeenCalledTimes(1);
@@ -51,7 +50,7 @@ import { grabConsoleErrors } from '../utils/testUtils';
       });
 
       it('connected classic component doesn\'t warn', () => {
-        const MyConnectedComponent = connect()(MyComponent);
+        const MyConnectedComponent = remx.observer(MyComponent);
         expect(grabConsoleErrors(() =>
           renderer.create(<MyConnectedComponent store={store} renderSpy={renderSpy} />))
         )
@@ -69,7 +68,7 @@ import { grabConsoleErrors } from '../utils/testUtils';
 
       it('connected functional component doesn\'t warn', () => {
         const Fc = () => store.getters.getProduct('0') || null;
-        const ConnectedFC = connect()(Fc);
+        const ConnectedFC = remx.observer(Fc);
         expect(grabConsoleErrors(() => renderer.create(<ConnectedFC />))).toEqual([]);
       });
 
@@ -84,7 +83,7 @@ import { grabConsoleErrors } from '../utils/testUtils';
 
       it('connected forwardRef component doesn\'t warn', () => {
         const FcFw = React.forwardRef(() => store.getters.getProduct('0') || null);
-        const ConnectedFCFW = connect()(FcFw);
+        const ConnectedFCFW = remx.observer(FcFw);
         expect(grabConsoleErrors(() => renderer.create(<ConnectedFCFW />))).toEqual([]);
       });
     });
@@ -102,7 +101,7 @@ import { grabConsoleErrors } from '../utils/testUtils';
     });
 
     it('connected component automatically rerenders when selectors changes', () => {
-      const MyConnectedComponent = connect()(MyComponent);
+      const MyConnectedComponent = remx.observer(MyComponent);
       const tree = renderer.create(<MyConnectedComponent store={store} renderSpy={renderSpy} />);
 
       expect(store.getters.getName()).toEqual('nothing');
@@ -117,7 +116,7 @@ import { grabConsoleErrors } from '../utils/testUtils';
 
     describe('using remx.map', () => {
       it('detects changes on added keys', () => {
-        const MyConnectedComponent = connect()(MyComponent);
+        const MyConnectedComponent = remx.observer(MyComponent);
         const tree = renderer.create(<MyConnectedComponent store={store} />);
         expect(tree.toJSON().children).toEqual(['nothing']);
 
@@ -127,7 +126,7 @@ import { grabConsoleErrors } from '../utils/testUtils';
     });
 
     it('should track dynamically added keys', () => {
-      const MyConnectedComponent = connect()(MyComponent);
+      const MyConnectedComponent = remx.observer(MyComponent);
       const tree = renderer.create(<MyConnectedComponent store={store} testDynamicObject />);
       expect(tree.toJSON().children).toEqual(['{}']);
 
@@ -136,7 +135,7 @@ import { grabConsoleErrors } from '../utils/testUtils';
     });
 
     it('should track nested dynamically added keys', () => {
-      const MyConnectedComponent = connect()(MyComponent);
+      const MyConnectedComponent = remx.observer(MyComponent);
       const tree = renderer.create(<MyConnectedComponent store={store} testDynamicObject />);
       const nestedObject = { nestedKey: 'nestedValue' };
       store.setters.setDynamicObject('newKey', nestedObject);
@@ -146,8 +145,14 @@ import { grabConsoleErrors } from '../utils/testUtils';
     });
 
     it('connected component has same static members as original component', () => {
-      const MyConnectedComponent = connect()(MyComponent);
+      const MyConnectedComponent = remx.observer(MyComponent);
       expect(MyConnectedComponent.staticMember).toEqual('a static member');
+    });
+
+    it('warns about deprecated connect()(component) approach once', () => {
+      expect(grabConsoleWarns(() => remx.connect()(() => null)))
+        .toEqual([['[remx] connect()(component) is deprecated, use observer(component) instead']]);
+      expect(grabConsoleWarns(() => remx.connect()(() => null))).toEqual([]);
     });
   });
 });

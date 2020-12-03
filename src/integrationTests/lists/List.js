@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { FlatList, Text } from 'react-native';
 
-import { connect } from '../../index';
+import { connect, observer } from '../..';
 
 import store from './Store';
 
-const Item = connect()((params) => (
+const Item = observer((params) => (
   <Text>
     {params.item.text}
   </Text>
