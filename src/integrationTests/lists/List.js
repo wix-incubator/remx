@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { FlatList, Text } from 'react-native';
+
+import { FlatList, Text } from '../../utils/testUtils';
 
 import { connect, observer } from '../..';
 
