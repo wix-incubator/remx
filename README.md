@@ -146,7 +146,35 @@ export const store = {
 
 ```
 
-### `remx.connect(mapStateToProps)(MyComponent)`
+### `remx.observer(MyComponent)`
+Makes component re-render when store data used during previous render changes.
+
+```javascript
+import { connect } from 'remx';
+
+class SomeComponent extends React.Component {
+  render() {
+    return (
+      <div>{store.getPostById(this.props.selectedPostId)}</div>
+    );
+  }
+}
+
+export default connect(SomeComponent);
+
+```
+
+Also works with functional components:
+
+```javascript
+import { connect } from 'remx';
+
+export default connect(props => (
+  <div>{store.getPostById(props.selectedPostId)}</div>
+))
+```
+
+### **[DEPRECATED]** `remx.connect(mapStateToProps)(MyComponent)`
 Connects a react component to the state.
 This function can optionally take a mapStateToProps function, for mapping the state into props.
 in `someComponent.js`:
@@ -175,7 +203,7 @@ export default connect(mapStateToProps)(SomeComponent);
 ```
 
 ### `remx.useConnect(fn, arguments)`
-Hook-style alternative to remx.connect.
+Hook-style alternative to remx.observer.
 It makes sure, the component is re-rendered on observable values change.
 Second argument (optional) is array of arguments that will be passed to the provided function.
 
