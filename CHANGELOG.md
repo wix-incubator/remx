@@ -1,3 +1,9 @@
+# 4.0.0 (RC)
+
+* Remove legacyRemx, Update to mobx@6
+* Add error on accessing state in render w/o observer (#66)
+* Introduce observer, deprecate connect
+
 # 3.0.0
 
 * Upgraded to `mobx@4` and `mobx-react@5`.
