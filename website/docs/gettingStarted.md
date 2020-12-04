@@ -10,8 +10,8 @@ Check out [Sandbox](https://codesandbox.io/s/immutable-architecture-8bc5r?fontsi
 ### Add Remx to your project
  
 ```bash
-npm i --save-dev remx
+npm install remx
 ```
 
 ### Try example
-<iframe src="https://codesandbox.io/embed/github/wix/remx/tree/master/remx-usage-example?fontsize=11&theme=light" class="codesandbox" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+<iframe src="https://codesandbox.io/embed/github/wix/remx/tree/master/examples/with-react?fontsize=11&theme=light" class="codesandbox" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
