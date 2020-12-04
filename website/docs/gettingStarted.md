@@ -10,7 +10,7 @@ Check out [Sandbox](https://codesandbox.io/s/immutable-architecture-8bc5r?fontsi
 ### Add Remx to your project
  
 ```bash
-npm i --save-dev remx
+npm install remx
 ```
 
 ### Try example
