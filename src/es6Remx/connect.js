@@ -10,9 +10,9 @@ const connect = (mapStateToProps) => {
     return wrapWithObserverHigherOrderComponent(mapStateToProps);
   }
   warnOnceWithCode(
-    'connect-without-mapstatetoprops',
-    '[remx] connect()(component) is deprecated, use observer(component) instead'
-  );
+        'connect-without-mapstatetoprops',
+        '[remx] connect()(component) is deprecated, use observer(component) instead'
+    );
   return observer;
 };
 
@@ -28,7 +28,7 @@ function observerOnMapStateToProps(InnerComp, mapStateToProps) {
   class Hoc extends React.Component {
     constructor(props) {
       super(props);
-      // set the component name for the logger:
+            // set the component name for the logger:
       this.originalComponentName = InnerComp.name;
     }
     render() {
@@ -37,10 +37,13 @@ function observerOnMapStateToProps(InnerComp, mapStateToProps) {
       Logger.endLoggingMapStateToProps(InnerComp.name, propsFromState);
       const ObservedInnerComp = InnerComp;
       return (
-        <ObservedInnerComp {...this.props} {...propsFromState} />
+        <
+                ObservedInnerComp {...this.props}
+          {...propsFromState}
+        />
       );
     }
-  }
+    }
   return observer(Hoc);
 }
 
