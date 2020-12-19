@@ -14,7 +14,7 @@ class MyComponent extends Component {
   render() {
     const { renderSpy, testDynamicObject, store: { getters } } = this.props;
 
-    if (renderSpy) {
+    if (typeof renderSpy === 'function') {
       renderSpy();
     }
 
