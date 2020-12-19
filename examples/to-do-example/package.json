@@ -7,6 +7,7 @@
 		"react": "^17.0.1",
 		"react-dom": "^17.0.1",
 		"react-scripts": "4.0.1",
+		"remx": "^4.0.0-rc.0",
 		"web-vitals": "^0.2.4",
 		"yarn": "^1.22.10"
 	},
