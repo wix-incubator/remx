@@ -3,7 +3,7 @@ import renderer from 'react-test-renderer';
 import * as remx from '../es6Remx';
 import { grabConsoleWarns, grabConsoleErrors } from '../utils/testUtils';
 
-// TODO add testcase for both enabled and disabled modes and remove line below
+// add testcase for both enabled and disabled modes and remove line below
 remx.setAccessStateStrictMode(true);
 
 ['es6Remx'].forEach((version) => {

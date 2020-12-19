@@ -12,15 +12,11 @@ class MyComponent extends Component {
   }
 
   render() {
-    const {
-      renderSpy,
-      testDynamicObject,
-      store: {getters}
-    } = this.props;
+    const { renderSpy, testDynamicObject, store: { getters } } = this.props;
 
-    renderSpy && renderSpy();
-
-
+    if (renderSpy) {
+      renderSpy();
+    }
 
     if (getters.getProduct('123')) {
       return this.renderText(getters.getProduct('123').title);

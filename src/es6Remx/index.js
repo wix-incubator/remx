@@ -3,5 +3,5 @@ module.exports = {
   connect: require('./connect').connect,
   observer: require('./observer').observer,
   useConnect: require('./useConnect').useConnect,
-  setAccessStateStrictMode: require('./globalState').setAccessStateStrictMode,
+  setAccessStateStrictMode: require('./globalState').setAccessStateStrictMode
 };
