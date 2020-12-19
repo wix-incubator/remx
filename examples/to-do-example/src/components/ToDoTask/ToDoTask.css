@@ -1,0 +1,9 @@
+.to-do-task {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.to-do-checkbox {
+	/* margin-right: 15px; */
+}
