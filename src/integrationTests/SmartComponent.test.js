@@ -35,17 +35,17 @@ import { grabConsoleWarns, grabConsoleErrors } from '../utils/testUtils';
     });
 
     describe('warning on accessing state in untracked React components', () => {
-      it('desn\'t warn on accesing state outside of React component', () => {
+      it('doesn\'t warn on accessing state outside of React component', () => {
         expect(grabConsoleErrors(() => store.getters.getProduct('0'))).toEqual([]);
       });
 
       it('not connected classic component warns', () => {
         expect(grabConsoleErrors(() => renderer.create(<MyComponent store={store} renderSpy={renderSpy} />)))
           .toEqual([
-            ['[REMX] attemted to access prop \'products\' in react component untracked by remx'],
-            ['[REMX] attemted to access prop \'123\' in react component untracked by remx'],
-            ['[REMX] attemted to access prop \'person\' in react component untracked by remx'],
-            ['[REMX] attemted to access prop \'name\' in react component untracked by remx']
+            ['[REMX] attempted to access prop \'products\' in react component untracked by remx'],
+            ['[REMX] attempted to access prop \'123\' in react component untracked by remx'],
+            ['[REMX] attempted to access prop \'person\' in react component untracked by remx'],
+            ['[REMX] attempted to access prop \'name\' in react component untracked by remx']
           ]);
       });
 
@@ -61,8 +61,8 @@ import { grabConsoleWarns, grabConsoleErrors } from '../utils/testUtils';
         const Fc = () => store.getters.getProduct('0') || null;
         expect(grabConsoleErrors(() => renderer.create(<Fc />)))
           .toEqual([
-            ['[REMX] attemted to access prop \'products\' in react component untracked by remx'],
-            ['[REMX] attemted to access prop \'0\' in react component untracked by remx']
+            ['[REMX] attempted to access prop \'products\' in react component untracked by remx'],
+            ['[REMX] attempted to access prop \'0\' in react component untracked by remx']
           ]);
       });
 
@@ -76,8 +76,8 @@ import { grabConsoleWarns, grabConsoleErrors } from '../utils/testUtils';
         const FcFw = React.forwardRef(() => store.getters.getProduct('0') || null);
         expect(grabConsoleErrors(() => renderer.create(<FcFw />)))
           .toEqual([
-            ['[REMX] attemted to access prop \'products\' in react component untracked by remx'],
-            ['[REMX] attemted to access prop \'0\' in react component untracked by remx']
+            ['[REMX] attempted to access prop \'products\' in react component untracked by remx'],
+            ['[REMX] attempted to access prop \'0\' in react component untracked by remx']
           ]);
       });
 
