@@ -1,4 +1,5 @@
 import React from 'react';
+import * as remx from '../es6Remx';
 
 import { Text } from '../utils/testUtils';
 
@@ -8,7 +9,7 @@ const renderText = (txt) => (
   </Text>
 );
 
-export default (remx) => (props) => {
+export default (props) => {
   const mapStateToProps = props.mapStateToProps ?
     props.mapStateToProps :
     () => ({
