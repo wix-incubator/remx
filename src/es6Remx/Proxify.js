@@ -20,7 +20,7 @@ function proxify(obj) {
       if (typeof prop === 'string') {
         if (isDev() && isReactUpdating() && !isRenderingObserver()) {
           console.error(
-            `[REMX] attemted to access prop '${prop}' in react component untracked by remx`
+            `[REMX] attempted to access prop '${prop}' in react component untracked by remx`
           );
         }
         tracker.get(prop);
