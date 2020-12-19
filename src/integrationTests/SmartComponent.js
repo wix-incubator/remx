@@ -12,18 +12,23 @@ class MyComponent extends Component {
   }
 
   render() {
-    if (this.props.renderSpy) {
-      this.props.renderSpy();
-    }
+    const {
+      renderSpy,
+      testDynamicObject,
+      store: {getters}
+    } = this.props;
 
-    if (this.props.store.getters.getProduct('123')) {
-      return this.renderText(this.props.store.getters.getProduct('123').title);
-    } else if (this.props.testDynamicObject) {
-      return this.renderText(this.props.store.getters.getDynamicObject());
+    renderSpy && renderSpy();
+
+    if (getters.getProduct('123')) {
+      return this.renderText(getters.getProduct('123').title);
+    } else if (testDynamicObject) {
+      return this.renderText(getters.getDynamicObject());
     }
-    return this.renderText(this.props.store.getters.getName());
+    return this.renderText(getters.getName());
   }
 }
+
 MyComponent.staticMember = 'a static member';
 
 export default MyComponent;
