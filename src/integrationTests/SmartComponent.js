@@ -20,6 +20,8 @@ class MyComponent extends Component {
 
     renderSpy && renderSpy();
 
+
+
     if (getters.getProduct('123')) {
       return this.renderText(getters.getProduct('123').title);
     } else if (testDynamicObject) {

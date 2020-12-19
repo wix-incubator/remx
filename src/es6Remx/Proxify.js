@@ -3,7 +3,7 @@ import * as mobx from 'mobx';
 import isObjectLike from 'lodash.isobjectlike';
 import immutableDate from '../utils/immutableDate';
 import { isReactUpdating } from '../utils/isReactUpdating';
-import { isRenderingObserver } from './globalState';
+import { isRenderingObserver, isAccessStateStrictMode } from './globalState';
 import { isDev } from '../utils/isDev';
 
 const alreadyProxiedObjects = new WeakMap();
@@ -18,7 +18,7 @@ function proxify(obj) {
     },
     get: (target, prop) => {
       if (typeof prop === 'string') {
-        if (isDev() && isReactUpdating() && !isRenderingObserver()) {
+        if (isDev() && isReactUpdating() && !isRenderingObserver() && isAccessStateStrictMode()) {
           console.error(
             `[REMX] attempted to access prop '${prop}' in react component untracked by remx`
           );
