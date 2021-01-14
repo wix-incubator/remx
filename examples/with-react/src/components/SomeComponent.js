@@ -10,7 +10,7 @@ class SomeComponent extends PureComponent {
   }
 
   componentDidMount() {
-    actions.fetchRandomJoke();
+    //actions.fetchRandomJoke();
   }
 
   render() {
