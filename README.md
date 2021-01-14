@@ -266,6 +266,10 @@ const ProductPriceComponent = (props) => {
 }
 ```
 
+### `remx.setAccessStateStrictMode(true)` (experimental)
+Enables writing in console.error (in DEV mode) on accessing state in React components
+which are not wrapped in `observer()`, so they may not re-render automatically when needed.
+
 ### `remx.registerLoggerForDebug(loggerFunc)`
 Takes a logger and call it on the following actions:
 

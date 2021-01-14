@@ -34,17 +34,27 @@ describe(`SmartComponent`, () => {
   });
 
   describe('warning on accessing state in untracked React components', () => {
-    it('desn\'t warn on accesing state outside of React component', () => {
+    beforeEach(() => {
+      remx.setAccessStateStrictMode(true);
+    });
+
+    it('doesn\'t mode if strict mode is disabled warns', () => {
+      remx.setAccessStateStrictMode(false);
+      expect(grabConsoleErrors(() => renderer.create(<MyComponent store={store} renderSpy={renderSpy} />)))
+        .toEqual([]);
+    });
+
+    it('doesn\'t warn on accessing state outside of React component', () => {
       expect(grabConsoleErrors(() => store.getters.getProduct('0'))).toEqual([]);
     });
 
     it('not connected classic component warns', () => {
       expect(grabConsoleErrors(() => renderer.create(<MyComponent store={store} renderSpy={renderSpy} />)))
         .toEqual([
-          ['[REMX] attemted to access prop \'products\' in react component untracked by remx'],
-          ['[REMX] attemted to access prop \'123\' in react component untracked by remx'],
-          ['[REMX] attemted to access prop \'person\' in react component untracked by remx'],
-          ['[REMX] attemted to access prop \'name\' in react component untracked by remx']
+          ['[REMX] attempted to access prop \'products\' in react component untracked by remx'],
+          ['[REMX] attempted to access prop \'123\' in react component untracked by remx'],
+          ['[REMX] attempted to access prop \'person\' in react component untracked by remx'],
+          ['[REMX] attempted to access prop \'name\' in react component untracked by remx']
         ]);
     });
 
@@ -60,8 +70,8 @@ describe(`SmartComponent`, () => {
       const Fc = () => store.getters.getProduct('0') || null;
       expect(grabConsoleErrors(() => renderer.create(<Fc />)))
         .toEqual([
-          ['[REMX] attemted to access prop \'products\' in react component untracked by remx'],
-          ['[REMX] attemted to access prop \'0\' in react component untracked by remx']
+          ['[REMX] attempted to access prop \'products\' in react component untracked by remx'],
+          ['[REMX] attempted to access prop \'0\' in react component untracked by remx']
         ]);
     });
 
@@ -75,8 +85,8 @@ describe(`SmartComponent`, () => {
       const FcFw = React.forwardRef(() => store.getters.getProduct('0') || null);
       expect(grabConsoleErrors(() => renderer.create(<FcFw />)))
         .toEqual([
-          ['[REMX] attemted to access prop \'products\' in react component untracked by remx'],
-          ['[REMX] attemted to access prop \'0\' in react component untracked by remx']
+          ['[REMX] attempted to access prop \'products\' in react component untracked by remx'],
+          ['[REMX] attempted to access prop \'0\' in react component untracked by remx']
         ]);
     });
 
