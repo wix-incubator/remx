@@ -3,15 +3,16 @@ import renderer from 'react-test-renderer';
 import { grabConsoleWarns, grabConsoleErrors } from '../utils/testUtils';
 import Store from './Store';
 import * as remx from '../es6Remx';
-import MyComponent from './SmartComponent';
 
 describe(`SmartComponent`, () => {
   let store;
   let renderSpy;
+  let MyComponent;
 
   beforeEach(() => {
     store = new Store(remx);
     renderSpy = jest.fn();
+    MyComponent = require('./SmartComponent').default;
   });
 
   afterEach(() => {
