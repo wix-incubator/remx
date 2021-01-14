@@ -10,11 +10,7 @@ export const decrementRenderingObserverDepth = () => globalState.renderingObserv
 export const isRenderingObserver = () => globalState.renderingObserverDepth > 0;
 
 export const setAccessStateStrictMode = (shouldCheck) => {
-  if (typeof shouldCheck === 'boolean') {
-    globalState.accessStateStrictMode = shouldCheck;
-  } else {
-    console.error('[REMX] Incorrect value provided to a function setAccessStrictMode.');
-  }
+  globalState.accessStateStrictMode = Boolean(shouldCheck);
 };
 
 export const isAccessStateStrictMode = () => globalState.accessStateStrictMode;
