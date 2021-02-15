@@ -1,7 +1,7 @@
 ---
 id: connect
-title: connect
-sidebar_label: connect
+title: connect [DEPRECATED]
+sidebar_label: connect [DEPRECATED]
 slug: /api/connect
 ---
 
