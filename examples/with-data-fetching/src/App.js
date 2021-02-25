@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+import React from "react";
 import './App.css';
 import { API_URL} from "./api.js";
 
@@ -49,7 +49,7 @@ class App extends React.Component {
       .then(data => {
         console.log("data", data);
         this.setState({
-         
+
           items: data.results,
           page: data.page
         });
@@ -64,13 +64,13 @@ class App extends React.Component {
         <div className="row">
           <div className="col-6">
             <div className="row mb-4 mt-4">
-   
+
             </div>
             {this.state.items.map(item => {
               return (
                 <div>
                   key={item.id}
-                  item={item}                                 
+                  item={item}
                 </div>
               );
             })}

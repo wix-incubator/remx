@@ -16,13 +16,13 @@ class SomeComponent extends PureComponent {
   render() {
     return (
       <div>
-        <h1>
-          Click on the button to fetch more jokes
-        </h1>
-        <div dangerouslySetInnerHTML={{ __html: this.props.joke }}/>
-        <button onClick={() => actions.fetchRandomJoke()}>
-          Are you joking?
-        </button>
+        {/*<h1>*/}
+        {/*  Click on the button to fetch more jokes*/}
+        {/*</h1>*/}
+        {/*<div dangerouslySetInnerHTML={{ __html: this.props.joke }}/>*/}
+        {/*<button onClick={() => actions.fetchRandomJoke()}>*/}
+        {/*  Are you joking?*/}
+        {/*</button>*/}
         <h1>
           Saved Jokes:
         </h1>
