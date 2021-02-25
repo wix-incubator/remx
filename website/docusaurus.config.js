@@ -1,6 +1,6 @@
 module.exports = {
   title: 'Remx',
-  tagline: '',//TODO: add descriptive tagline
+  tagline: 'Easy to use state manager',//TODO: change to descriptive tagline
   url: 'https://wix.github.io',
   baseUrl: '/remx/',
   onBrokenLinks: 'throw',
@@ -57,8 +57,8 @@ module.exports = {
               href: 'https://github.com/wix/remx',
             },
             {
-              label: 'Create Issue',
-              href: 'https://github.com/wix/remx/issues/new',
+              label: 'Contribute',
+              href: 'https://github.com/wix/remx/issues',
             },
             {
               label: 'Wix Engineering',
