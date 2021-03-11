@@ -18,7 +18,7 @@
 * uses es6 Proxies (where possible)
   * avoids mobx's Observable wrappers which can cause weird bugs and behaviours
 
-##Installation
+## Installation
 ```
 npm install remx
 ```
