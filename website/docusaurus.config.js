@@ -1,6 +1,6 @@
 module.exports = {
   title: 'Remx',
-  tagline: 'Easy to use state manager',//TODO: change to descriptive tagline
+  tagline: 'An easy to use state manager',//TODO: change to descriptive tagline
   url: 'https://wix.github.io',
   baseUrl: '/remx/',
   onBrokenLinks: 'throw',

@@ -6,7 +6,7 @@ slug: /api/registerLoggerForDebug
 ---
 
 ### `remx.registerLoggerForDebug(loggerFunc)`
-Takes a logger and call it on the following actions:
+Takes a logger and calls it on the following actions:
 
 
 ```javascript

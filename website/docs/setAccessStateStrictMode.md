@@ -6,5 +6,5 @@ slug: /api/setAccessStateStrictMode
 ---
 
 ### `remx.setAccessStateStrictMode(true)` (experimental)
-Enables writing in console.error (in DEV mode) on accessing state in React components
+Enables writing in console.error (in DEV mode) when accessing state in React components
 which are not wrapped in `observer()`, so they may not re-render automatically when needed.
