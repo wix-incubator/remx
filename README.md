@@ -2,7 +2,7 @@
 
 ### Remx is opinionated state-management library for React apps.
 
-* Remx takes the redux (flux) architecture and enforces it through a short, simple, clean and strict API:
+* Remx takes the redux (flux) architecture and enforces it using a small, simple, clean, and strict API:
   * `state`
   * `setters`
   * `getters`
@@ -12,11 +12,11 @@
 * zero impact on tests
   * can be added/removed as a plugin
   * does not impact any design decisions
-* implemented with mobx, thus benefits from all the performance of
+* implemented with `mobx`, thus benefits from all the performance you get with
   * memoization
-  * avoids unnecessary re-renders
+  * avoiding unnecessary re-renders
 * uses es6 Proxies (where possible)
-  * avoids mobx's Observable wrappers which can cause weird bugs and behaviours
+  * avoids mobx's Observable wrappers which can cause weird behaviour and bugs 
 
 ## Installation
 ```
@@ -24,7 +24,9 @@ npm install remx
 ```
 
 ## API
+
 * Create state
+
 ### `remx.state(initialState)`
 ```javascript
 import * as remx from 'remx';
@@ -32,6 +34,7 @@ import * as remx from 'remx';
 const initialState = {
   loading: true,
   posts: {},
+
   selectedPosts: [],
 };
 
@@ -39,6 +42,7 @@ const state = remx.state(initialState);
 ```
 
 * Define setters and getters
+
 ### `remx.getters(...)`
 
 ```javascript
@@ -74,7 +78,8 @@ export const store = {
 };
 ```
 
-* Use observer to make component re-render when store data used during previous render changes.
+* Use observer to force a component to re-render if store data was used during previous render.
+
 ### `remx.observer(MyComponent)`
 
 ```javascript

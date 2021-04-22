@@ -12,8 +12,8 @@ const features = [
     imageUrl: '',//TODO: add .svg images in img folder
     description: (
       <>
-        Remx was designed from the ground up to be easily installed and
-        used in your websites and apps for state management.
+        Remx is designed from the ground up to be the state meneger
+        for all your websites and apps that&apos;s easy to install and use.
       </>
     ),
   },
@@ -22,8 +22,8 @@ const features = [
     imageUrl: '',
     description: (
       <>
-        Remx lets you focus on your features, and we&apos;ll do the chores. Go
-        ahead and install Remx in your website or app.
+        Remx lets you focus on features, not the chores.
+        Install Remx in your website or app and hit the ground running.
       </>
     ),
   },

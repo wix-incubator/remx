@@ -7,8 +7,8 @@ slug: /api/useConnect
 
 ### `remx.useConnect(fn, arguments)`
 Hook-style alternative to remx.connect.
-It makes sure, the component is re-rendered on observable values change.
-Second argument (optional) is array of arguments that will be passed to the provided function.
+Assures that the component is re-rendered when observable values change.
+Second argument (optional) is an array of arguments to be passed to the provided function.
 
 ```javascript
 import React, { PureComponent } from 'react';

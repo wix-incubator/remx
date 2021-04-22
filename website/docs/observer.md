@@ -6,7 +6,7 @@ slug: /api/observer
 ---
 
 ### `remx.observer(MyComponent)`
-Makes component re-render when store data used during previous render changes.
+Makes component re-render if store data was used during previous render.
 
 ```javascript
 import { observer } from 'remx';

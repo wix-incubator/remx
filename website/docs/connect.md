@@ -7,7 +7,7 @@ slug: /api/connect
 
 ### `remx.connect(mapStateToProps)(MyComponent)`
 Connects a react component to the state.
-This function can optionally take a mapStateToProps function, for mapping the state into props.
+This function can optionally take a mapStateToProps function for mapping the state into props.
 in `someComponent.js`:
 
 ```javascript

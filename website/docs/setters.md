@@ -6,8 +6,8 @@ slug: /api/setters
 ---
 
 ### `remx.setters(...)`
-All the functions that are going to change parts of the state should be wrapped within the Setters function.
-The wrapped setters functions should be defined inside the store and should be exported.
+All functions that change parts of the state should be wrapped within the Setters function.
+The wrapped functions should be defined inside the store and should be exported.
 
 in `someStore.js`:
 

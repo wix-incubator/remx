@@ -5,23 +5,25 @@ sidebar_label: Motivation
 slug: /introduction/motivation
 ---
 
-Writing a react / react-native project with or without TDD, we have multiple well known and battle tested choices when it comes to state management:
+When writing a react / react-native project with or without TDD, we have multiple well known and battle-tested choices when it comes to state management:
 
 * local component state
   * Pros: Easy to implement, zero boilerplate, works out of the box
-  * Cons: In our opinion not very good in terms of [scale](https://en.wikipedia.org/wiki/Scalability), component becomes a [God Object](https://en.wikipedia.org/wiki/God_object), very hard to test.
+  * Cons: In our opinion not very good in terms of [scale](https://en.wikipedia.org/wiki/Scalability), component becomes a [God Object](https://en.wikipedia.org/wiki/God_object) and it's really hard to test.
 * redux
   * Pros: is a design pattern, scales very well, individual parts can be tested.
-  * Cons: lots of boilerplate, hard to test-drive (TDD), tests tend to be tightly coupled to the redux library, [state has low cohesion](https://en.wikipedia.org/wiki/Cohesion_(computer_science))
+  * Cons: lots of boilerplate, hard to test-drive (TDD), tests tend to be tightly coupled to the redux library, [state has low cohesion](https://en.wikipedia.org/wiki/Cohesion_(computer_science)).
 * mobx
   * Pros: Easy to implement, almost no boilerplate, performant, high cohesion
-  * Cons: Can be used in lots of different ways, In our opinion complex API due to large amount of features.
+  * Cons: Can be used in lots of different ways, but in our opinion it has a rather complex API due to the number of features it has.
 
-When we look at those battle-proven solutions, and especially if we try to build a large scale project that can be worked on by lots of different people from different teams, we see that we have a need for some combintaion of the above.
-Let's try to break down our actual requirementes and see if we can build a system that will answer those.
+When we look at all these battle-proven solutions, especially when we're trying to build a large-scale project which lots of different people from different teams can work on, we see a need for some combination of the above features.
+
+Let's try to break down our actual requirements and see if we can build a system to answer those.
 
 ### What do we really need from a state management library?
-Well for starters, starting to write our business logic by doing TDD does not require any state management at all. In fact, I would argue that it can only hinder. Try that for example: start by writing test-first all features of a JS(node) application with unit tests *without* any mention of redux. It is really difficult: if all we want to do is, for example, write a unit of logic that does some login flow, with loading state and authentication and error flows, we see that we have little use of any of these libraries.
+
+For starters, starting to write our business logic by doing TDD does not require any state management at all. In fact, I would argue that it can only hinder. Try this for example: start by writing test-first all features of a JS(node) application with unit tests *without* any mention of redux. It is really difficult: if all we want to do is, for example, write a unit of logic that does some login flow, with loading state and authentication and error flows, we see that we have little use of any of these libraries.
 
 We can just test-drive some `LoginFlow.js` with regular functions/objects, call those functions from `LoginFlow.test.js` and assert on some exported state. That's it. No frameworks needed.
 
