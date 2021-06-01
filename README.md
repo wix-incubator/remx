@@ -100,7 +100,7 @@ export default observer(SomeComponent);
 Also, works with functional components:
 
 ```javascript
-import { obserber } from 'remx';
+import { observer } from 'remx';
 
 export default observer(props => (
   <div>{store.getPostById(props.selectedPostId)}</div>
