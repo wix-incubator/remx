@@ -1,6 +1,6 @@
 module.exports = {
   someSidebar: {
-    Introduction: ['getting-started', 'motivation', 'examples'],
+    Introduction: ['getting-started', 'why-remx', 'examples'],
     API: ['api-reference',
       'state',
       'getters',
