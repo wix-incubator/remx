@@ -40,8 +40,8 @@ module.exports = {
               to: 'docs/introduction/getting-started',
             },
             {
-              label: 'Motivation',
-              to: 'docs/introduction/motivation',
+              label: 'Why Remx',
+              to: 'docs/introduction/why-remx',
             },
             {
               label: 'API',

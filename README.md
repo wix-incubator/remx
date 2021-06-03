@@ -2,6 +2,8 @@
 
 ### Remx is opinionated state-management library for React apps.
 
+*Website with getting started and docs: [https://wix.github.io/remx/](https://wix.github.io/remx/)*
+
 * Remx takes the redux (flux) architecture and enforces it using a small, simple, clean, and strict API:
   * `state`
   * `setters`

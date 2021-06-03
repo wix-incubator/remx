@@ -1,8 +1,8 @@
 ---
-id: motivation
-title: Motivation
-sidebar_label: Motivation
-slug: /introduction/motivation
+id: why-remx
+title: Why Remx
+sidebar_label: Why Remx
+slug: /introduction/why-remx
 ---
 
 When writing a react / react-native project with or without TDD, we have multiple well known and battle-tested choices when it comes to state management:
