@@ -64,23 +64,25 @@ function CustomHero() {
         height: 2000,
       }}
     >
-      <p>REMX</p>
-      <p>An easy to use state manager</p>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-        }}
-        onClick={() => {
-          console.log("open getting started page");
-        }}
-      >
-        <a>Getting started.</a>
-        <img
-          alt={"Right chevron icon"}
-          src={"../../static/img/getting_started_btn.svg"}
-        />
+      <div style={{ marginLeft: "10%" }}>
+        <p className={styles.heroTitle}>REMX</p>
+        <p>An easy to use state manager</p>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+          }}
+          onClick={() => {
+            console.log("open getting started page");
+          }}
+        >
+          <a>Getting started.</a>
+          <img
+            alt={"Right chevron icon"}
+            src={"../../static/img/getting_started_btn.svg"}
+          />
+        </div>
       </div>
     </div>
   );

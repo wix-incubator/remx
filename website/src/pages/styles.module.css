@@ -35,3 +35,9 @@
   height: 200px;
   width: 200px;
 }
+
+.heroTitle {
+  font-weight: 600;
+  font-size: 200px;
+  line-height: 260px;
+}
