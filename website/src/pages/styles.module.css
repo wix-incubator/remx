@@ -39,5 +39,31 @@
 .heroTitle {
   font-weight: 600;
   font-size: 200px;
-  line-height: 260px;
+  padding-top: 20px;
+}
+
+.heroSubtitle {
+  font-weight: 400;
+  font-size: 24px;
+}
+
+.gettingStartedContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.notSelectable {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.gettingStartedLabel {
+  font-weight: 400;
+  font-size: 16px;
+  margin-right: 10px;
 }

@@ -64,20 +64,20 @@ function CustomHero() {
         height: 2000,
       }}
     >
-      <div style={{ marginLeft: "10%" }}>
+      <div style={{ marginLeft: "15%", marginRight: "15%" }}>
         <p className={styles.heroTitle}>REMX</p>
-        <p>An easy to use state manager</p>
+        <p className={styles.heroSubtitle}>An easy to use state manager</p>
         <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-          }}
-          onClick={() => {
+          className={styles.gettingStartedContainer}
+          onClick={(event) => {
             console.log("open getting started page");
           }}
         >
-          <a>Getting started.</a>
+          <span
+            className={styles.gettingStartedLabel + " " + styles.notSelectable}
+          >
+            GETTING STARTED
+          </span>
           <img
             alt={"Right chevron icon"}
             src={"../../static/img/getting_started_btn.svg"}
