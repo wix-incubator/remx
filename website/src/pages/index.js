@@ -67,11 +67,12 @@ function CustomHero() {
       <div style={{ marginLeft: "15%", marginRight: "15%" }}>
         <p className={styles.heroTitle}>REMX</p>
         <p className={styles.heroSubtitle}>An easy to use state manager</p>
-        <div
+        <button
           className={styles.gettingStartedContainer}
           onClick={(event) => {
             console.log("open getting started page");
           }}
+          type="button"
         >
           <span
             className={styles.gettingStartedLabel + " " + styles.notSelectable}
@@ -79,10 +80,11 @@ function CustomHero() {
             GETTING STARTED
           </span>
           <img
+            className={styles.gettingStartedLabel}
             alt={"Right chevron icon"}
             src={"../../static/img/getting_started_btn.svg"}
           />
-        </div>
+        </button>
       </div>
     </div>
   );
