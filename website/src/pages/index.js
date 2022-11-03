@@ -51,6 +51,7 @@ function Feature({ title, description }) {
 
 function ProsAndConsSection() {
   const libraries = ["Redux", "Mobx", "Remx"];
+  // TODO: get items and values from Andrii Koguts' presentations
   const items = [
     { name: "Hard to get started", values: [false, true, true] },
     { name: "Data is immutable", values: [false, true, true] },
@@ -151,6 +152,7 @@ function CodeExampleSection() {
     <div>
       <p className={styles.sectionTitle}>CODE EXAMPLE</p>
       <div className={styles.codeExampleContainer}>
+        {/*TODO: Change to Remx code example description*/}
         <p className={styles.codeExampleDescription}>
           Step two is to render a tree of React components powered by Relay.
           Components use fragments to declare their data dependencies, and read
@@ -164,7 +166,8 @@ function CodeExampleSection() {
           then ensure that the data dependencies declared in such fragments are
           fetched as part of that parent query.
         </p>
-        <CodeBlock language="jsx">{codeExample}</CodeBlock>
+        {/*TODO: change styling*/}
+        <CodeBlock language="js">{codeExample}</CodeBlock>
       </div>
     </div>
   );
@@ -178,8 +181,7 @@ function CustomHero() {
         backgroundImage: "url(../../static/img/illustration.svg)",
         mixBlendMode: "soft-light",
         backgroundRepeat: "no-repeat",
-        backgroundPosition: "right",
-        height: 3000,
+        backgroundPosition: "top right",
       }}
     >
       <div style={{ marginLeft: "15%", marginRight: "15%" }}>
