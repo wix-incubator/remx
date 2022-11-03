@@ -5,6 +5,7 @@ import Link from "@docusaurus/Link";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import useBaseUrl from "@docusaurus/useBaseUrl";
 import styles from "./styles.module.css";
+import CodeBlock from "@theme/CodeBlock";
 
 const features = [
   {
@@ -39,29 +40,146 @@ const features = [
   },
 ];
 
-function Feature({ imageUrl, title, description }) {
-  const imgUrl = useBaseUrl(imageUrl);
+function Feature({ title, description }) {
   return (
-    <div className={clsx("col col--4", styles.features)}>
-      {imgUrl && (
-        <div className="text--center">
-          <img className={styles.featureImage} src={imgUrl} alt={title} />
-        </div>
-      )}
+    <div className={clsx("col", styles.features)}>
       <h3>{title}</h3>
       <p>{description}</p>
     </div>
   );
 }
 
+function ProsAndConsSection() {
+  const libraries = ["Redux", "Mobx", "Remx"];
+  const items = [
+    { name: "Hard to get started", values: [false, true, true] },
+    { name: "Data is immutable", values: [false, true, true] },
+    { name: "Provides app architecture", values: [true, false, false] },
+    { name: "Time travel, persist", values: [true, false, false] },
+    { name: "Easy to kill performance", values: [false, true, true] },
+    { name: "Lots of boilerplate", values: [false, true, true] },
+    { name: "Data is immutable", values: [false, true, true] },
+    { name: "Simple API", values: [false, true, true] },
+  ];
+
+  return (
+    <div>
+      <p className={styles.sectionTitle}>PROS AND CONS</p>
+      <table className={styles.prosAndConsTable}>
+        <tr>
+          <th>Product</th>
+          {libraries.map((library) => (
+            <th>{library}</th>
+          ))}
+        </tr>
+        {items.map((item) => {
+          return (
+            <tr>
+              <td>{item.name}</td>
+              {item.values.map((value) => (
+                <td>{value ? "✅" : "❌"}</td>
+              ))}
+            </tr>
+          );
+        })}
+      </table>
+    </div>
+  );
+}
+
+function FeaturesSection() {
+  return (
+    features &&
+    features.length > 0 && (
+      <section className={styles.features}>
+        <div className="container">
+          <div className="row">
+            {features.map((props, idx) => (
+              <Feature key={idx} {...props} />
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  );
+}
+
+const codeExample = `import * as remx from 'remx';
+
+remx.registerLoggerForDebug(console.log);
+
+const initialState = {
+  randomJoke: null,
+  savedJokes: [{ title: 'slot0', id: '0' }]
+};
+
+const state = remx.state(initialState);
+const getters = remx.getters({
+  getRandomJoke() {
+    return state.randomJoke;
+  },
+  getAllSavedJokes() {
+    return state.savedJokes.map((joke) => joke.title);
+  }
+});
+
+const setters = remx.setters({
+  addSlot() {
+    state.savedJokes.push({
+        title: 'slot' + state.savedJokes.length,
+        id: state.savedJokes.length
+    });
+  },
+  editSlot(index, newTitle) {
+    if (state.savedJokes[index]) {
+      state.savedJokes[index].title = newTitle;
+    }
+  },
+  setJoke(joke) {
+    return state.randomJoke = joke;
+  }
+});
+
+export const store = {
+  ...setters,
+  ...getters
+};
+`;
+
+function CodeExampleSection() {
+  return (
+    <div>
+      <p className={styles.sectionTitle}>CODE EXAMPLE</p>
+      <div className={styles.codeExampleContainer}>
+        <p className={styles.codeExampleDescription}>
+          Step two is to render a tree of React components powered by Relay.
+          Components use fragments to declare their data dependencies, and read
+          data from the Relay store by calling useFragment . A fragment is a
+          snippet of GraphQL that is tied to a GraphQL type (like Artist ) and
+          which specifies what data to read from an item of that type.
+          useFragment takes two parameters: a fragment literal and a fragment
+          reference. A fragment reference specifies which entity to read that
+          data from. Fragments cannot be fetched by themselves; instead, they
+          must ultimately be included in a parent query. The Relay compiler will
+          then ensure that the data dependencies declared in such fragments are
+          fetched as part of that parent query.
+        </p>
+        <CodeBlock language="jsx">{codeExample}</CodeBlock>
+      </div>
+    </div>
+  );
+}
+
+// TODO: split custom hero into custom hero, features section, comparison table section, code example section
 function CustomHero() {
   return (
     <div
       style={{
         backgroundImage: "url(../../static/img/illustration.svg)",
+        mixBlendMode: "soft-light",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "right",
-        height: 2000,
+        height: 3000,
       }}
     >
       <div style={{ marginLeft: "15%", marginRight: "15%" }}>
@@ -71,6 +189,7 @@ function CustomHero() {
           className={styles.gettingStartedContainer}
           onClick={(event) => {
             console.log("open getting started page");
+            // window.open(useBaseUrl("docs/introduction/getting-started"));
           }}
           type="button"
         >
@@ -85,6 +204,12 @@ function CustomHero() {
             src={"../../static/img/getting_started_btn.svg"}
           />
         </button>
+
+        {FeaturesSection()}
+
+        {ProsAndConsSection()}
+
+        {CodeExampleSection()}
       </div>
     </div>
   );
@@ -99,36 +224,6 @@ function Home() {
       description="Description will go into a meta tag in <head />"
     >
       {CustomHero()}
-      <header className={clsx("hero hero--primary", styles.heroBanner)}>
-        <div className="container">
-          <h1 className="hero__title">{siteConfig.title}</h1>
-          <p className="hero__subtitle">{siteConfig.tagline}</p>
-          <div className={styles.buttons}>
-            <Link
-              className={clsx(
-                "button button--outline button--secondary button--lg",
-                styles.getStarted
-              )}
-              to={useBaseUrl("docs/introduction/getting-started")}
-            >
-              Getting Started
-            </Link>
-          </div>
-        </div>
-      </header>
-      <main>
-        {features && features.length > 0 && (
-          <section className={styles.features}>
-            <div className="container">
-              <div className="row">
-                {features.map((props, idx) => (
-                  <Feature key={idx} {...props} />
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
-      </main>
     </Layout>
   );
 }

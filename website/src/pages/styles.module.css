@@ -27,8 +27,8 @@
 .features {
   display: flex;
   align-items: center;
-  padding: 2rem 0;
   width: 100%;
+  padding-top: 100px;
 }
 
 .featureImage {
@@ -40,6 +40,7 @@
   font-weight: 600;
   font-size: 200px;
   padding-top: 20px;
+  margin-left: -14px; /* to fix strange margin of the text */
 }
 
 .heroSubtitle {
@@ -85,4 +86,26 @@
 /* TODO: invert color in svg */
 .gettingStartedContainer:hover .gettingStartedButton {
   color: #0a84ff;
+}
+
+.sectionTitle {
+  color: black;
+  font-weight: 600;
+  font-size: 40px;
+  padding-top: 100px;
+}
+
+.prosAndConsTable {
+  width: 100%;
+}
+
+.codeExampleDescription {
+  font-weight: 400;
+  font-size: 16px;
+  flex-shrink: 1;
+}
+
+.codeExampleContainer {
+  display: flex;
+  flex-direction: row;
 }
