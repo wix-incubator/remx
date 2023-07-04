@@ -39,8 +39,7 @@
     "lodash.isfunction": "^3.0.9",
     "lodash.isobjectlike": "^4.0.0",
     "mobx": "^6.0.1",
-    "mobx-react": "^7.0.0",
-    "snyk": "^1.192.3"
+    "mobx-react": "^7.0.0"
   },
   "devDependencies": {
     "babel-cli": "6.x.x",
@@ -60,6 +59,7 @@
     "react-test-renderer": "^16.9.0",
     "semver": "5.x.x",
     "shell-utils": "1.x.x",
+    "snyk": "^1.192.3",
     "xo": "0.18.x"
   },
   "peerDependencies": {
