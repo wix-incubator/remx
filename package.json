@@ -30,9 +30,7 @@
     "release": "node ./scripts/release.js",
     "start-watch": "watchman -- trigger ./src remx-copy-dist ./src '**' -- node ../scripts/copyDist.js",
     "start": "node ./scripts/copyDist.js",
-    "clean": "watchman watch-del-all && rm -rf dist",
-    "snyk-protect": "snyk protect",
-    "prepublish": "npm run snyk-protect"
+    "clean": "watchman watch-del-all && rm -rf dist"
   },
   "dependencies": {
     "hoist-non-react-statics": "^2.5.5",
@@ -59,7 +57,6 @@
     "react-test-renderer": "^16.9.0",
     "semver": "5.x.x",
     "shell-utils": "1.x.x",
-    "snyk": "^1.192.3",
     "xo": "0.18.x"
   },
   "peerDependencies": {
@@ -141,6 +138,5 @@
       "one-var": 0,
       "react/destructuring-assignment": 0
     }
-  },
-  "snyk": true
+  }
 }
