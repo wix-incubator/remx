@@ -9,6 +9,8 @@ declare module 'remx' {
 
   export function connect<TInner, TOuter>(createProps: (a: TOuter) => TInner): HOC<TInner, TOuter>;
 
+  export function observer<T>(component: React.ComponentType<T>): React.ComponentType<T>;
+
   export function connect<T>(component: React.ComponentType<T>): React.ComponentType<T>;
 
   export function getters<T extends {}>(g: T): T;
