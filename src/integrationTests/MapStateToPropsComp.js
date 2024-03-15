@@ -3,10 +3,6 @@ import React, { Component } from 'react';
 import { Text } from '../utils/testUtils';
 
 class MyComponent extends Component {
-  static get options() {
-    return {};
-  }
-
   render() {
     if (this.props.renderSpy) {
       this.props.renderSpy();

@@ -17,17 +17,8 @@ function run() {
 }
 
 function validateEnv() {
-  if (!process.env.JENKINS_CI) {
-    throw new Error(`releasing is only available from CI`);
-  }
-
-  if (!process.env.JENKINS_MASTER) {
-    console.log(`not publishing on a different build`);
-    return false;
-  }
-
-  if (process.env.GIT_BRANCH !== ONLY_ON_BRANCH) {
-    console.log(`not publishing on branch ${process.env.GIT_BRANCH}`);
+  if (process.env.BUILDKITE_PULL_REQUEST !== 'false') {
+    console.log(`not publishing, BUILDKITE_PULL_REQUEST: ${process.env.BUILDKITE_PULL_REQUEST}`);
     return false;
   }
 
