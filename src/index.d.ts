@@ -19,5 +19,5 @@ declare module 'remx' {
 
   export function setters<T extends {}>(s: T): T;
 
-  export function useConnect<T extends {}, A extends [any]>(remxFunc: (...a: A) => T, dependencies?: A): T;
+  export function useConnect<Params extends any[], F extends (...args: Params) => any>(remxFunc: F, dependencies: [...Params]): ReturnType<F>;
 }
