@@ -17,16 +17,17 @@ function proxify(obj) {
       return Reflect.ownKeys(target);
     },
     get: (target, prop) => {
-      if (typeof prop === 'string' || typeof prop === 'symbol') {
-        if (isDev() && isReactUpdating() && !isRenderingObserver() && isAccessStateStrictMode()) {
-          console.error(
-            `[REMX] attempted to access prop '${prop}' in react component untracked by remx`
-          );
-        }
-        tracker.get(prop);
-        return target[prop];
+      /* istanbul ignore if  */
+      if (typeof prop !== 'string' && typeof prop !== 'symbol') {
+        return undefined;
       }
-      return undefined;
+      if (isDev() && isReactUpdating() && !isRenderingObserver() && isAccessStateStrictMode()) {
+        console.error(
+          `[REMX] attempted to access prop '${prop}' in react component untracked by remx`
+        );
+      }
+      tracker.get(prop);
+      return target[prop];
     },
     set: (target, prop, value) => {
       let newValue = value;
