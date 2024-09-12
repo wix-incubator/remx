@@ -53,6 +53,23 @@ const createObservableMap = (obj) => {
     if (value instanceof Date) {
       obj[key] = immutableDate(value);
     }
+const createObservableMap = (obj) => {
+  const tracker = mobx.observable.map({}, { deep: false });
+  Object.keys(obj).forEach((key) => {
+    const value = obj[key];
+    if (isObjectLike(value) && !alreadyProxiedObjects.has(value) && value instanceof Date === false) {
+      obj[key] = proxify(value);
+    }
+    if (value instanceof Date) {
+      obj[key] = immutableDate(value);
+    }
+    if (Array.isArray(value)) {
+      obj[key] = Array.from(value);
+    }
+    tracker.set(key, value);
+  });
+  return tracker;
+};
     tracker.set(key, value);
   });
   return tracker;
