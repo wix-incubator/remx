@@ -17,7 +17,7 @@ function proxify(obj) {
       return Reflect.ownKeys(target);
     },
     get: (target, prop) => {
-      if (typeof prop === 'string') {
+      if (typeof prop === 'string' || typeof prop === 'symbol') {
         if (isDev() && isReactUpdating() && !isRenderingObserver() && isAccessStateStrictMode()) {
           console.error(
             `[REMX] attempted to access prop '${prop}' in react component untracked by remx`

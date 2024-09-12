@@ -240,6 +240,11 @@ describe('remx!', () => {
     expect(observable.obj).toEqual({});
   });
 
+  it('should keep arrays iterable', () => {
+    const observable = remx.state({ arr: [] });
+    expect(observable.arr[Symbol.iterator]).toEqual([][Symbol.iterator]);
+  });
+
   it('trasitive changes in observable objects that are created dynamically are respected', () => {
     expect(getters.getDynamicallyCreatedKey()).toEqual('not yet set');
     setters.createKeyDynamically('Gandalf');
