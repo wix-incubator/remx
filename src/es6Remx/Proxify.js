@@ -53,6 +53,9 @@ const createObservableMap = (obj) => {
     if (value instanceof Date) {
       obj[key] = immutableDate(value);
     }
+    if (Array.isArray(value)) {
+      obj[key] = Array.from(value);
+    }
     tracker.set(key, value);
   });
   return tracker;
