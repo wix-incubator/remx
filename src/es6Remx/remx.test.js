@@ -237,6 +237,7 @@ describe('remx!', () => {
   it('should keep objects and arrays untouched', () => {
     const observable = remx.state({ arr: [], obj: {} });
     expect(observable.arr).toEqual([]);
+    expect(observable.arr[Symbol.iterator]).toEqual([][Symbol.iterator]);
     expect(observable.obj).toEqual({});
   });
 
